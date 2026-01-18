@@ -155,16 +155,17 @@ VITE_API_BASE_URL=https://your-production-api.com
 
 ```typescript
 import apiClient from './client';
-import type { User, LoginResponse } from '@/types/auth.types';
+import type { User, LoginResponse, RegisterRequest } from '@/types/auth.types';
 
 export const authAPI = {
   /**
-   * Login user (form-data format!)
+   * Login user (OAuth2 Password Flow - form-data format!)
+   * Backend Docs: /backend-docs/api/01-authentication/02-login.md
    */
   login: async (email: string, password: string): Promise<LoginResponse> => {
-    // IMPORTANT: Use URLSearchParams for form-data
+    // IMPORTANT: Use URLSearchParams for form-data (OAuth2 standard)
     const formData = new URLSearchParams();
-    formData.append('username', email);
+    formData.append('username', email); // OAuth2 uses 'username' field
     formData.append('password', password);
 
     const { data } = await apiClient.post<LoginResponse>('/api/auth/login', formData, {
@@ -178,12 +179,13 @@ export const authAPI = {
 
   /**
    * Register new user
+   * Backend Docs: /backend-docs/api/01-authentication/01-register.md
    */
-  register: async (email: string, password: string, fullName: string): Promise<User> => {
+  register: async (request: RegisterRequest): Promise<User> => {
     const { data } = await apiClient.post<User>('/api/auth/register', {
-      email,
-      password,
-      full_name: fullName,
+      email: request.email,
+      password: request.password,
+      full_name: request.fullName,
     });
 
     return data;
@@ -191,6 +193,7 @@ export const authAPI = {
 
   /**
    * Get current user (requires JWT token)
+   * Backend Docs: /backend-docs/api/01-authentication/03-get-current-user.md
    */
   getCurrentUser: async (): Promise<User> => {
     const { data } = await apiClient.get<User>('/api/auth/me');
@@ -198,7 +201,8 @@ export const authAPI = {
   },
 
   /**
-   * Logout user
+   * Logout user (blacklist token)
+   * Backend Docs: /backend-docs/api/01-authentication/04-logout.md
    */
   logout: async (): Promise<void> => {
     await apiClient.post('/api/auth/logout');
@@ -218,7 +222,7 @@ import type { Field, FieldCreateRequest, FieldUpdateRequest } from '@/types/fiel
 
 interface ListFieldsParams {
   category?: string;
-  is_system?: boolean;
+  is_system_field?: boolean; // Backend uses 'is_system_field', not 'is_system'
   page?: number;
   page_size?: number;
 }
@@ -226,6 +230,10 @@ interface ListFieldsParams {
 export const fieldsAPI = {
   /**
    * Create new field
+   * Backend Docs: /backend-docs/api/02-fields/01-create-field.md
+   *
+   * Field ID auto-generated: fld_xxxxxxxx (8 char hex)
+   * created_by auto-set from JWT token
    */
   create: async (data: FieldCreateRequest): Promise<Field> => {
     const response = await apiClient.post<Field>('/api/fields', data);
@@ -234,6 +242,9 @@ export const fieldsAPI = {
 
   /**
    * List all fields (with optional filters)
+   * Backend Docs: /backend-docs/api/02-fields/02-list-fields.md
+   *
+   * Supports pagination and filtering by category/is_system_field
    */
   list: async (params?: ListFieldsParams): Promise<Field[]> => {
     const response = await apiClient.get<Field[]>('/api/fields', { params });
@@ -242,6 +253,7 @@ export const fieldsAPI = {
 
   /**
    * Get single field by ID
+   * Backend Docs: /backend-docs/api/02-fields/03-get-field.md
    */
   getById: async (fieldId: string): Promise<Field> => {
     const response = await apiClient.get<Field>(`/api/fields/${fieldId}`);
@@ -250,6 +262,9 @@ export const fieldsAPI = {
 
   /**
    * Update field
+   * Backend Docs: /backend-docs/api/02-fields/04-update-field.md
+   *
+   * Note: name and type cannot be changed after creation
    */
   update: async (fieldId: string, data: FieldUpdateRequest): Promise<Field> => {
     const response = await apiClient.patch<Field>(`/api/fields/${fieldId}`, data);
@@ -258,6 +273,9 @@ export const fieldsAPI = {
 
   /**
    * Delete field
+   * Backend Docs: /backend-docs/api/02-fields/05-delete-field.md
+   *
+   * WARNING: CASCADE delete - removes all object-field relationships!
    */
   delete: async (fieldId: string): Promise<void> => {
     await apiClient.delete(`/api/fields/${fieldId}`);
@@ -450,9 +468,47 @@ const createField = async () => {
 
 ## Resources
 
+### Backend Documentation (Local)
+- [API Documentation Index](../../backend-docs/api/00-API-DOCUMENTATION-INDEX.md) - All 34 endpoints
+- [Frontend Developer Guide](../../backend-docs/api/00-FRONTEND-GUIDE.md) - Complete guide
+- [Authentication API](../../backend-docs/api/01-authentication/README.md)
+- [Fields API](../../backend-docs/api/02-fields/README.md)
+- [Objects API](../../backend-docs/api/03-objects/README.md)
+- [Records API](../../backend-docs/api/04-records/README.md)
+
+### External Resources
 - [Axios Docs](https://axios-http.com/docs/intro)
 - [Axios Interceptors](https://axios-http.com/docs/interceptors)
-- [Backend API Guide](../../../../canvas-app-backend/docs/api/00-FRONTEND-GUIDE.md)
+
+---
+
+## 🤖 Claude Code Prompt
+
+**Task dosyasını Claude Code'a vermek için bu promptu kullan:**
+
+```
+Please implement the API Client Setup task exactly as described in this file:
+/Users/ali/Documents/Projects/canvas-app-frontend/tasks/02-api-integration/01-api-client-setup.md
+
+Requirements:
+1. Create src/lib/api/client.ts - Centralized Axios instance with request/response interceptors
+2. Create src/lib/api/types.ts - Generic API types (APIResponse, APIError, PaginationParams)
+3. Create src/lib/api/auth.api.ts - Authentication endpoints (login, register, getCurrentUser, logout)
+4. Create src/lib/api/fields.api.ts - Fields CRUD endpoints
+5. Create src/lib/api/objects.api.ts - Objects CRUD endpoints
+6. Create src/lib/api/records.api.ts - Records CRUD + search endpoints
+7. Create .env.development and .env.production files
+
+CRITICAL REQUIREMENTS:
+- Request interceptor must auto-inject JWT token from localStorage
+- Response interceptor must handle 401 errors → remove token + redirect to /login
+- Response interceptor must parse 422 validation errors (Pydantic format)
+- Login endpoint uses form-data with 'username' field (not 'email')
+- Use VITE_API_BASE_URL environment variable (default: http://localhost:8000)
+- All API functions must be type-safe with TypeScript
+
+Follow the exact code examples provided in the task file. The API client should handle all 34 backend endpoints.
+```
 
 ---
 

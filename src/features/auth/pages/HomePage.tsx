@@ -34,9 +34,12 @@ function HomePage() {
 
           {/* CTA Buttons */}
           <div className="pt-8 flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-colors shadow-lg hover:shadow-xl">
-              Get Started
-            </button>
+            <a
+              href="/login"
+              className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-colors shadow-lg hover:shadow-xl inline-block text-center"
+            >
+              Login
+            </a>
             <button className="px-8 py-3 border-2 border-blue-600 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-gray-700 rounded-lg font-semibold transition-colors">
               Learn More
             </button>

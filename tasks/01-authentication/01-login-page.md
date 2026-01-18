@@ -33,13 +33,22 @@ interface LoginRequest {
 ```json
 {
   "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "token_type": "bearer"
+  "token_type": "bearer",
+  "expires_in": 3600
 }
 ```
 
+**Response Fields:**
+- `access_token` - JWT token (1 hour validity)
+- `token_type` - Always "bearer"
+- `expires_in` - Token expiry in seconds (3600 = 1 hour)
+
 ### Error Responses
-- `401 Unauthorized` - Yanlış email/password
+- `401 Unauthorized` - Incorrect email or password
 - `422 Unprocessable Entity` - Validation hatası
+
+**Backend Documentation:**
+→ [POST /api/auth/login](../../backend-docs/api/01-authentication/02-login.md)
 
 ---
 
@@ -286,12 +295,14 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000
 interface LoginResponse {
   access_token: string;
   token_type: 'bearer';
+  expires_in: number; // Token expiry in seconds (3600 = 1 hour)
 }
 
 export const loginAPI = async (email: string, password: string): Promise<LoginResponse> => {
   // IMPORTANT: Use URLSearchParams for form-data!
+  // Backend follows OAuth2 Password Flow standard
   const formData = new URLSearchParams();
-  formData.append('username', email); // NOT 'email', backend expects 'username'
+  formData.append('username', email); // NOT 'email', backend expects 'username' (OAuth2 standard)
   formData.append('password', password);
 
   const { data } = await axios.post<LoginResponse>(
@@ -466,10 +477,47 @@ export const loginAPI = async (email: string, password: string) => {
 
 ## Resources
 
-- [Backend Login API Docs](../../../../canvas-app-backend/docs/api/01-authentication/02-login.md)
+### Backend Documentation
+- [POST /api/auth/login](../../backend-docs/api/01-authentication/02-login.md) - Detailed endpoint documentation
+- [Authentication Overview](../../backend-docs/api/01-authentication/README.md) - Auth system overview
+- [Frontend Developer Guide](../../backend-docs/api/00-FRONTEND-GUIDE.md) - Complete frontend guide
+
+### Frontend Libraries
 - [React Hook Form Docs](https://react-hook-form.com/)
 - [Zod Docs](https://zod.dev/)
 - [TanStack Query Docs](https://tanstack.com/query/latest)
+
+---
+
+## 🤖 Claude Code Prompt
+
+**Task dosyasını Claude Code'a vermek için bu promptu kullan:**
+
+```
+Please implement the Login Page task exactly as described in this file:
+/Users/ali/Documents/Projects/canvas-app-frontend/tasks/01-authentication/01-login-page.md
+
+Requirements:
+1. Create src/features/auth/pages/LoginPage.tsx - Main login page component with gradient background
+2. Create src/features/auth/components/LoginForm.tsx - Form component with React Hook Form + Zod validation
+3. Create src/features/auth/hooks/useLogin.ts - TanStack Query mutation hook for login
+4. Create src/lib/api/auth.api.ts - Authentication API functions (loginAPI, registerAPI, getCurrentUser)
+5. Update src/utils/storage.ts - Add setAuthToken, getAuthToken, removeAuthToken, isTokenExpired functions
+6. Create src/features/auth/types/auth.types.ts - TypeScript type definitions
+
+CRITICAL REQUIREMENTS:
+- Login endpoint uses form-data format (URLSearchParams), NOT JSON!
+- Use 'username' field for email (backend requirement)
+- Store JWT token in localStorage after successful login
+- Redirect to /dashboard after successful login
+- Handle 401 (wrong credentials) and 422 (validation) errors
+- Add loading state (button disabled + spinner)
+- Mobile responsive design with Tailwind CSS 4
+
+Follow the exact code examples and file structure provided in the task file. Test with credentials:
+Email: test@example.com
+Password: testpass123
+```
 
 ---
 

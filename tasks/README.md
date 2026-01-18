@@ -261,8 +261,27 @@ Her task klasöründe:
 
 ## 📚 Kaynaklar
 
-- [Backend API Documentation](../../canvas-app-backend/docs/api/00-FRONTEND-GUIDE.md)
-- [Backend Swagger Docs](http://localhost:8000/docs)
+### Backend Documentation (Local Copy)
+- [API Documentation Index](../backend-docs/api/00-API-DOCUMENTATION-INDEX.md) - 34 endpoint overview
+- [Frontend Developer Guide](../backend-docs/api/00-FRONTEND-GUIDE.md) - Complete frontend guide
+- [Database Schema](../backend-docs/database/DATABASE_SCHEMA.md) - Database structure
+- [ER Diagram](../backend-docs/database/DATABASE_ER_DIAGRAM.md) - Visual schema
+
+### Backend API Categories
+- [Authentication](../backend-docs/api/01-authentication/README.md) - Login, Register, JWT
+- [Fields API](../backend-docs/api/02-fields/README.md) - Field CRUD
+- [Objects API](../backend-docs/api/03-objects/README.md) - Object CRUD
+- [Records API](../backend-docs/api/04-records/README.md) - Record CRUD + Search
+- [Applications API](../backend-docs/api/05-applications/README.md) - App management
+- [Relationships API](../backend-docs/api/06-relationships/README.md) - Object relationships
+- [Object-Fields API](../backend-docs/api/07-object-fields/README.md) - Junction table
+- [Relationship-Records API](../backend-docs/api/08-relationship-records/README.md) - Record linking
+
+### Live Backend
+- [Swagger UI](http://localhost:8000/docs) - Interactive API docs
+- [ReDoc](http://localhost:8000/redoc) - Alternative API docs
+
+### Frontend Documentation
 - [Frontend Tech Stack Research](../FRONTEND_TECHNOLOGY_RESEARCH.md)
 
 ---

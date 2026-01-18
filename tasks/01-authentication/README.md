@@ -92,6 +92,22 @@ fetch('/api/auth/login', {
 - **Router:** React Router v6 (protected routes)
 - **UI Components:** React Aria Components
 
+## Backend Documentation
+
+**Complete API Reference:**
+- [Authentication API Overview](../../backend-docs/api/01-authentication/README.md)
+- [POST /api/auth/login](../../backend-docs/api/01-authentication/02-login.md) - Login endpoint details
+- [POST /api/auth/register](../../backend-docs/api/01-authentication/01-register.md) - Register endpoint
+- [GET /api/auth/me](../../backend-docs/api/01-authentication/03-get-current-user.md) - Get current user
+- [POST /api/auth/logout](../../backend-docs/api/01-authentication/04-logout.md) - Logout endpoint
+
+**Key Points from Backend:**
+- Login uses OAuth2 Password Flow (form-data, not JSON)
+- Field name is `username`, not `email` (OAuth2 standard)
+- JWT token expires in 1 hour (3600 seconds)
+- Token payload contains: `sub` (user ID), `email`, `exp` (expiry timestamp)
+- Logout endpoint blacklists token (requires implementation check)
+
 ## Next Steps
 
 Bu task tamamlandıktan sonra:

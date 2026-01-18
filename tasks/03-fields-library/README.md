@@ -200,6 +200,43 @@ This action cannot be undone.
 [Cancel]  [Delete Field]
 ```
 
+## Backend Documentation
+
+**Complete API Reference:**
+- [Fields API Overview](../../backend-docs/api/02-fields/README.md)
+- [POST /api/fields](../../backend-docs/api/02-fields/01-create-field.md) - Create field
+- [GET /api/fields](../../backend-docs/api/02-fields/02-list-fields.md) - List fields with filters
+- [GET /api/fields/{field_id}](../../backend-docs/api/02-fields/03-get-field.md) - Get single field
+- [PATCH /api/fields/{field_id}](../../backend-docs/api/02-fields/04-update-field.md) - Update field
+- [DELETE /api/fields/{field_id}](../../backend-docs/api/02-fields/05-delete-field.md) - Delete field
+
+**Key Points from Backend:**
+- Field ID auto-generated: `fld_xxxxxxxx` (8 char hex)
+- `created_by` auto-set from JWT token (user cannot override)
+- `name` and `type` cannot be changed after creation
+- DELETE operation is CASCADE - removes all object-field relationships!
+- Filter params: `category`, `is_system_field`, `page`, `page_size`
+- System fields (`is_system_field=true`) cannot be deleted
+
+**Field Structure:**
+```typescript
+{
+  id: "fld_a1b2c3d4",
+  name: "email",          // Unique identifier (snake_case)
+  label: "Email Address", // Display name
+  type: "email",          // Field type (see 12 types above)
+  description?: string,
+  category?: string,      // Grouping (e.g., "Contact Info")
+  is_global: boolean,     // Global field (all users)
+  is_system_field: boolean, // System field (non-deletable)
+  is_custom: boolean,     // Custom field (default: true)
+  config: object,         // Type-specific config (validation, options)
+  created_by: string,     // User UUID
+  created_at: string,
+  updated_at: string
+}
+```
+
 ## Next Steps
 
 Bu task tamamlandıktan sonra:

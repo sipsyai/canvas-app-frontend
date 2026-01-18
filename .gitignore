@@ -26,3 +26,10 @@ dist-ssr
 # Environment variables
 .env.local
 .env.*.local
+
+# Claude Code
+.claude/logs/
+.auth/
+test-results/
+playwright-report/
+playwright/.cache/
