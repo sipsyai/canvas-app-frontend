@@ -23,7 +23,7 @@ export const loginAPI = async (email: string, password: string): Promise<LoginRe
     return data;
   } catch (error: any) {
     if (error.response?.status === 401) {
-      throw new Error('Invalid email or password');
+      throw new Error('Incorrect email or password');
     }
     if (error.response?.status === 422) {
       throw new Error('Please check your input');
