@@ -1,33 +1,54 @@
-import axios from 'axios';
-import type { LoginResponse } from '@/features/auth/types/auth.types';
+import apiClient from './client';
+import type { User, LoginResponse, RegisterRequest } from '@/features/auth/types/auth.types';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
-
-export const loginAPI = async (email: string, password: string): Promise<LoginResponse> => {
-  try {
-    // IMPORTANT: Use URLSearchParams for form-data format!
+export const authAPI = {
+  /**
+   * Login user (OAuth2 Password Flow - form-data format!)
+   * Backend Docs: /backend-docs/api/01-authentication/02-login.md
+   */
+  login: async (email: string, password: string): Promise<LoginResponse> => {
+    // IMPORTANT: Use URLSearchParams for form-data (OAuth2 standard)
     const formData = new URLSearchParams();
-    formData.append('username', email); // Backend expects 'username', NOT 'email'
+    formData.append('username', email); // OAuth2 uses 'username' field
     formData.append('password', password);
 
-    const { data } = await axios.post<LoginResponse>(
-      `${API_BASE_URL}/api/auth/login`,
-      formData,
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      }
-    );
+    const { data } = await apiClient.post<LoginResponse>('/api/auth/login', formData, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
 
     return data;
-  } catch (error: any) {
-    if (error.response?.status === 401) {
-      throw new Error('Incorrect email or password');
-    }
-    if (error.response?.status === 422) {
-      throw new Error('Please check your input');
-    }
-    throw new Error('Login failed. Please try again.');
-  }
+  },
+
+  /**
+   * Register new user
+   * Backend Docs: /backend-docs/api/01-authentication/01-register.md
+   */
+  register: async (request: RegisterRequest): Promise<User> => {
+    const { data } = await apiClient.post<User>('/api/auth/register', {
+      email: request.email,
+      password: request.password,
+      full_name: request.fullName,
+    });
+
+    return data;
+  },
+
+  /**
+   * Get current user (requires JWT token)
+   * Backend Docs: /backend-docs/api/01-authentication/03-get-current-user.md
+   */
+  getCurrentUser: async (): Promise<User> => {
+    const { data } = await apiClient.get<User>('/api/auth/me');
+    return data;
+  },
+
+  /**
+   * Logout user (blacklist token)
+   * Backend Docs: /backend-docs/api/01-authentication/04-logout.md
+   */
+  logout: async (): Promise<void> => {
+    await apiClient.post('/api/auth/logout');
+  },
 };

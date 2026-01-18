@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { loginAPI } from '@/lib/api/auth.api';
+import { authAPI } from '@/lib/api/auth.api';
 import { setAuthToken } from '@/lib/utils/storage';
 import type { LoginCredentials } from '../types/auth.types';
 
@@ -9,7 +9,7 @@ export const useLogin = () => {
 
   return useMutation({
     mutationFn: async (credentials: LoginCredentials) => {
-      const response = await loginAPI(credentials.email, credentials.password);
+      const response = await authAPI.login(credentials.email, credentials.password);
       return response;
     },
     onSuccess: (data) => {

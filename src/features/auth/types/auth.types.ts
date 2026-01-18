@@ -21,3 +21,9 @@ export interface LoginCredentials {
   password: string;
   rememberMe?: boolean;
 }
+
+export interface RegisterRequest {
+  email: string;
+  password: string;
+  fullName: string;
+}
