@@ -23,10 +23,9 @@ export interface Object {
 export interface ObjectCreateRequest {
   name: string;
   label: string;
-  category?: ObjectCategory;
+  plural_name: string;
   description?: string;
   icon?: string;
-  color?: string;
 }
 
 // Object update request
