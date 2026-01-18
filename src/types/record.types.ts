@@ -1,5 +1,5 @@
-// Record interface
-export interface Record {
+// Data Record interface (renamed to avoid conflict with built-in Record type)
+export interface DataRecord {
   id: string; // Format: rec_xxxxxxxx
   object_id: string; // Foreign key to Object
   data: Record<string, any>; // JSON field - flexible key-value pairs

@@ -13,8 +13,8 @@ export const useLogin = () => {
       return response;
     },
     onSuccess: (data) => {
-      // Store JWT token in localStorage
-      setAuthToken(data.access_token);
+      // Store JWT token with expiration time in localStorage
+      setAuthToken(data.access_token, data.expires_in);
 
       // Redirect to dashboard
       navigate('/dashboard');

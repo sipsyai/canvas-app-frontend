@@ -2,7 +2,10 @@ export interface User {
   id: string;
   email: string;
   full_name: string;
+  is_active: boolean;
+  is_verified: boolean;
   created_at: string;
+  last_login: string | null;
 }
 
 export interface LoginRequest {
@@ -26,4 +29,14 @@ export interface RegisterRequest {
   email: string;
   password: string;
   fullName: string;
+}
+
+export interface RegisterResponse {
+  id: string;
+  email: string;
+  full_name: string;
+  is_active: boolean;
+  is_verified: boolean;
+  created_at: string;
+  last_login: string | null;
 }

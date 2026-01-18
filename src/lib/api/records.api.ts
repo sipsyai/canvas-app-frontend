@@ -1,5 +1,5 @@
 import apiClient from './client';
-import type { Record, RecordCreateRequest, RecordUpdateRequest } from '@/types/record.types';
+import type { DataRecord, RecordCreateRequest, RecordUpdateRequest } from '@/types/record.types';
 
 interface ListRecordsParams {
   object_id: string; // REQUIRED
@@ -15,24 +15,24 @@ interface SearchRecordsParams {
 }
 
 export const recordsAPI = {
-  create: async (data: RecordCreateRequest): Promise<Record> => {
-    const response = await apiClient.post<Record>('/api/records', data);
+  create: async (data: RecordCreateRequest): Promise<DataRecord> => {
+    const response = await apiClient.post<DataRecord>('/api/records', data);
     return response.data;
   },
 
-  list: async (params: ListRecordsParams): Promise<Record[]> => {
-    const response = await apiClient.get<Record[]>('/api/records', { params });
+  list: async (params: ListRecordsParams): Promise<DataRecord[]> => {
+    const response = await apiClient.get<DataRecord[]>('/api/records', { params });
     return response.data;
   },
 
-  getById: async (recordId: string): Promise<Record> => {
-    const response = await apiClient.get<Record>(`/api/records/${recordId}`);
+  getById: async (recordId: string): Promise<DataRecord> => {
+    const response = await apiClient.get<DataRecord>(`/api/records/${recordId}`);
     return response.data;
   },
 
-  update: async (recordId: string, data: RecordUpdateRequest): Promise<Record> => {
+  update: async (recordId: string, data: RecordUpdateRequest): Promise<DataRecord> => {
     // IMPORTANT: Backend merges data, doesn't overwrite!
-    const response = await apiClient.patch<Record>(`/api/records/${recordId}`, data);
+    const response = await apiClient.patch<DataRecord>(`/api/records/${recordId}`, data);
     return response.data;
   },
 
@@ -40,8 +40,8 @@ export const recordsAPI = {
     await apiClient.delete(`/api/records/${recordId}`);
   },
 
-  search: async (params: SearchRecordsParams): Promise<Record[]> => {
-    const response = await apiClient.get<Record[]>('/api/records/search', { params });
+  search: async (params: SearchRecordsParams): Promise<DataRecord[]> => {
+    const response = await apiClient.get<DataRecord[]>('/api/records/search', { params });
     return response.data;
   },
 };
