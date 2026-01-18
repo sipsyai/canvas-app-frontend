@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useLocation } from 'react-router-dom';
 import { useLogin } from '../hooks/useLogin';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -15,8 +16,16 @@ const loginSchema = z.object({
 type LoginFormData = z.infer<typeof loginSchema>;
 
 export const LoginForm = () => {
+  const location = useLocation();
+  const state = location.state as { email?: string; password?: string; registered?: boolean };
+
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: state?.email || '',
+      password: state?.password || '',
+      rememberMe: false,
+    },
   });
 
   const { mutate: login, isPending, isError, error } = useLogin();
@@ -31,6 +40,12 @@ export const LoginForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      {state?.registered && (
+        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded">
+          ✅ Registration successful! Please sign in with your credentials.
+        </div>
+      )}
+
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
           Email

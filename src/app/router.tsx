@@ -8,6 +8,7 @@ import { FieldsListPage } from '@/features/fields/pages/FieldsListPage';
 import { ObjectsListPage } from '@/features/objects/pages/ObjectsListPage';
 import { CreateObjectPage } from '@/features/objects/pages/CreateObjectPage';
 import { EditObjectPage } from '@/features/objects/pages/EditObjectPage';
+import { ObjectFieldsManagePage } from '@/features/object-fields/pages/ObjectFieldsManagePage';
 
 function AppRouter() {
   return (
@@ -24,6 +25,7 @@ function AppRouter() {
         <Route path="/objects" element={<ObjectsListPage />} />
         <Route path="/objects/create" element={<CreateObjectPage />} />
         <Route path="/objects/:objectId/edit" element={<EditObjectPage />} />
+        <Route path="/objects/:objectId/fields" element={<ObjectFieldsManagePage />} />
       </Route>
 
       {/* 404 - Redirect to home */}

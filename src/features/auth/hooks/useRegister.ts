@@ -1,7 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { authAPI } from '@/lib/api/auth.api';
-import { setAuthToken } from '@/lib/utils/storage';
 import type { RegisterRequest } from '../types/auth.types';
 
 export const useRegister = () => {
@@ -11,18 +10,17 @@ export const useRegister = () => {
     mutationFn: async (credentials: RegisterRequest) => {
       // Register user
       const user = await authAPI.register(credentials);
-
-      // Auto-login after successful registration
-      const loginResponse = await authAPI.login(credentials.email, credentials.password);
-
-      return { user, loginResponse };
+      return { user, credentials };
     },
     onSuccess: (data) => {
-      // Store JWT token in localStorage
-      setAuthToken(data.loginResponse.access_token, data.loginResponse.expires_in);
-
-      // Redirect to dashboard
-      navigate('/dashboard');
+      // Redirect to login page with credentials
+      navigate('/login', {
+        state: {
+          email: data.credentials.email,
+          password: data.credentials.password,
+          registered: true,
+        },
+      });
     },
     onError: (error: any) => {
       console.error('Registration failed:', error);

@@ -10,7 +10,7 @@ import {
 import { Object } from '@/types/object.types';
 import { ObjectIcon } from './ObjectIcon';
 import { Button } from '@/components/ui/Button';
-import { Pencil, Trash2, Eye } from 'lucide-react';
+import { Pencil, Trash2, Eye, ListTree } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { DeleteObjectModal } from './DeleteObjectModal';
 
@@ -104,6 +104,14 @@ export const ObjectsTable = ({ objects }: ObjectsTableProps) => {
 
           return (
             <div className="flex gap-2">
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => navigate(`/objects/${object.id}/fields`)}
+                title="Manage Fields"
+              >
+                <ListTree className="w-4 h-4" />
+              </Button>
               {isSystem ? (
                 <Button
                   size="sm"
