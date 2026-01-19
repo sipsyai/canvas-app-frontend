@@ -12,6 +12,10 @@ import { ObjectFieldsManagePage } from '@/features/object-fields/pages/ObjectFie
 import { RecordsTablePage } from '@/features/records/pages/RecordsTablePage';
 import { RelationshipsManagePage } from '@/features/relationships/pages/RelationshipsManagePage';
 import { RecordDetailPage } from '@/features/relationships/pages/RecordDetailPage';
+import { ApplicationsListPage } from '@/features/applications/pages/ApplicationsListPage';
+import { CreateApplicationPage } from '@/features/applications/pages/CreateApplicationPage';
+import { ApplicationDetailPage } from '@/features/applications/pages/ApplicationDetailPage';
+import { EditApplicationPage } from '@/features/applications/pages/EditApplicationPage';
 
 function AppRouter() {
   return (
@@ -32,6 +36,10 @@ function AppRouter() {
         <Route path="/objects/:objectId/records" element={<RecordsTablePage />} />
         <Route path="/objects/:objectId/relationships" element={<RelationshipsManagePage />} />
         <Route path="/objects/:objectId/records/:recordId" element={<RecordDetailPage />} />
+        <Route path="/applications" element={<ApplicationsListPage />} />
+        <Route path="/applications/create" element={<CreateApplicationPage />} />
+        <Route path="/applications/:appId" element={<ApplicationDetailPage />} />
+        <Route path="/applications/:appId/edit" element={<EditApplicationPage />} />
       </Route>
 
       {/* 404 - Redirect to home */}
