@@ -9,6 +9,9 @@ import { ObjectsListPage } from '@/features/objects/pages/ObjectsListPage';
 import { CreateObjectPage } from '@/features/objects/pages/CreateObjectPage';
 import { EditObjectPage } from '@/features/objects/pages/EditObjectPage';
 import { ObjectFieldsManagePage } from '@/features/object-fields/pages/ObjectFieldsManagePage';
+import { RecordsTablePage } from '@/features/records/pages/RecordsTablePage';
+import { RelationshipsManagePage } from '@/features/relationships/pages/RelationshipsManagePage';
+import { RecordDetailPage } from '@/features/relationships/pages/RecordDetailPage';
 
 function AppRouter() {
   return (
@@ -26,6 +29,9 @@ function AppRouter() {
         <Route path="/objects/create" element={<CreateObjectPage />} />
         <Route path="/objects/:objectId/edit" element={<EditObjectPage />} />
         <Route path="/objects/:objectId/fields" element={<ObjectFieldsManagePage />} />
+        <Route path="/objects/:objectId/records" element={<RecordsTablePage />} />
+        <Route path="/objects/:objectId/relationships" element={<RelationshipsManagePage />} />
+        <Route path="/objects/:objectId/records/:recordId" element={<RecordDetailPage />} />
       </Route>
 
       {/* 404 - Redirect to home */}

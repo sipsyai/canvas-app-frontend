@@ -1,6 +1,7 @@
 import { apiClient } from './client';
 import type {
   ObjectField,
+  ObjectFieldWithDetails,
   ObjectFieldCreateRequest,
   ObjectFieldUpdateRequest,
 } from '@/types/object-field.types';
@@ -24,8 +25,8 @@ export const objectFieldsApi = {
    * Get all fields for a specific object (ordered by display_order)
    * GET /api/object-fields?object_id={object_id}
    */
-  listByObject: async (objectId: string): Promise<ObjectField[]> => {
-    const response = await apiClient.get<ObjectField[]>(BASE_PATH, {
+  listByObject: async (objectId: string): Promise<ObjectFieldWithDetails[]> => {
+    const response = await apiClient.get<ObjectFieldWithDetails[]>(BASE_PATH, {
       params: { object_id: objectId },
     });
     return response.data;

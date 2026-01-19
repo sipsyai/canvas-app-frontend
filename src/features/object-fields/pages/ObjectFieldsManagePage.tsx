@@ -9,7 +9,8 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 import { useState } from 'react';
-import { ArrowLeft, Loader2 } from 'lucide-react';
+import { ArrowLeft, Loader2, Link } from 'lucide-react';
+import { Button } from '@/components/ui/Button';
 import { useObjectFields, useCreateObjectField } from '../hooks/useObjectFields';
 import { useFields } from '@/features/fields/hooks/useFields';
 import { useObject } from '@/features/objects/hooks/useObjects';
@@ -104,21 +105,31 @@ export function ObjectFieldsManagePage() {
     <div className="flex h-screen flex-col bg-gray-50">
       {/* Header */}
       <div className="border-b border-gray-200 bg-white px-6 py-4">
-        <div className="flex items-center gap-4">
-          <button
-            onClick={() => navigate('/objects')}
-            className="rounded p-2 hover:bg-gray-100"
-          >
-            <ArrowLeft className="h-5 w-5" />
-          </button>
-          <div>
-            <h1 className="text-2xl font-semibold text-gray-900">
-              Manage Fields - {object.label}
-            </h1>
-            <p className="text-sm text-gray-500">
-              Drag fields from the right panel to add them to this object
-            </p>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => navigate('/objects')}
+              className="rounded p-2 hover:bg-gray-100"
+            >
+              <ArrowLeft className="h-5 w-5" />
+            </button>
+            <div>
+              <h1 className="text-2xl font-semibold text-gray-900">
+                Manage Fields - {object.label}
+              </h1>
+              <p className="text-sm text-gray-500">
+                Drag fields from the right panel to add them to this object
+              </p>
+            </div>
           </div>
+
+          <Button
+            variant="secondary"
+            onClick={() => navigate(`/objects/${objectId}/relationships`)}
+          >
+            <Link className="h-4 w-4 mr-2" />
+            Manage Relationships
+          </Button>
         </div>
       </div>
 
