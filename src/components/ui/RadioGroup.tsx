@@ -1,9 +1,19 @@
 /**
  * RadioGroup Component
  *
- * Radio button group with React Aria
+ * Radio button group with React Aria for full accessibility
+ * - Keyboard navigation with arrow keys
+ * - Automatic ARIA attributes
+ * - Focus management
+ * - Screen reader support
  */
 
+import {
+  RadioGroup as AriaRadioGroup,
+  Radio,
+  Label,
+  Text,
+} from 'react-aria-components';
 import { cn } from '@/lib/utils/cn';
 
 export interface RadioOption {
@@ -20,6 +30,8 @@ export interface RadioGroupProps {
   disabled?: boolean;
   error?: string;
   orientation?: 'horizontal' | 'vertical';
+  label?: string;
+  isRequired?: boolean;
 }
 
 export const RadioGroup = ({
@@ -30,9 +42,26 @@ export const RadioGroup = ({
   disabled = false,
   error,
   orientation = 'vertical',
+  label,
+  isRequired = false,
 }: RadioGroupProps) => {
   return (
-    <div className="w-full">
+    <AriaRadioGroup
+      value={value}
+      onChange={onChange}
+      isDisabled={disabled}
+      isRequired={isRequired}
+      orientation={orientation}
+      name={name}
+      className="w-full"
+      aria-label={label || name}
+    >
+      {label && (
+        <Label className="text-sm font-medium text-gray-700 mb-2 block">
+          {label}
+          {isRequired && <span className="text-red-500 ml-1">*</span>}
+        </Label>
+      )}
       <div
         className={cn(
           'flex gap-4',
@@ -40,36 +69,54 @@ export const RadioGroup = ({
         )}
       >
         {options.map((option) => (
-          <label
+          <Radio
             key={option.value}
+            value={option.value}
             className={cn(
-              'flex items-start gap-2 cursor-pointer',
-              disabled && 'opacity-50 cursor-not-allowed'
+              'flex items-start gap-2 group cursor-pointer',
+              'focus:outline-none'
             )}
           >
-            <input
-              type="radio"
-              name={name}
-              value={option.value}
-              checked={value === option.value}
-              onChange={(e) => onChange(e.target.value)}
-              disabled={disabled}
-              className="mt-1 h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500 disabled:cursor-not-allowed"
-            />
-            <div className="flex-1">
-              <div className="text-sm font-medium text-gray-700">
-                {option.label}
-              </div>
-              {option.description && (
-                <div className="text-xs text-gray-500 mt-0.5">
-                  {option.description}
+            {({ isSelected, isDisabled, isFocusVisible }) => (
+              <>
+                <div
+                  className={cn(
+                    'mt-1 h-4 w-4 rounded-full border-2 flex items-center justify-center transition-all',
+                    isSelected
+                      ? 'border-blue-600 bg-blue-600'
+                      : 'border-gray-300 bg-white',
+                    isDisabled && 'opacity-50 cursor-not-allowed',
+                    isFocusVisible &&
+                      'ring-2 ring-blue-500 ring-offset-2'
+                  )}
+                >
+                  {isSelected && (
+                    <div className="w-1.5 h-1.5 rounded-full bg-white" />
+                  )}
                 </div>
-              )}
-            </div>
-          </label>
+                <div className={cn('flex-1', isDisabled && 'opacity-50')}>
+                  <div className="text-sm font-medium text-gray-700">
+                    {option.label}
+                  </div>
+                  {option.description && (
+                    <Text
+                      slot="description"
+                      className="text-xs text-gray-500 mt-0.5"
+                    >
+                      {option.description}
+                    </Text>
+                  )}
+                </div>
+              </>
+            )}
+          </Radio>
         ))}
       </div>
-      {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
-    </div>
+      {error && (
+        <Text slot="errorMessage" className="mt-2 text-sm text-red-600">
+          {error}
+        </Text>
+      )}
+    </AriaRadioGroup>
   );
 };

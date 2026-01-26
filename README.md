@@ -223,10 +223,19 @@ netlify deploy --prod
 wrangler pages deploy dist
 ```
 
+## 📚 Documentation
+
+Organized documentation is available in the `docs/` directory:
+
+- **[Getting Started](docs/getting-started/README.md)** - Quick start guide
+- **[Architecture](docs/architecture/README.md)** - Tech stack and project structure
+- **[API Guide](docs/api/README.md)** - Backend API integration
+- **[Features](docs/SUMMARY.md)** - Feature documentation
+- **[Testing](docs/testing/README.md)** - Test strategies and tools
+
 ## 🔗 Related Projects
 
 - **Backend:** [canvas-app-backend](../canvas-app-backend) - FastAPI + PostgreSQL
-- **Documentation:** [FRONTEND_TECHNOLOGY_RESEARCH.md](./FRONTEND_TECHNOLOGY_RESEARCH.md)
 
 ## 📝 License
 
@@ -234,10 +243,4 @@ wrangler pages deploy dist
 
 ---
 
-**Status:** ✅ Project Setup Complete - Ready for Feature Development
-
-**Next Steps:**
-1. Implement authentication UI
-2. Build Field Library components
-3. Create Object management pages
-4. Develop Record CRUD interface
+**Status:** ✅ Phase 8 Complete - Applications Management Implemented

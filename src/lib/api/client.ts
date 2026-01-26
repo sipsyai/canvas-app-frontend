@@ -36,10 +36,14 @@ apiClient.interceptors.response.use(
     return response;
   },
   (error: AxiosError) => {
-    // Handle 401 Unauthorized - Token expired
+    // Handle 401 Unauthorized - Token expired or invalid
+    // Just remove the token, let PrivateRoute handle redirect
     if (error.response?.status === 401) {
-      removeAuthToken();
-      window.location.href = '/login';
+      // Only remove token if it's not the login endpoint
+      const isLoginRequest = error.config?.url?.includes('/auth/login');
+      if (!isLoginRequest) {
+        removeAuthToken();
+      }
     }
 
     // Handle 422 Validation Error

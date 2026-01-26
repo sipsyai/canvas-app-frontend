@@ -8,11 +8,11 @@ import { Trash2, EyeOff, Lock, GripVertical, Settings } from 'lucide-react';
 import { useState } from 'react';
 import { useDeleteObjectField, useBulkUpdateFieldOrder } from '../hooks/useObjectFields';
 import { FieldSettingsModal } from './FieldSettingsModal';
-import type { ObjectField } from '@/types/object-field.types';
+import type { ObjectFieldWithDetails } from '@/types/object-field.types';
 
 interface AttachedFieldsListProps {
   objectId: string;
-  attachedFields: ObjectField[];
+  attachedFields: ObjectFieldWithDetails[];
   isLoading?: boolean;
 }
 
@@ -29,7 +29,7 @@ export function AttachedFieldsList({
   const { mutate: bulkUpdateOrder } = useBulkUpdateFieldOrder();
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [settingsModalOpen, setSettingsModalOpen] = useState(false);
-  const [selectedField, setSelectedField] = useState<ObjectField | null>(null);
+  const [selectedField, setSelectedField] = useState<ObjectFieldWithDetails | null>(null);
 
   const handleRemoveField = (objectFieldId: string) => {
     setDeletingId(objectFieldId);
@@ -132,9 +132,9 @@ export function AttachedFieldsList({
 }
 
 interface SortableFieldCardProps {
-  objectField: ObjectField;
+  objectField: ObjectFieldWithDetails;
   onRemove: (id: string) => void;
-  onSettings: (field: ObjectField) => void;
+  onSettings: (field: ObjectFieldWithDetails) => void;
   isDeleting: boolean;
 }
 
@@ -177,8 +177,12 @@ function SortableFieldCard({ objectField, onRemove, onSettings, isDeleting }: So
       {/* Field Info */}
       <div className="flex-1">
         <div className="flex items-center gap-2">
-          <div className="font-medium text-gray-900">Field #{objectField.display_order}</div>
-          <div className="text-xs text-gray-500">ID: {objectField.field_id}</div>
+          <div className="font-medium text-gray-900">
+            {objectField.field?.label || objectField.field?.name || `Field #${objectField.display_order}`}
+          </div>
+          <span className="inline-flex items-center rounded bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-600">
+            {objectField.field?.type || 'unknown'}
+          </span>
         </div>
         <div className="mt-1 flex items-center gap-3 text-sm">
           {objectField.is_required && (

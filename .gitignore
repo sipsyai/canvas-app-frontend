@@ -37,3 +37,8 @@ playwright/.cache/
 # Environment files
 .env.development
 .env.production
+
+# Server logs
+logs/
+.dev-server.pid
+.dev-server.log

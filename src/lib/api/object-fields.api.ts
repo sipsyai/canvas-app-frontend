@@ -5,6 +5,7 @@ import type {
   ObjectFieldCreateRequest,
   ObjectFieldUpdateRequest,
 } from '@/types/object-field.types';
+import type { Field } from '@/types/field.types';
 
 const BASE_PATH = '/api/object-fields';
 
@@ -24,12 +25,37 @@ export const objectFieldsApi = {
   /**
    * Get all fields for a specific object (ordered by display_order)
    * GET /api/object-fields?object_id={object_id}
+   *
+   * NOTE: Backend returns ObjectField without field details,
+   * so we fetch fields separately and join client-side
    */
   listByObject: async (objectId: string): Promise<ObjectFieldWithDetails[]> => {
-    const response = await apiClient.get<ObjectFieldWithDetails[]>(BASE_PATH, {
-      params: { object_id: objectId },
-    });
-    return response.data;
+    // Fetch object-fields and all fields in parallel
+    const [objectFieldsResponse, fieldsResponse] = await Promise.all([
+      apiClient.get<ObjectField[]>(BASE_PATH, { params: { object_id: objectId } }),
+      apiClient.get<Field[]>('/api/fields'),
+    ]);
+
+    const objectFields = objectFieldsResponse.data;
+    const fields = fieldsResponse.data;
+
+    // Create a lookup map for fields
+    const fieldMap = new Map(fields.map(f => [f.id, f]));
+
+    // Join object-fields with field details
+    return objectFields.map(of => ({
+      ...of,
+      field: fieldMap.get(of.field_id) ? {
+        id: fieldMap.get(of.field_id)!.id,
+        name: fieldMap.get(of.field_id)!.name,
+        label: fieldMap.get(of.field_id)!.label,
+        type: fieldMap.get(of.field_id)!.type,
+        description: fieldMap.get(of.field_id)!.description || null,
+        category: fieldMap.get(of.field_id)!.category || null,
+        is_global: fieldMap.get(of.field_id)!.is_global,
+        is_system_field: fieldMap.get(of.field_id)!.is_system_field,
+      } : undefined,
+    }));
   },
 
   /**

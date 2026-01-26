@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useLocation } from 'react-router-dom';
@@ -19,11 +19,15 @@ export const LoginForm = () => {
   const location = useLocation();
   const state = location.state as { email?: string; password?: string; registered?: boolean };
 
-  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
+  // Default credentials for development
+  const defaultEmail = state?.email || (import.meta.env.DEV ? 'admin@admin.com' : '');
+  const defaultPassword = state?.password || (import.meta.env.DEV ? 'admin123' : '');
+
+  const { control, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: state?.email || '',
-      password: state?.password || '',
+      email: defaultEmail,
+      password: defaultPassword,
       rememberMe: false,
     },
   });
@@ -46,34 +50,51 @@ export const LoginForm = () => {
         </div>
       )}
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Email
-        </label>
-        <Input
-          type="email"
-          placeholder="you@example.com"
-          {...register('email')}
-          error={errors.email?.message}
-        />
-      </div>
+      <Controller
+        name="email"
+        control={control}
+        render={({ field }) => (
+          <Input
+            label="Email"
+            type="email"
+            placeholder="you@example.com"
+            value={field.value}
+            onChange={field.onChange}
+            onBlur={field.onBlur}
+            error={errors.email?.message}
+          />
+        )}
+      />
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Password
-        </label>
-        <Input
-          type="password"
-          placeholder="••••••••"
-          {...register('password')}
-          error={errors.password?.message}
-        />
-      </div>
+      <Controller
+        name="password"
+        control={control}
+        render={({ field }) => (
+          <Input
+            label="Password"
+            type="password"
+            placeholder="••••••••"
+            value={field.value}
+            onChange={field.onChange}
+            onBlur={field.onBlur}
+            error={errors.password?.message}
+          />
+        )}
+      />
 
-      <div className="flex items-center">
-        <Checkbox {...register('rememberMe')} />
-        <label className="ml-2 text-sm text-gray-700">Remember me</label>
-      </div>
+      <Controller
+        name="rememberMe"
+        control={control}
+        render={({ field }) => (
+          <div className="flex items-center">
+            <Checkbox
+              isSelected={field.value}
+              onChange={field.onChange}
+            />
+            <label className="ml-2 text-sm text-gray-700">Remember me</label>
+          </div>
+        )}
+      />
 
       {isError && (
         <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">

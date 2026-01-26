@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useRegister } from '../hooks/useRegister';
@@ -18,8 +18,14 @@ const registerSchema = z.object({
 type RegisterFormData = z.infer<typeof registerSchema>;
 
 export const RegisterForm = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormData>({
+  const { control, handleSubmit, formState: { errors } } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
+    defaultValues: {
+      full_name: '',
+      email: '',
+      password: '',
+      confirm_password: '',
+    },
   });
 
   const { mutate: registerUser, isPending, isError, error } = useRegister();
@@ -34,53 +40,69 @@ export const RegisterForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Full Name
-        </label>
-        <Input
-          type="text"
-          placeholder="Ali Yılmaz"
-          {...register('full_name')}
-          error={errors.full_name?.message}
-        />
-      </div>
+      <Controller
+        name="full_name"
+        control={control}
+        render={({ field }) => (
+          <Input
+            label="Full Name"
+            type="text"
+            placeholder="Ali Yılmaz"
+            value={field.value}
+            onChange={field.onChange}
+            onBlur={field.onBlur}
+            error={errors.full_name?.message}
+          />
+        )}
+      />
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Email
-        </label>
-        <Input
-          type="email"
-          placeholder="you@example.com"
-          {...register('email')}
-          error={errors.email?.message}
-        />
-      </div>
+      <Controller
+        name="email"
+        control={control}
+        render={({ field }) => (
+          <Input
+            label="Email"
+            type="email"
+            placeholder="you@example.com"
+            value={field.value}
+            onChange={field.onChange}
+            onBlur={field.onBlur}
+            error={errors.email?.message}
+          />
+        )}
+      />
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Password
-        </label>
-        <Input
-          type="password"
-          placeholder="••••••••"
-          {...register('password')}
-          error={errors.password?.message}
-        />
-      </div>
+      <Controller
+        name="password"
+        control={control}
+        render={({ field }) => (
+          <Input
+            label="Password"
+            type="password"
+            placeholder="••••••••"
+            value={field.value}
+            onChange={field.onChange}
+            onBlur={field.onBlur}
+            error={errors.password?.message}
+          />
+        )}
+      />
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Confirm Password
-        </label>
-        <Input
-          type="password"
-          placeholder="••••••••"
-          {...register('confirm_password')}
-          error={errors.confirm_password?.message}
-        />
-      </div>
+      <Controller
+        name="confirm_password"
+        control={control}
+        render={({ field }) => (
+          <Input
+            label="Confirm Password"
+            type="password"
+            placeholder="••••••••"
+            value={field.value}
+            onChange={field.onChange}
+            onBlur={field.onBlur}
+            error={errors.confirm_password?.message}
+          />
+        )}
+      />
 
       {isError && (
         <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">

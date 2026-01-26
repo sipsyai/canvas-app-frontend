@@ -22,6 +22,11 @@ interface UseDynamicColumnsProps {
 
 export const useDynamicColumns = ({ fields, onEdit, onDelete, onViewDetails }: UseDynamicColumnsProps) => {
   return useMemo(() => {
+    // Guard: return empty columns if fields is not available
+    if (!fields || !Array.isArray(fields)) {
+      return [];
+    }
+
     // Filter visible fields and sort by display_order
     const visibleFields = fields
       .filter((objectField) => objectField.is_visible && objectField.field)
