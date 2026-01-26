@@ -2,13 +2,20 @@
 name: ship
 description: Update documentation based on code changes, write changelog, commit and push. Use after completing a feature or fix.
 argument-hint: [commit-message]
-allowed-tools: Read, Write, Edit, Grep, Glob, Bash
-plan-mode-only: true
+allowed-tools: Read, Write, Edit, Grep, Glob, Bash, EnterPlanMode
 ---
 
 # /ship - Documentation Update & Commit
 
-Bu skill plan modunda çalışır. Önce analiz yapılır, plan oluşturulur, kullanıcı onayından sonra çalıştırılır.
+## IMPORTANT: Enter Plan Mode First
+
+**Before doing anything else, you MUST call the `EnterPlanMode` tool to enter plan mode.**
+
+This skill requires user approval before making changes. The flow is:
+1. Enter plan mode (EnterPlanMode tool)
+2. Analyze changes and write plan
+3. User approves plan
+4. Execute the plan
 
 Commit message: $ARGUMENTS
 
