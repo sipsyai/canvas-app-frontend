@@ -3,13 +3,16 @@ name: ship
 description: Update documentation based on code changes, write changelog, commit and push. Use after completing a feature or fix.
 argument-hint: [commit-message]
 allowed-tools: Read, Write, Edit, Grep, Glob, Bash
+plan-mode-only: true
 ---
 
 # /ship - Documentation Update & Commit
 
+Bu skill plan modunda çalışır. Önce analiz yapılır, plan oluşturulur, kullanıcı onayından sonra çalıştırılır.
+
 Commit message: $ARGUMENTS
 
-## Step 1: Analyze Changes
+## Step 1: Analyze Changes (Plan Phase)
 
 1. Run `git status` to see modified files
 2. Run `git diff --staged` for staged changes
