@@ -38,6 +38,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/)
 - `docs/features/dashboard.md` - dashboard dokümantasyonu
 
 ### Değiştirilen
+- `ApplicationsTable` - Actions kolonu kaldırıldı, satırlar tıklanabilir yapıldı, ChevronRight ikonu eklendi
+- `ApplicationsListPage` - Kullanılmayan handler ve import'lar temizlendi
 - `ApplicationObjectPage` - Delete ve Edit modal entegrasyonu
 - `ApplicationLayout` - `basePath` prop eklendi (/applications vs /apps)
 - `ApplicationHomePage` - Dynamic basePath navigation

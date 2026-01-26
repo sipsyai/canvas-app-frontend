@@ -4,44 +4,14 @@ import { Button } from '@/components/ui/Button';
 import { ApplicationsTable } from '../components/ApplicationsTable';
 import { ApplicationsTableSkeleton } from '../components/ApplicationsTableSkeleton';
 import { ApplicationsTableEmpty } from '../components/ApplicationsTableEmpty';
-import { useApplications, useDeleteApplication, usePublishApplication } from '../hooks/useApplications';
-import { Application } from '@/lib/api/applications.api';
+import { useApplications } from '../hooks/useApplications';
 
 export const ApplicationsListPage = () => {
   const navigate = useNavigate();
   const { data: applications, isLoading, error } = useApplications();
-  const deleteApplicationMutation = useDeleteApplication();
-  const publishApplicationMutation = usePublishApplication();
 
   const handleCreateClick = () => {
     navigate('/applications/create');
-  };
-
-  const handleDelete = async (app: Application) => {
-    if (!confirm(`Are you sure you want to delete "${app.name}"? This action cannot be undone.`)) {
-      return;
-    }
-
-    try {
-      await deleteApplicationMutation.mutateAsync(app.id);
-    } catch (error) {
-      console.error('Failed to delete application:', error);
-      alert('Failed to delete application. Please try again.');
-    }
-  };
-
-  const handlePublish = async (app: Application) => {
-    if (!confirm(`Publish "${app.name}"? Published applications become available to users.`)) {
-      return;
-    }
-
-    try {
-      await publishApplicationMutation.mutateAsync(app.id);
-      alert(`${app.name} has been published successfully!`);
-    } catch (error) {
-      console.error('Failed to publish application:', error);
-      alert('Failed to publish application. Please try again.');
-    }
   };
 
   return (
@@ -87,11 +57,7 @@ export const ApplicationsListPage = () => {
 
         {/* Applications Table */}
         {!isLoading && applications && applications.length > 0 && (
-          <ApplicationsTable
-            applications={applications}
-            onDelete={handleDelete}
-            onPublish={handlePublish}
-          />
+          <ApplicationsTable applications={applications} />
         )}
 
         {/* Stats */}

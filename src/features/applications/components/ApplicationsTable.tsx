@@ -9,17 +9,15 @@ import {
 } from '@tanstack/react-table';
 import { Application } from '@/lib/api/applications.api';
 import { Button } from '@/components/ui/Button';
-import { Pencil, Trash2, Eye, Rocket, Calendar, Clock } from 'lucide-react';
+import { Rocket, Calendar, Clock, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 
 interface ApplicationsTableProps {
   applications: Application[];
-  onDelete?: (app: Application) => void;
-  onPublish?: (app: Application) => void;
 }
 
-export const ApplicationsTable = ({ applications, onDelete, onPublish }: ApplicationsTableProps) => {
+export const ApplicationsTable = ({ applications }: ApplicationsTableProps) => {
   const navigate = useNavigate();
 
   const formatDate = (dateString: string | null) => {
@@ -106,58 +104,8 @@ export const ApplicationsTable = ({ applications, onDelete, onPublish }: Applica
           );
         },
       },
-      {
-        id: 'actions',
-        header: 'Actions',
-        cell: (info) => {
-          const app = info.row.original;
-          return (
-            <div className="flex items-center gap-2">
-              <Button
-                variant="secondary"
-                size="sm"
-                onClick={() => navigate(`/applications/${app.id}`)}
-                title="View details"
-              >
-                <Eye className="w-4 h-4" />
-              </Button>
-              <Button
-                variant="secondary"
-                size="sm"
-                onClick={() => navigate(`/applications/${app.id}/edit`)}
-                title="Edit application"
-              >
-                <Pencil className="w-4 h-4" />
-              </Button>
-              {!app.published_at && onPublish && (
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  onClick={() => onPublish(app)}
-                  title="Publish application"
-                  className="text-green-600 hover:text-green-700"
-                >
-                  <Rocket className="w-4 h-4" />
-                </Button>
-              )}
-              {onDelete && (
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  onClick={() => onDelete(app)}
-                  title="Delete application"
-                  className="text-red-600 hover:text-red-700"
-                >
-                  <Trash2 className="w-4 h-4" />
-                </Button>
-              )}
-            </div>
-          );
-        },
-        size: 180,
-      },
     ],
-    [navigate, onDelete, onPublish]
+    [navigate]
   );
 
   const table = useReactTable({
@@ -191,17 +139,25 @@ export const ApplicationsTable = ({ applications, onDelete, onPublish }: Applica
                       : flexRender(header.column.columnDef.header, header.getContext())}
                   </th>
                 ))}
+                <th className="px-4 py-3 w-10"></th>
               </tr>
             ))}
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className="hover:bg-gray-50 transition-colors">
+              <tr
+                key={row.id}
+                className="hover:bg-gray-50 transition-colors cursor-pointer"
+                onClick={() => navigate(`/applications/${row.original.id}`)}
+              >
                 {row.getVisibleCells().map((cell) => (
                   <td key={cell.id} className="px-6 py-4 whitespace-nowrap">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}
+                <td className="px-4 py-4">
+                  <ChevronRight className="w-5 h-5 text-gray-400" />
+                </td>
               </tr>
             ))}
           </tbody>
