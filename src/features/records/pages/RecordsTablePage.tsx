@@ -115,7 +115,7 @@ export const RecordsTablePage = () => {
     navigate(`/objects/${objectId}/records/${record.id}`);
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+   
   const handleRefresh = () => {
     queryClient.invalidateQueries({ queryKey: ['records', objectId] });
     queryClient.invalidateQueries({ queryKey: ['object-fields', objectId] });

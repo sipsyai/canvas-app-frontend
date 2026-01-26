@@ -48,7 +48,7 @@ export async function getRelatedRecords(
   relationshipId: string
 ): Promise<RelationshipRecord[]> {
   const response = await apiClient.get<RelationshipRecord[]>(
-    `/relationship-records/records/${recordId}/related`,
+    `/api/relationship-records/records/${recordId}/related`,
     {
       params: { relationship_id: relationshipId },
     }
@@ -61,5 +61,5 @@ export async function getRelatedRecords(
  * DELETE /api/relationship-records/{link_id}
  */
 export async function deleteRelationshipRecord(linkId: string): Promise<void> {
-  await apiClient.delete(`/relationship-records/${linkId}`);
+  await apiClient.delete(`/api/relationship-records/${linkId}`);
 }

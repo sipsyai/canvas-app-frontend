@@ -14,9 +14,12 @@ import { RecordsTable } from '@/features/records/components/RecordsTable';
 import { RecordsTableSkeleton } from '@/features/records/components/RecordsTableSkeleton';
 import { EmptyRecordsState } from '@/features/records/components/EmptyRecordsState';
 import { CreateRecordForm } from '@/features/records/components/CreateRecordForm';
+import { DeleteRecordModal } from '@/features/records/components/DeleteRecordModal';
+import { EditRecordModal } from '@/features/records/components/EditRecordModal';
 import { useRecords } from '@/features/records/hooks/useRecords';
 import { useObjectFields } from '@/features/records/hooks/useObjectFields';
 import { useTableState } from '@/features/records/hooks/useTableState';
+import { useDeleteRecord } from '@/features/records/hooks/useDeleteRecord';
 import { useObject } from '@/features/objects/hooks/useObjects';
 import { getObjectIcon } from '@/lib/utils/icons';
 import { Button } from '@/components/ui/Button';
@@ -39,6 +42,10 @@ export function ApplicationObjectPage() {
   }
 
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [recordToDelete, setRecordToDelete] = useState<DataRecord | null>(null);
+  const [recordToEdit, setRecordToEdit] = useState<DataRecord | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
 
   const tableState = useTableState({
@@ -68,6 +75,9 @@ export function ApplicationObjectPage() {
     pageSize: tableState.pageSize,
   });
 
+  // Delete record mutation
+  const { mutate: deleteRecord, isPending: isDeleting } = useDeleteRecord({ objectId });
+
   // Sorting state for TanStack Table (start with no sorting)
   const [sorting, setSorting] = useState<SortingState>([]);
 
@@ -86,11 +96,41 @@ export function ApplicationObjectPage() {
   };
 
   const handleEdit = (record: DataRecord) => {
-    navigate(`/objects/${objectId}/records/${record.id}/edit`);
+    setRecordToEdit(record);
+    setShowEditModal(true);
+  };
+
+  const handleEditSuccess = () => {
+    setShowEditModal(false);
+    setRecordToEdit(null);
+  };
+
+  const handleCloseEditModal = () => {
+    setShowEditModal(false);
+    setRecordToEdit(null);
   };
 
   const handleDelete = (record: DataRecord) => {
-    console.log('Delete record:', record.id);
+    setRecordToDelete(record);
+    setShowDeleteModal(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (recordToDelete) {
+      deleteRecord(recordToDelete.id, {
+        onSuccess: () => {
+          setShowDeleteModal(false);
+          setRecordToDelete(null);
+        },
+      });
+    }
+  };
+
+  const handleCloseDeleteModal = () => {
+    if (!isDeleting) {
+      setShowDeleteModal(false);
+      setRecordToDelete(null);
+    }
   };
 
   const handleAddRecord = () => {
@@ -356,6 +396,24 @@ export function ApplicationObjectPage() {
           </div>
         </div>
       )}
+
+      {/* Delete Record Modal */}
+      <DeleteRecordModal
+        isOpen={showDeleteModal}
+        onClose={handleCloseDeleteModal}
+        onConfirm={handleConfirmDelete}
+        isDeleting={isDeleting}
+        recordName={recordToDelete?.primary_value}
+      />
+
+      {/* Edit Record Modal */}
+      <EditRecordModal
+        isOpen={showEditModal}
+        onClose={handleCloseEditModal}
+        onSuccess={handleEditSuccess}
+        objectId={objectId}
+        record={recordToEdit}
+      />
     </div>
   );
 }

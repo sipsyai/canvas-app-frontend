@@ -9,11 +9,15 @@ Her nesne için dinamik kayıt oluşturma, okuma, güncelleme ve silme.
 ```
 src/features/records/
 ├── components/
-│   └── DynamicFormField.tsx  # Dinamik form alanı
+│   ├── DynamicFormField.tsx  # Dinamik form alanı
+│   ├── DeleteRecordModal.tsx # Silme onay modalı
+│   └── EditRecordModal.tsx   # Düzenleme modalı
 ├── pages/
 │   └── RecordsTablePage.tsx  # Kayıt tablosu
 └── hooks/
-    └── useDynamicColumns.tsx # Dinamik tablo kolonları
+    ├── useDynamicColumns.tsx # Dinamik tablo kolonları
+    ├── useDeleteRecord.ts    # Delete mutation hook
+    └── useUpdateRecord.ts    # Update mutation hook
 ```
 
 ## API Endpoints
@@ -58,6 +62,67 @@ interface Record {
 
 ```typescript
 const columns = useDynamicColumns(objectFields);
+```
+
+## Mutation Hooks
+
+### useDeleteRecord
+
+Kayıt silme işlemi için TanStack Query mutation hook'u.
+
+```typescript
+const { mutate: deleteRecord, isPending } = useDeleteRecord(objectSlug);
+
+// Kullanım
+deleteRecord(recordId, {
+  onSuccess: () => {
+    // Başarılı silme sonrası
+  }
+});
+```
+
+### useUpdateRecord
+
+Kayıt güncelleme işlemi için TanStack Query mutation hook'u.
+
+```typescript
+const { mutate: updateRecord, isPending } = useUpdateRecord(objectSlug);
+
+// Kullanım
+updateRecord({ id: recordId, data: formData }, {
+  onSuccess: () => {
+    // Başarılı güncelleme sonrası
+  }
+});
+```
+
+## Modal Bileşenleri
+
+### DeleteRecordModal
+
+Silme işlemi için onay modalı. React Aria `Modal` ve `Dialog` bileşenleri kullanır.
+
+```typescript
+<DeleteRecordModal
+  isOpen={isDeleteOpen}
+  onClose={() => setIsDeleteOpen(false)}
+  record={selectedRecord}
+  objectSlug={objectSlug}
+/>
+```
+
+### EditRecordModal
+
+Kayıt düzenleme modalı. Form, seçilen kaydın mevcut değerleri ile pre-populated olarak açılır.
+
+```typescript
+<EditRecordModal
+  isOpen={isEditOpen}
+  onClose={() => setIsEditOpen(false)}
+  record={selectedRecord}
+  objectSlug={objectSlug}
+  fields={objectFields}
+/>
 ```
 
 ## İlişkili Özellikler

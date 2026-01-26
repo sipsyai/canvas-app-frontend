@@ -7,6 +7,14 @@ Format: [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/)
 ## [Unreleased]
 
 ### Eklenen
+- Records DELETE fonksiyonalitesi
+  - `DeleteRecordModal` - React Aria onay modalı
+  - `useDeleteRecord` - TanStack Query mutation hook
+- Records UPDATE fonksiyonalitesi
+  - `EditRecordModal` - Pre-populated form ile düzenleme modalı
+  - `useUpdateRecord` - TanStack Query mutation hook
+- E2E test dosyası: `tests/records-crud.spec.ts` (14 test)
+- Test data seed scripti: `scripts/seed-test-data.sh`
 - Mode Switcher - Development/Applications mod geçişi
   - `src/stores/modeStore.ts` - Zustand store (localStorage persist)
   - `src/components/ui/ModeSwitcher.tsx` - React Aria TabList toggle
@@ -30,6 +38,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/)
 - `docs/features/dashboard.md` - dashboard dokümantasyonu
 
 ### Değiştirilen
+- `ApplicationObjectPage` - Delete ve Edit modal entegrasyonu
 - `ApplicationLayout` - `basePath` prop eklendi (/applications vs /apps)
 - `ApplicationHomePage` - Dynamic basePath navigation
 - `Sidebar` - ModeSwitcher component + mode-based navigation
