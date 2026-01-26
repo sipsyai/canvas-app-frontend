@@ -77,7 +77,7 @@ export function Dialog({
                     onClick={() => close()}
                     className={cn(
                       'rounded-lg p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100',
-                      'transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
+                      'transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2'
                     )}
                     aria-label="Close dialog"
                   >

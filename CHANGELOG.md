@@ -28,6 +28,9 @@ Format: [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/)
 
 ### Düzeltilen
 - Object-fields yönetim sayfası düzeltmeleri
+- Tailwind 4 tema sistemi düzeltildi - `bg-primary` artık doğru çalışıyor
+- UI bileşenlerinde hardcoded mavi renkler `primary` ile değiştirildi (9 bileşen)
+- `stop.sh` scripti artık tüm dev server process'lerini durduruyor (port 5173/5174)
 
 ### Kaldırılan
 - Eski dokümantasyon dosyaları kaldırıldı (docs/ klasörüne taşındı):

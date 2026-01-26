@@ -176,7 +176,7 @@ export function Table<T extends Record<string, any>>({
               onChange={(e) => table.setPageSize(Number(e.target.value))}
               className={cn(
                 'ml-4 px-2 py-1 text-sm border border-gray-300 rounded',
-                'focus:outline-none focus:ring-2 focus:ring-blue-500'
+                'focus:outline-none focus:ring-2 focus:ring-primary'
               )}
             >
               {[10, 25, 50, 100].map((size) => (

@@ -185,6 +185,43 @@ Config:
 - ✅ **Responsive**: Mobile-first approach
 - ✅ **Dark Mode**: Built-in support
 
+#### Tema Sistemi (Tailwind 4)
+
+**IMPORTANT:** Tailwind 4'te tema renkleri iki yerde tanımlanmalı:
+
+1. **`tailwind.config.ts`** - Build-time derleme için:
+```typescript
+theme: {
+  extend: {
+    colors: {
+      primary: {
+        DEFAULT: '#3b82f6',
+        50: '#eff6ff',
+        // ... 100-900
+      }
+    }
+  }
+}
+```
+
+2. **`src/index.css`** - Runtime `var()` kullanımı için:
+```css
+:root {
+  --color-primary: #3b82f6;
+  --color-primary-50: #eff6ff;
+  /* ... */
+}
+```
+
+**Neden iki yerde?**
+- `tailwind.config.ts`: `bg-primary`, `text-primary-500` gibi utility class'lar için
+- CSS variables: JavaScript'ten veya inline style'lardan `var(--color-primary)` erişimi için
+
+**Renk Kullanım Kuralı:**
+- ✅ `bg-primary` - Butonlar, vurgular
+- ✅ `text-primary-600` - Linkler, aktif durumlar
+- ❌ `bg-blue-600` - Hardcoded renkler YASAK (tema tutarlılığını bozar)
+
 **Sources:**
 - [15 Best React UI Libraries for 2026](https://www.builder.io/blog/react-component-libraries-2026)
 - [shadcn/ui vs Radix vs Tailwind UI (2025)](https://javascript.plainenglish.io/shadcn-ui-vs-radix-ui-vs-tailwind-ui-which-should-you-choose-in-2025-b8b4cadeaa25)

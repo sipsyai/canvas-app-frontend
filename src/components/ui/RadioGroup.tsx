@@ -83,11 +83,11 @@ export const RadioGroup = ({
                   className={cn(
                     'mt-1 h-4 w-4 rounded-full border-2 flex items-center justify-center transition-all',
                     isSelected
-                      ? 'border-blue-600 bg-blue-600'
+                      ? 'border-primary bg-primary'
                       : 'border-gray-300 bg-white',
                     isDisabled && 'opacity-50 cursor-not-allowed',
                     isFocusVisible &&
-                      'ring-2 ring-blue-500 ring-offset-2'
+                      'ring-2 ring-primary ring-offset-2'
                   )}
                 >
                   {isSelected && (

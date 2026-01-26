@@ -38,10 +38,10 @@ export const Checkbox = ({
             className={cn(
               'h-6 w-6 rounded border-2 flex items-center justify-center transition-colors',
               isSelected || isIndeterminate
-                ? 'bg-blue-600 border-blue-600'
+                ? 'bg-primary border-primary'
                 : 'bg-white border-gray-300',
               isDisabled && 'opacity-50 cursor-not-allowed',
-              isFocusVisible && 'ring-2 ring-blue-500 ring-offset-2'
+              isFocusVisible && 'ring-2 ring-primary ring-offset-2'
             )}
           >
             {isIndeterminate ? (

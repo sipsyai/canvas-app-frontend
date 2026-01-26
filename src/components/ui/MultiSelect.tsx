@@ -81,7 +81,7 @@ export const MultiSelect = ({
         className={cn(
           'min-h-[42px] px-3 py-2 border rounded-lg w-full',
           'flex flex-wrap gap-2 items-center',
-          'focus:outline-none focus:ring-2 focus:ring-blue-500',
+          'focus:outline-none focus:ring-2 focus:ring-primary',
           'data-[disabled]:bg-gray-100 data-[disabled]:cursor-not-allowed',
           error ? 'border-red-500' : 'border-gray-300'
         )}
@@ -92,7 +92,7 @@ export const MultiSelect = ({
           selectedOptions.map((opt) => (
             <span
               key={opt.value}
-              className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-800 rounded text-sm"
+              className="inline-flex items-center gap-1 px-2 py-1 bg-primary-light text-primary rounded text-sm"
             >
               {opt.label}
               {!disabled && (
@@ -102,7 +102,7 @@ export const MultiSelect = ({
                     e.stopPropagation();
                     removeOption(opt.value);
                   }}
-                  className="hover:text-blue-900 focus:outline-none focus:ring-1 focus:ring-blue-500 rounded"
+                  className="hover:text-primary-dark focus:outline-none focus:ring-1 focus:ring-primary rounded"
                   aria-label={`Remove ${opt.label}`}
                 >
                   <X className="h-3 w-3" />
@@ -140,7 +140,7 @@ export const MultiSelect = ({
                   'px-3 py-2 text-sm text-gray-700 cursor-pointer outline-none',
                   'flex items-center gap-2',
                   'data-[focused]:bg-gray-100',
-                  'data-[selected]:bg-blue-50 data-[selected]:text-blue-900'
+                  'data-[selected]:bg-primary-light data-[selected]:text-primary'
                 )}
               >
                 {({ isSelected }) => (
@@ -149,7 +149,7 @@ export const MultiSelect = ({
                       className={cn(
                         'h-4 w-4 rounded border flex items-center justify-center',
                         isSelected
-                          ? 'bg-blue-600 border-blue-600'
+                          ? 'bg-primary border-primary'
                           : 'bg-white border-gray-300'
                       )}
                     >

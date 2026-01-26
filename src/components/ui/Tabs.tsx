@@ -55,7 +55,7 @@ export function Tab({ className, badge, children, ...props }: TabProps) {
         'flex items-center gap-2 px-4 py-3 text-sm font-medium cursor-pointer transition-colors',
         'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300',
         'border-b-2 border-transparent -mb-px',
-        'data-[selected]:border-primary data-[selected]:text-primary dark:data-[selected]:text-blue-400',
+        'data-[selected]:border-primary data-[selected]:text-primary dark:data-[selected]:text-primary',
         'focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
         className
       )}

@@ -68,7 +68,7 @@ export const Input = ({
           placeholder={placeholder}
           className={cn(
             'w-full px-4 py-3 rounded-lg border-2 transition-colors',
-            'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent',
+            'focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent',
             'data-[disabled]:opacity-50 data-[disabled]:cursor-not-allowed data-[disabled]:bg-gray-100',
             error
               ? 'border-red-300 bg-red-50 text-red-900 placeholder-red-400'
@@ -83,7 +83,7 @@ export const Input = ({
             className={cn(
               'absolute right-3 top-1/2 -translate-y-1/2',
               'text-gray-500 hover:text-gray-700',
-              'focus:outline-none focus:ring-2 focus:ring-blue-500 rounded',
+              'focus:outline-none focus:ring-2 focus:ring-primary rounded',
               'p-1'
             )}
             aria-label={showPassword ? 'Hide password' : 'Show password'}

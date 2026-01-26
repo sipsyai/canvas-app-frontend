@@ -3,7 +3,26 @@
 /* Inter Font */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
 
-/* Theme Layer */
+/* CSS Custom Properties for runtime var() usage */
+:root {
+  /* Primary Colors */
+  --color-primary: #135bec;
+  --color-primary-dark: #0f4bc2;
+  --color-primary-hover: #1d4ed8;
+
+  /* Light Mode */
+  --color-background-light: #f6f6f8;
+  --color-surface-light: #ffffff;
+  --color-border-light: #e7ebf3;
+
+  /* Dark Mode */
+  --color-background-dark: #101622;
+  --color-surface-dark: #151b2b;
+  --color-surface-dark-alt: #1e2738;
+  --color-border-dark: #334155;
+}
+
+/* Theme Layer for Tailwind 4 utility classes */
 @theme {
   /* Colors */
   --color-primary: #135bec;
@@ -53,6 +72,67 @@
 
 /* Custom Utilities */
 @layer utilities {
+  /* Primary color utilities */
+  .bg-primary {
+    background-color: #135bec;
+  }
+  .bg-primary-dark {
+    background-color: #0f4bc2;
+  }
+  .bg-primary-hover {
+    background-color: #1d4ed8;
+  }
+  .bg-primary-light {
+    background-color: #dbeafe;
+  }
+  .bg-primary-muted {
+    background-color: #e0e7ff;
+  }
+  .text-primary {
+    color: #135bec;
+  }
+  .text-primary-dark {
+    color: #0f4bc2;
+  }
+  .border-primary {
+    border-color: #135bec;
+  }
+  .ring-primary {
+    --tw-ring-color: #135bec;
+  }
+  .ring-primary\/50 {
+    --tw-ring-color: rgb(19 91 236 / 0.5);
+  }
+  .shadow-primary\/30 {
+    --tw-shadow-color: rgb(19 91 236 / 0.3);
+  }
+  .focus\:ring-primary:focus {
+    --tw-ring-color: #135bec;
+  }
+  .hover\:bg-primary-dark:hover {
+    background-color: #0f4bc2;
+  }
+  .hover\:text-primary-dark:hover {
+    color: #0f4bc2;
+  }
+
+  /* Background utilities */
+  .bg-background-light {
+    background-color: #f6f6f8;
+  }
+  .bg-surface-light {
+    background-color: #ffffff;
+  }
+  .bg-background-dark {
+    background-color: #101622;
+  }
+  .bg-surface-dark {
+    background-color: #151b2b;
+  }
+  .bg-surface-dark-alt {
+    background-color: #1e2738;
+  }
+
   /* Hide scrollbar */
   .hide-scrollbar::-webkit-scrollbar {
     display: none;
