@@ -17,6 +17,9 @@ import { ApplicationsListPage } from '@/features/applications/pages/Applications
 import { CreateApplicationPage } from '@/features/applications/pages/CreateApplicationPage';
 import { ApplicationDetailPage } from '@/features/applications/pages/ApplicationDetailPage';
 import { EditApplicationPage } from '@/features/applications/pages/EditApplicationPage';
+import { ApplicationLayout } from '@/features/applications/components/ApplicationLayout';
+import { ApplicationHomePage } from '@/features/applications/pages/ApplicationHomePage';
+import { ApplicationObjectPage } from '@/features/applications/pages/ApplicationObjectPage';
 
 function AppRouter() {
   return (
@@ -116,19 +119,24 @@ function AppRouter() {
             </AppLayout>
           }
         />
-        <Route
-          path="/applications/:appId"
-          element={
-            <AppLayout>
-              <ApplicationDetailPage />
-            </AppLayout>
-          }
-        />
+        {/* Application Runtime Routes - with dedicated sidebar */}
+        <Route path="/applications/:appId" element={<ApplicationLayout />}>
+          <Route index element={<ApplicationHomePage />} />
+          <Route path=":objectId" element={<ApplicationObjectPage />} />
+        </Route>
         <Route
           path="/applications/:appId/edit"
           element={
             <AppLayout>
               <EditApplicationPage />
+            </AppLayout>
+          }
+        />
+        <Route
+          path="/applications/:appId/details"
+          element={
+            <AppLayout>
+              <ApplicationDetailPage />
             </AppLayout>
           }
         />

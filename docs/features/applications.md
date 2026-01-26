@@ -72,6 +72,39 @@ Görsel şablon seçici kartları.
 
 JSON yapılandırma editörü.
 
+## Runtime View (Uygulama İçi Görünüm)
+
+Uygulama açıldığında kendi sidebar'ı olan bir runtime view gösterilir.
+
+### URL Yapısı
+
+| URL | Açıklama |
+|-----|----------|
+| `/applications/:appId` | Uygulama ana sayfası |
+| `/applications/:appId/:objectId` | Object DataTable görünümü |
+| `/applications/:appId/edit` | Uygulama düzenleme |
+| `/applications/:appId/details` | Uygulama detayları |
+
+### Runtime Dosyaları
+
+```
+src/features/applications/
+├── components/
+│   └── ApplicationLayout.tsx      # Runtime shell + sidebar
+├── pages/
+│   ├── ApplicationHomePage.tsx    # Uygulama ana sayfası
+│   └── ApplicationObjectPage.tsx  # Object DataTable sayfası
+```
+
+### Icon Utility
+
+`src/lib/utils/icons.ts` - Object ikonlarını Lucide icon'larına map eder.
+
+```typescript
+import { getObjectIcon } from '@/lib/utils/icons';
+const Icon = getObjectIcon('Target'); // Returns Target component
+```
+
 ## İlişkili Özellikler
 
 - [Objects](objects.md) - Uygulama nesneleri

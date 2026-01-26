@@ -7,6 +7,12 @@ Format: [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/)
 ## [Unreleased]
 
 ### Eklenen
+- Application Runtime UI - uygulamaya özel sidebar ve DataTable görünümü
+  - `ApplicationLayout` - runtime shell component
+  - `ApplicationHomePage` - uygulama ana sayfası
+  - `ApplicationObjectPage` - object DataTable sayfası
+- `src/lib/utils/icons.ts` - Lucide icon mapping utility
+- Yeni route yapısı: `/applications/:appId/:objectId`
 - `/ship` komutu eklendi - dokümantasyon güncelleme, changelog yazma ve commit işlemleri
 - `.claude/rules/` klasörü - erişilebilirlik, bileşen, API ve TypeScript kuralları
 - `docs/` klasörü - yapılandırılmış proje dokümantasyonu
