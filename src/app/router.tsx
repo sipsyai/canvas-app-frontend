@@ -20,6 +20,7 @@ import { EditApplicationPage } from '@/features/applications/pages/EditApplicati
 import { ApplicationLayout } from '@/features/applications/components/ApplicationLayout';
 import { ApplicationHomePage } from '@/features/applications/pages/ApplicationHomePage';
 import { ApplicationObjectPage } from '@/features/applications/pages/ApplicationObjectPage';
+import { AppsHomePage } from '@/features/apps/pages/AppsHomePage';
 
 function AppRouter() {
   return (
@@ -31,6 +32,7 @@ function AppRouter() {
 
       {/* Protected Routes with AppLayout */}
       <Route element={<PrivateRoute />}>
+        {/* Development Mode Routes */}
         <Route
           path="/dashboard"
           element={
@@ -119,11 +121,6 @@ function AppRouter() {
             </AppLayout>
           }
         />
-        {/* Application Runtime Routes - with dedicated sidebar */}
-        <Route path="/applications/:appId" element={<ApplicationLayout />}>
-          <Route index element={<ApplicationHomePage />} />
-          <Route path=":objectId" element={<ApplicationObjectPage />} />
-        </Route>
         <Route
           path="/applications/:appId/edit"
           element={
@@ -140,6 +137,28 @@ function AppRouter() {
             </AppLayout>
           }
         />
+
+        {/* Application Runtime Routes (Development mode - /applications/:appId) */}
+        <Route path="/applications/:appId" element={<ApplicationLayout />}>
+          <Route index element={<ApplicationHomePage />} />
+          <Route path=":objectId" element={<ApplicationObjectPage />} />
+        </Route>
+
+        {/* Applications Mode Routes (/apps) */}
+        <Route
+          path="/apps"
+          element={
+            <AppLayout>
+              <AppsHomePage />
+            </AppLayout>
+          }
+        />
+
+        {/* Applications Mode Runtime Routes (/apps/:appId) */}
+        <Route path="/apps/:appId" element={<ApplicationLayout basePath="/apps" />}>
+          <Route index element={<ApplicationHomePage />} />
+          <Route path=":objectId" element={<ApplicationObjectPage />} />
+        </Route>
       </Route>
 
       {/* 404 - Redirect to home */}

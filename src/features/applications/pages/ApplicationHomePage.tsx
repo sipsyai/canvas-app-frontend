@@ -4,7 +4,7 @@
  * Landing page for an application showing overview stats and quick links.
  */
 
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { ArrowRight, Settings, Plus } from 'lucide-react';
 import { useApplication } from '../hooks/useApplications';
 import { useObjects } from '@/features/objects/hooks/useObjects';
@@ -15,6 +15,10 @@ import { Badge } from '@/components/ui/Badge';
 export function ApplicationHomePage() {
   const { appId } = useParams<{ appId: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Determine basePath from current URL
+  const basePath = location.pathname.startsWith('/apps') ? '/apps' : '/applications';
 
   const { data: app } = useApplication(appId || '');
   const { data: allObjects } = useObjects();
@@ -66,7 +70,7 @@ export function ApplicationHomePage() {
               return (
                 <button
                   key={obj.id}
-                  onClick={() => navigate(`/applications/${appId}/${obj.id}`)}
+                  onClick={() => navigate(`${basePath}/${appId}/${obj.id}`)}
                   className="group bg-white dark:bg-surface-dark border border-slate-200 dark:border-slate-700 rounded-xl p-5 text-left hover:border-primary hover:shadow-md transition-all"
                 >
                   <div className="flex items-start gap-4">

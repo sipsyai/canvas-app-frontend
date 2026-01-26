@@ -105,6 +105,50 @@ import { getObjectIcon } from '@/lib/utils/icons';
 const Icon = getObjectIcon('Target'); // Returns Target component
 ```
 
+## Mode Switcher (Mod Geçişi)
+
+Uygulama iki ana modda çalışır:
+
+| Mod | URL | Açıklama |
+|-----|-----|----------|
+| Development | `/dashboard`, `/fields`, `/objects`, `/applications` | Builder araçları |
+| Applications | `/apps`, `/apps/:appId/*` | Published app kullanımı |
+
+### Mode Switcher UI
+
+Sidebar üstünde toggle component ile mod değiştirme:
+
+```
+┌───────────┬─────────────┐
+│Development│ Applications│  ← React Aria TabList
+└───────────┴─────────────┘
+```
+
+### Dosyalar
+
+| Dosya | Açıklama |
+|-------|----------|
+| `src/stores/modeStore.ts` | Mode state (Zustand persist) |
+| `src/components/ui/ModeSwitcher.tsx` | Toggle component |
+
+### Applications Mode URL Yapısı
+
+| URL | Açıklama |
+|-----|----------|
+| `/apps` | Published apps grid |
+| `/apps/:appId` | App runtime home |
+| `/apps/:appId/:objectId` | App object DataTable |
+
+### Applications Mode Dosyaları
+
+```
+src/features/apps/
+├── pages/
+│   └── AppsHomePage.tsx      # Published apps grid
+├── components/
+│   └── AppCard.tsx           # Uygulama kartı
+```
+
 ## İlişkili Özellikler
 
 - [Objects](objects.md) - Uygulama nesneleri

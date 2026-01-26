@@ -1,7 +1,9 @@
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils/cn';
 import { useNavigationStore } from '@/stores/navigationStore';
+import { useModeStore } from '@/stores/modeStore';
 import { useLogout } from '@/features/auth/hooks/useLogout';
+import { ModeSwitcher } from '@/components/ui/ModeSwitcher';
 import {
   LayoutDashboard,
   Library,
@@ -12,6 +14,8 @@ import {
   Layers,
   X,
   LogOut,
+  Home,
+  Clock,
 } from 'lucide-react';
 
 interface NavItem {
@@ -25,7 +29,8 @@ interface NavSection {
   items: NavItem[];
 }
 
-const navSections: NavSection[] = [
+// Development mode navigation
+const developmentNavSections: NavSection[] = [
   {
     items: [
       { label: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
@@ -48,14 +53,42 @@ const navSections: NavSection[] = [
   },
 ];
 
+// Applications mode navigation
+const applicationsNavSections: NavSection[] = [
+  {
+    items: [
+      { label: 'Home', href: '/apps', icon: Home },
+    ],
+  },
+  {
+    title: 'Quick Access',
+    items: [
+      { label: 'Recent Apps', href: '/apps', icon: Clock },
+    ],
+  },
+  {
+    title: 'System',
+    items: [
+      { label: 'Settings', href: '/settings', icon: Settings },
+    ],
+  },
+];
+
 export function Sidebar() {
   const location = useLocation();
   const { sidebarOpen, setSidebarOpen } = useNavigationStore();
+  const { mode } = useModeStore();
   const { mutate: logout, isPending: isLoggingOut } = useLogout();
+
+  // Select nav sections based on mode
+  const navSections = mode === 'applications' ? applicationsNavSections : developmentNavSections;
 
   const isActive = (href: string) => {
     if (href === '/dashboard') {
       return location.pathname === '/dashboard';
+    }
+    if (href === '/apps') {
+      return location.pathname === '/apps';
     }
     return location.pathname.startsWith(href);
   };
@@ -94,6 +127,11 @@ export function Sidebar() {
           >
             <X className="h-5 w-5" />
           </button>
+        </div>
+
+        {/* Mode Switcher */}
+        <div className="px-4 pb-4">
+          <ModeSwitcher />
         </div>
 
         {/* Navigation */}

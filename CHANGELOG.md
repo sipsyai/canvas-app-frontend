@@ -7,6 +7,12 @@ Format: [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/)
 ## [Unreleased]
 
 ### Eklenen
+- Mode Switcher - Development/Applications mod geçişi
+  - `src/stores/modeStore.ts` - Zustand store (localStorage persist)
+  - `src/components/ui/ModeSwitcher.tsx` - React Aria TabList toggle
+  - `src/features/apps/` - Applications mode feature
+  - `/apps` route - Published apps grid görünümü
+  - `/apps/:appId/*` route - App runtime (basePath desteği)
 - Application Runtime UI - uygulamaya özel sidebar ve DataTable görünümü
   - `ApplicationLayout` - runtime shell component
   - `ApplicationHomePage` - uygulama ana sayfası
@@ -24,6 +30,9 @@ Format: [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/)
 - `docs/features/dashboard.md` - dashboard dokümantasyonu
 
 ### Değiştirilen
+- `ApplicationLayout` - `basePath` prop eklendi (/applications vs /apps)
+- `ApplicationHomePage` - Dynamic basePath navigation
+- `Sidebar` - ModeSwitcher component + mode-based navigation
 - UI bileşenleri React Aria'ya güncellendi (Button, Checkbox, Datepicker, Input, Label, MultiSelect, RadioGroup, Textarea)
 - `src/features/auth/` - LoginForm ve RegisterForm iyileştirmeleri
 - `src/features/fields/` - FieldsListPage güncellemeleri

@@ -37,6 +37,7 @@ src/
 │   ├── records/           # Kayıt CRUD
 │   ├── relationships/     # İlişki yönetimi
 │   ├── applications/      # Uygulama koleksiyonları
+│   ├── apps/              # Applications mode (published apps)
 │   └── dashboard/         # Dashboard
 │
 ├── components/             # Paylaşılan bileşenler
@@ -59,7 +60,8 @@ src/
 │       └── cn.ts          # Class birleştirme
 │
 ├── stores/                 # Zustand store'lar
-│   └── authStore.ts       # Auth state
+│   ├── authStore.ts       # Auth state
+│   └── modeStore.ts       # Mode state (development/applications)
 │
 ├── hooks/                  # Global hook'lar
 ├── types/                  # TypeScript tipleri

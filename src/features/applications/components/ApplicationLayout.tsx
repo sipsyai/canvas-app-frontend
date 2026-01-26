@@ -14,7 +14,11 @@ import { useObjects } from '@/features/objects/hooks/useObjects';
 import { getObjectIcon } from '@/lib/utils/icons';
 import { Button } from '@/components/ui/Button';
 
-export function ApplicationLayout() {
+interface ApplicationLayoutProps {
+  basePath?: '/applications' | '/apps';
+}
+
+export function ApplicationLayout({ basePath = '/applications' }: ApplicationLayoutProps) {
   const { appId } = useParams<{ appId: string }>();
   const location = useLocation();
   const navigate = useNavigate();
@@ -78,7 +82,7 @@ export function ApplicationLayout() {
       <div className="flex h-screen w-full items-center justify-center bg-background-light dark:bg-background-dark">
         <div className="text-center space-y-4">
           <p className="text-red-500">Application not found</p>
-          <Button variant="secondary" onPress={() => navigate('/applications')}>
+          <Button variant="secondary" onPress={() => navigate(basePath)}>
             <ArrowLeft className="h-4 w-4" />
             Back to Applications
           </Button>
@@ -114,7 +118,7 @@ export function ApplicationLayout() {
         <nav className="flex-1 overflow-y-auto p-2 space-y-1">
           {/* Home link */}
           <Link
-            to={`/applications/${appId}`}
+            to={`${basePath}/${appId}`}
             className={cn(
               'flex items-center gap-3 px-3 py-2.5 rounded-lg font-medium transition-colors group',
               !activeObjectId
@@ -143,7 +147,7 @@ export function ApplicationLayout() {
             return (
               <Link
                 key={obj.id}
-                to={`/applications/${appId}/${obj.id}`}
+                to={`${basePath}/${appId}/${obj.id}`}
                 className={cn(
                   'flex items-center gap-3 px-3 py-2.5 rounded-lg font-medium transition-colors group',
                   isActive
@@ -179,11 +183,11 @@ export function ApplicationLayout() {
         {/* Back to Applications */}
         <div className="p-4 border-t border-slate-200 dark:border-slate-800">
           <Link
-            to="/applications"
+            to={basePath}
             className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 hover:text-primary transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
-            Back to Applications
+            {basePath === '/apps' ? 'Back to Apps' : 'Back to Applications'}
           </Link>
         </div>
       </aside>
@@ -194,10 +198,10 @@ export function ApplicationLayout() {
         <header className="h-14 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-surface-dark flex items-center px-6 flex-shrink-0">
           <nav className="flex items-center gap-2 text-sm">
             <Link
-              to="/applications"
+              to={basePath}
               className="text-slate-500 hover:text-primary transition-colors"
             >
-              Applications
+              {basePath === '/apps' ? 'Apps' : 'Applications'}
             </Link>
             <ChevronRight className="h-4 w-4 text-slate-400" />
             <span className="text-slate-900 dark:text-white font-medium">
