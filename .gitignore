@@ -42,3 +42,9 @@ playwright/.cache/
 logs/
 .dev-server.pid
 .dev-server.log
+
+# Playwright MCP screenshots
+.playwright-mcp/
+
+# External/temporary folders
+stitch_field_library_management/
