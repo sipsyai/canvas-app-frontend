@@ -100,7 +100,7 @@ cleanup_old_logs
 
 # Start the dev server with log rotation
 echo "Starting Canvas App Frontend..."
-npm run dev 2>&1 | log_writer &
+npm run dev > >(log_writer) 2>&1 &
 DEV_PID=$!
 
 # Save PID
