@@ -47,10 +47,10 @@ export const ColorPicker = ({ value = '#6366f1', onChange }: ColorPickerProps) =
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-3 w-full px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+        className="flex items-center gap-3 w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors dark:bg-surface-dark dark:text-white"
       >
         <div
-          className="w-6 h-6 rounded border border-gray-300"
+          className="w-6 h-6 rounded border border-gray-300 dark:border-slate-600"
           style={{ backgroundColor: value }}
         />
         <span className="text-sm font-mono">{value}</span>
@@ -71,10 +71,10 @@ export const ColorPicker = ({ value = '#6366f1', onChange }: ColorPickerProps) =
 
       {/* Dropdown Modal */}
       {isOpen && (
-        <div className="absolute z-50 mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg">
+        <div className="absolute z-50 mt-2 w-full bg-white dark:bg-surface-dark border border-gray-200 dark:border-slate-700 rounded-lg shadow-lg">
           {/* Preset Colors */}
           <div className="p-4">
-            <p className="text-xs font-medium text-gray-700 mb-3">Preset Colors</p>
+            <p className="text-xs font-medium text-gray-700 dark:text-slate-300 mb-3">Preset Colors</p>
             <div className="grid grid-cols-8 gap-2">
               {PRESET_COLORS.map((color) => {
                 const isSelected = color.value === value;
@@ -101,14 +101,14 @@ export const ColorPicker = ({ value = '#6366f1', onChange }: ColorPickerProps) =
           </div>
 
           {/* Custom Color */}
-          <div className="p-4 border-t border-gray-200">
-            <p className="text-xs font-medium text-gray-700 mb-3">Custom Color</p>
+          <div className="p-4 border-t border-gray-200 dark:border-slate-700">
+            <p className="text-xs font-medium text-gray-700 dark:text-slate-300 mb-3">Custom Color</p>
             <div className="flex gap-2">
               <input
                 type="color"
                 value={customColor}
                 onChange={(e) => handleCustomColorChange(e.target.value)}
-                className="w-12 h-10 border border-gray-300 rounded cursor-pointer"
+                className="w-12 h-10 border border-gray-300 dark:border-slate-600 rounded cursor-pointer"
               />
               <input
                 type="text"
@@ -122,17 +122,17 @@ export const ColorPicker = ({ value = '#6366f1', onChange }: ColorPickerProps) =
                   }
                 }}
                 placeholder="#000000"
-                className="flex-1 px-3 py-2 text-sm font-mono border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="flex-1 px-3 py-2 text-sm font-mono border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-surface-dark dark:text-white"
               />
             </div>
           </div>
 
           {/* Close Button */}
-          <div className="p-3 border-t border-gray-200 flex justify-end">
+          <div className="p-3 border-t border-gray-200 dark:border-slate-700 flex justify-end">
             <button
               type="button"
               onClick={() => setIsOpen(false)}
-              className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+              className="px-4 py-2 text-sm text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
             >
               Close
             </button>

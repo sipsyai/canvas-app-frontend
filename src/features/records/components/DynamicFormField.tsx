@@ -198,7 +198,7 @@ export const DynamicFormField = ({
 
   return (
     <div>
-      <div className="text-sm text-gray-500">
+      <div className="text-sm text-gray-500 dark:text-slate-400">
         Field type "{fieldType}" not supported
       </div>
     </div>

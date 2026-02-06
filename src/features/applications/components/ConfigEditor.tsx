@@ -55,12 +55,12 @@ export const ConfigEditor = ({ config, onChange }: ConfigEditorProps) => {
   return (
     <div>
       <div className="flex items-center justify-between mb-2">
-        <label className="block text-sm font-medium text-gray-700">Configuration (JSON)</label>
+        <label className="block text-sm font-medium text-gray-700 dark:text-slate-300">Configuration (JSON)</label>
         <button
           type="button"
           onClick={handleFormat}
           disabled={!isValid}
-          className="text-xs text-blue-600 hover:text-blue-700 disabled:text-gray-400 disabled:cursor-not-allowed"
+          className="text-xs text-blue-600 hover:text-blue-700 disabled:text-gray-400 dark:disabled:text-slate-500 disabled:cursor-not-allowed"
         >
           Format JSON
         </button>
@@ -71,8 +71,8 @@ export const ConfigEditor = ({ config, onChange }: ConfigEditorProps) => {
           value={jsonText}
           onChange={(e) => handleChange(e.target.value)}
           rows={12}
-          className={`w-full px-4 py-3 font-mono text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none ${
-            error ? 'border-red-500' : 'border-gray-300'
+          className={`w-full px-4 py-3 font-mono text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none dark:bg-surface-dark-alt dark:text-white dark:placeholder-slate-500 ${
+            error ? 'border-red-500' : 'border-gray-300 dark:border-slate-600'
           }`}
           placeholder='{\n  "objects": ["obj_contact", "obj_company"],\n  "features": ["contacts", "reports"]\n}'
         />
@@ -94,17 +94,17 @@ export const ConfigEditor = ({ config, onChange }: ConfigEditorProps) => {
       </div>
 
       {/* Helper Text */}
-      <p className="mt-2 text-xs text-gray-500">
+      <p className="mt-2 text-xs text-gray-500 dark:text-slate-400">
         Define your application configuration as a JSON object. Common fields: objects, features, settings, navigation.
       </p>
 
       {/* Examples */}
       <details className="mt-3">
-        <summary className="text-xs text-gray-600 cursor-pointer hover:text-gray-800">Show examples</summary>
-        <div className="mt-2 bg-gray-50 rounded p-3 space-y-2 text-xs">
+        <summary className="text-xs text-gray-600 dark:text-slate-400 cursor-pointer hover:text-gray-800 dark:hover:text-slate-300">Show examples</summary>
+        <div className="mt-2 bg-gray-50 dark:bg-surface-dark-alt rounded p-3 space-y-2 text-xs">
           <div>
-            <p className="font-medium text-gray-700 mb-1">CRM Example:</p>
-            <pre className="text-gray-600 overflow-auto">
+            <p className="font-medium text-gray-700 dark:text-slate-300 mb-1">CRM Example:</p>
+            <pre className="text-gray-600 dark:text-slate-400 overflow-auto">
 {`{
   "objects": ["obj_contact", "obj_company", "obj_opportunity"],
   "features": ["contacts", "companies", "deals", "reports"],
@@ -115,8 +115,8 @@ export const ConfigEditor = ({ config, onChange }: ConfigEditorProps) => {
             </pre>
           </div>
           <div>
-            <p className="font-medium text-gray-700 mb-1">ITSM Example:</p>
-            <pre className="text-gray-600 overflow-auto">
+            <p className="font-medium text-gray-700 dark:text-slate-300 mb-1">ITSM Example:</p>
+            <pre className="text-gray-600 dark:text-slate-400 overflow-auto">
 {`{
   "objects": ["obj_ticket", "obj_incident", "obj_asset"],
   "features": ["ticketing", "incident_management"],

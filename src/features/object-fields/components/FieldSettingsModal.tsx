@@ -47,13 +47,13 @@ export function FieldSettingsModal({ objectField, isOpen, onClose }: FieldSettin
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl">
+      <div className="w-full max-w-md rounded-lg bg-white dark:bg-surface-dark p-6 shadow-xl">
         {/* Header */}
         <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-xl font-semibold text-gray-900">Field Settings</h2>
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Field Settings</h2>
           <button
             onClick={onClose}
-            className="rounded p-1 hover:bg-gray-100"
+            className="rounded p-1 hover:bg-gray-100 dark:hover:bg-slate-700"
             disabled={isPending}
           >
             <X className="h-5 w-5" />
@@ -63,9 +63,9 @@ export function FieldSettingsModal({ objectField, isOpen, onClose }: FieldSettin
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Field Info */}
-          <div className="rounded-lg bg-gray-50 p-4">
-            <div className="text-sm text-gray-500">Field ID</div>
-            <div className="font-mono text-sm font-medium text-gray-900">
+          <div className="rounded-lg bg-gray-50 dark:bg-surface-dark-alt p-4">
+            <div className="text-sm text-gray-500 dark:text-slate-400">Field ID</div>
+            <div className="font-mono text-sm font-medium text-gray-900 dark:text-white">
               {objectField.field_id}
             </div>
           </div>
@@ -73,8 +73,8 @@ export function FieldSettingsModal({ objectField, isOpen, onClose }: FieldSettin
           {/* Is Required */}
           <label className="flex items-center justify-between">
             <div>
-              <div className="font-medium text-gray-900">Required</div>
-              <div className="text-sm text-gray-500">
+              <div className="font-medium text-gray-900 dark:text-white">Required</div>
+              <div className="text-sm text-gray-500 dark:text-slate-400">
                 This field must have a value
               </div>
             </div>
@@ -84,15 +84,15 @@ export function FieldSettingsModal({ objectField, isOpen, onClose }: FieldSettin
               onChange={(e) =>
                 setFormData({ ...formData, is_required: e.target.checked })
               }
-              className="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              className="h-5 w-5 rounded border-gray-300 dark:border-slate-600 text-blue-600 focus:ring-blue-500"
             />
           </label>
 
           {/* Is Visible */}
           <label className="flex items-center justify-between">
             <div>
-              <div className="font-medium text-gray-900">Visible</div>
-              <div className="text-sm text-gray-500">
+              <div className="font-medium text-gray-900 dark:text-white">Visible</div>
+              <div className="text-sm text-gray-500 dark:text-slate-400">
                 Show this field in forms and views
               </div>
             </div>
@@ -102,15 +102,15 @@ export function FieldSettingsModal({ objectField, isOpen, onClose }: FieldSettin
               onChange={(e) =>
                 setFormData({ ...formData, is_visible: e.target.checked })
               }
-              className="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              className="h-5 w-5 rounded border-gray-300 dark:border-slate-600 text-blue-600 focus:ring-blue-500"
             />
           </label>
 
           {/* Is Read Only */}
           <label className="flex items-center justify-between">
             <div>
-              <div className="font-medium text-gray-900">Read Only</div>
-              <div className="text-sm text-gray-500">
+              <div className="font-medium text-gray-900 dark:text-white">Read Only</div>
+              <div className="text-sm text-gray-500 dark:text-slate-400">
                 Prevent editing this field
               </div>
             </div>
@@ -120,7 +120,7 @@ export function FieldSettingsModal({ objectField, isOpen, onClose }: FieldSettin
               onChange={(e) =>
                 setFormData({ ...formData, is_readonly: e.target.checked })
               }
-              className="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              className="h-5 w-5 rounded border-gray-300 dark:border-slate-600 text-blue-600 focus:ring-blue-500"
             />
           </label>
 
@@ -130,7 +130,7 @@ export function FieldSettingsModal({ objectField, isOpen, onClose }: FieldSettin
               type="button"
               onClick={onClose}
               disabled={isPending}
-              className="flex-1 rounded-lg border border-gray-300 px-4 py-2 font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex-1 rounded-lg border border-gray-300 dark:border-slate-600 px-4 py-2 font-medium text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
             >
               Cancel
             </button>

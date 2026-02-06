@@ -183,7 +183,7 @@ Config:
 - ✅ **Consistent Design**: Design system out-of-the-box
 - ✅ **Tree Shaking**: Kullanılmayan CSS otomatik temizlenir
 - ✅ **Responsive**: Mobile-first approach
-- ✅ **Dark Mode**: Built-in support
+- ✅ **Dark Mode**: Built-in support — `class` strategy ile tam implementasyon mevcut. `ThemeToggle` bileşeni (light/dark/system) ve `themeStore.ts` (Zustand + localStorage persist) ile yönetilir. Tüm UI primitives ve feature component'ler `dark:` variant'ları ile desteklenir.
 
 #### Tema Sistemi (Tailwind 4)
 

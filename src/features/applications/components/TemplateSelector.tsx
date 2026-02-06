@@ -9,7 +9,7 @@ interface TemplateSelectorProps {
 export const TemplateSelector = ({ selectedTemplateId, onSelect }: TemplateSelectorProps) => {
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-3">
+      <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-3">
         Choose a Template
       </label>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -22,8 +22,8 @@ export const TemplateSelector = ({ selectedTemplateId, onSelect }: TemplateSelec
               onClick={() => onSelect(template)}
               className={`relative p-4 border-2 rounded-lg text-left transition-all hover:shadow-md ${
                 isSelected
-                  ? 'border-blue-500 bg-blue-50'
-                  : 'border-gray-200 bg-white hover:border-gray-300'
+                  ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
+                  : 'border-gray-200 dark:border-slate-700 bg-white dark:bg-surface-dark hover:border-gray-300 dark:hover:border-slate-600'
               }`}
             >
               {isSelected && (
@@ -34,10 +34,10 @@ export const TemplateSelector = ({ selectedTemplateId, onSelect }: TemplateSelec
               <div className="flex items-start gap-3">
                 <div className="text-3xl">{template.icon}</div>
                 <div className="flex-1">
-                  <h3 className={`font-semibold mb-1 ${isSelected ? 'text-blue-900' : 'text-gray-900'}`}>
+                  <h3 className={`font-semibold mb-1 ${isSelected ? 'text-blue-900 dark:text-blue-300' : 'text-gray-900 dark:text-white'}`}>
                     {template.label}
                   </h3>
-                  <p className={`text-sm ${isSelected ? 'text-blue-700' : 'text-gray-600'}`}>
+                  <p className={`text-sm ${isSelected ? 'text-blue-700 dark:text-blue-400' : 'text-gray-600 dark:text-slate-400'}`}>
                     {template.description}
                   </p>
                   {template.config.suggestedObjects && template.config.suggestedObjects.length > 0 && (
@@ -46,14 +46,14 @@ export const TemplateSelector = ({ selectedTemplateId, onSelect }: TemplateSelec
                         <span
                           key={obj}
                           className={`text-xs px-2 py-0.5 rounded ${
-                            isSelected ? 'bg-blue-200 text-blue-800' : 'bg-gray-100 text-gray-600'
+                            isSelected ? 'bg-blue-200 dark:bg-blue-800/40 text-blue-800 dark:text-blue-300' : 'bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-slate-400'
                           }`}
                         >
                           {obj}
                         </span>
                       ))}
                       {template.config.suggestedObjects.length > 3 && (
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-gray-500 dark:text-slate-400">
                           +{template.config.suggestedObjects.length - 3} more
                         </span>
                       )}

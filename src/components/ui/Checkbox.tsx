@@ -39,7 +39,7 @@ export const Checkbox = ({
               'h-6 w-6 rounded border-2 flex items-center justify-center transition-colors',
               isSelected || isIndeterminate
                 ? 'bg-primary border-primary'
-                : 'bg-white border-gray-300',
+                : 'bg-white border-gray-300 dark:bg-surface-dark dark:border-slate-600',
               isDisabled && 'opacity-50 cursor-not-allowed',
               isFocusVisible && 'ring-2 ring-primary ring-offset-2'
             )}
@@ -72,9 +72,9 @@ export const Checkbox = ({
           </div>
           {label && (
             <div className="flex-1">
-              <div className="text-sm font-medium text-gray-700">{label}</div>
+              <div className="text-sm font-medium text-gray-700 dark:text-slate-300">{label}</div>
               {description && (
-                <div className="text-xs text-gray-500 mt-0.5">
+                <div className="text-xs text-gray-500 dark:text-slate-400 mt-0.5">
                   {description}
                 </div>
               )}

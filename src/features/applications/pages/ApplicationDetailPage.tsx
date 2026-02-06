@@ -54,10 +54,10 @@ export const ApplicationDetailPage = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-surface-dark-alt flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading application...</p>
+          <p className="text-gray-600 dark:text-slate-400">Loading application...</p>
         </div>
       </div>
     );
@@ -65,9 +65,9 @@ export const ApplicationDetailPage = () => {
 
   if (error || !application) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-surface-dark-alt flex items-center justify-center">
         <div className="text-center">
-          <p className="text-red-600 mb-4">Failed to load application</p>
+          <p className="text-red-600 dark:text-red-400 mb-4">Failed to load application</p>
           <Button onClick={() => navigate('/applications')}>Back to Applications</Button>
         </div>
       </div>
@@ -75,7 +75,7 @@ export const ApplicationDetailPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-surface-dark-alt">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
@@ -89,11 +89,11 @@ export const ApplicationDetailPage = () => {
                 {application.icon || '📱'}
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-gray-900">{application.name}</h1>
+                <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{application.name}</h1>
                 {application.label && application.label !== application.name && (
-                  <p className="text-lg text-gray-600 mt-1">{application.label}</p>
+                  <p className="text-lg text-gray-600 dark:text-slate-400 mt-1">{application.label}</p>
                 )}
-                {application.description && <p className="text-gray-600 mt-2">{application.description}</p>}
+                {application.description && <p className="text-gray-600 dark:text-slate-400 mt-2">{application.description}</p>}
               </div>
             </div>
             <div className="flex gap-2">
@@ -126,19 +126,19 @@ export const ApplicationDetailPage = () => {
 
         {/* Status Banner */}
         {application.published_at ? (
-          <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6 flex items-center gap-3">
+          <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-lg p-4 mb-6 flex items-center gap-3">
             <CheckCircle2 className="w-5 h-5 text-green-600" />
             <div>
-              <p className="font-medium text-green-900">Application Published</p>
-              <p className="text-sm text-green-700">Published on {formatDate(application.published_at)}</p>
+              <p className="font-medium text-green-900 dark:text-green-300">Application Published</p>
+              <p className="text-sm text-green-700 dark:text-green-400">Published on {formatDate(application.published_at)}</p>
             </div>
           </div>
         ) : (
-          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6 flex items-center gap-3">
+          <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg p-4 mb-6 flex items-center gap-3">
             <Clock className="w-5 h-5 text-yellow-600" />
             <div>
-              <p className="font-medium text-yellow-900">Draft Application</p>
-              <p className="text-sm text-yellow-700">This application is not published yet</p>
+              <p className="font-medium text-yellow-900 dark:text-yellow-300">Draft Application</p>
+              <p className="text-sm text-yellow-700 dark:text-yellow-400">This application is not published yet</p>
             </div>
           </div>
         )}
@@ -146,48 +146,48 @@ export const ApplicationDetailPage = () => {
         {/* Details Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           {/* Metadata */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Metadata</h2>
+          <div className="bg-white dark:bg-surface-dark rounded-lg border border-gray-200 dark:border-slate-700 p-6 shadow-sm">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Metadata</h2>
             <dl className="space-y-3">
               <div>
-                <dt className="text-sm font-medium text-gray-500">Application ID</dt>
-                <dd className="mt-1 text-sm text-gray-900 font-mono">{application.id}</dd>
+                <dt className="text-sm font-medium text-gray-500 dark:text-slate-400">Application ID</dt>
+                <dd className="mt-1 text-sm text-gray-900 dark:text-white font-mono">{application.id}</dd>
               </div>
               <div>
-                <dt className="text-sm font-medium text-gray-500">Created</dt>
-                <dd className="mt-1 text-sm text-gray-900 flex items-center gap-2">
+                <dt className="text-sm font-medium text-gray-500 dark:text-slate-400">Created</dt>
+                <dd className="mt-1 text-sm text-gray-900 dark:text-white flex items-center gap-2">
                   <Calendar className="w-4 h-4" />
                   {formatDate(application.created_at)}
                 </dd>
               </div>
               <div>
-                <dt className="text-sm font-medium text-gray-500">Last Updated</dt>
-                <dd className="mt-1 text-sm text-gray-900 flex items-center gap-2">
+                <dt className="text-sm font-medium text-gray-500 dark:text-slate-400">Last Updated</dt>
+                <dd className="mt-1 text-sm text-gray-900 dark:text-white flex items-center gap-2">
                   <Calendar className="w-4 h-4" />
                   {formatDate(application.updated_at)}
                 </dd>
               </div>
               <div>
-                <dt className="text-sm font-medium text-gray-500">Created By</dt>
-                <dd className="mt-1 text-sm text-gray-900 font-mono">{application.created_by}</dd>
+                <dt className="text-sm font-medium text-gray-500 dark:text-slate-400">Created By</dt>
+                <dd className="mt-1 text-sm text-gray-900 dark:text-white font-mono">{application.created_by}</dd>
               </div>
             </dl>
           </div>
 
           {/* Status */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Status</h2>
+          <div className="bg-white dark:bg-surface-dark rounded-lg border border-gray-200 dark:border-slate-700 p-6 shadow-sm">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Status</h2>
             <dl className="space-y-3">
               <div>
-                <dt className="text-sm font-medium text-gray-500">Publication Status</dt>
+                <dt className="text-sm font-medium text-gray-500 dark:text-slate-400">Publication Status</dt>
                 <dd className="mt-1">
                   {application.published_at ? (
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300">
                       <Rocket className="w-4 h-4 mr-1" />
                       Published
                     </span>
                   ) : (
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 dark:bg-slate-800 text-gray-800 dark:text-slate-300">
                       <Clock className="w-4 h-4 mr-1" />
                       Draft
                     </span>
@@ -196,8 +196,8 @@ export const ApplicationDetailPage = () => {
               </div>
               {application.published_at && (
                 <div>
-                  <dt className="text-sm font-medium text-gray-500">Published At</dt>
-                  <dd className="mt-1 text-sm text-gray-900">{formatDate(application.published_at)}</dd>
+                  <dt className="text-sm font-medium text-gray-500 dark:text-slate-400">Published At</dt>
+                  <dd className="mt-1 text-sm text-gray-900 dark:text-white">{formatDate(application.published_at)}</dd>
                 </div>
               )}
             </dl>
@@ -205,14 +205,14 @@ export const ApplicationDetailPage = () => {
         </div>
 
         {/* Configuration */}
-        <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Configuration</h2>
+        <div className="bg-white dark:bg-surface-dark rounded-lg border border-gray-200 dark:border-slate-700 p-6 shadow-sm">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Configuration</h2>
           {Object.keys(application.config).length > 0 ? (
-            <div className="bg-gray-50 rounded-lg p-4 font-mono text-sm overflow-auto">
+            <div className="bg-gray-50 dark:bg-surface-dark-alt rounded-lg p-4 font-mono text-sm overflow-auto dark:text-slate-300">
               <pre>{JSON.stringify(application.config, null, 2)}</pre>
             </div>
           ) : (
-            <p className="text-gray-500 text-sm">No configuration defined</p>
+            <p className="text-gray-500 dark:text-slate-400 text-sm">No configuration defined</p>
           )}
         </div>
       </div>

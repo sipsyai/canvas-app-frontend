@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils/cn';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 const dialogVariants = cva(
-  'relative bg-white rounded-lg shadow-xl max-h-[90vh] overflow-hidden flex flex-col',
+  'relative bg-white dark:bg-surface-dark rounded-lg shadow-xl max-h-[90vh] overflow-hidden flex flex-col',
   {
     variants: {
       size: {
@@ -66,17 +66,17 @@ export function Dialog({
             <>
               {/* Header */}
               {title && (
-                <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+                <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-slate-700">
                   <Heading
                     slot="title"
-                    className="text-lg font-semibold text-gray-900"
+                    className="text-lg font-semibold text-gray-900 dark:text-white"
                   >
                     {title}
                   </Heading>
                   <button
                     onClick={() => close()}
                     className={cn(
-                      'rounded-lg p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100',
+                      'rounded-lg p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:text-slate-500 dark:hover:text-slate-300 dark:hover:bg-slate-700',
                       'transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2'
                     )}
                     aria-label="Close dialog"
@@ -93,7 +93,7 @@ export function Dialog({
 
               {/* Actions */}
               {actions && (
-                <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-200 bg-gray-50">
+                <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-200 bg-gray-50 dark:border-slate-700 dark:bg-surface-dark-alt">
                   {actions}
                 </div>
               )}

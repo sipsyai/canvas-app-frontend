@@ -53,13 +53,13 @@ export const Input = ({
       {...props}
     >
       {label && (
-        <Label className="text-sm font-medium text-gray-700 mb-1 block">
+        <Label className="text-sm font-medium text-gray-700 dark:text-slate-300 mb-1 block">
           {label}
           {isRequired && <span className="text-red-500 ml-1">*</span>}
         </Label>
       )}
       {description && !error && (
-        <Text slot="description" className="text-sm text-gray-500 mb-1 block">
+        <Text slot="description" className="text-sm text-gray-500 dark:text-slate-400 mb-1 block">
           {description}
         </Text>
       )}
@@ -69,10 +69,10 @@ export const Input = ({
           className={cn(
             'w-full px-4 py-3 rounded-lg border-2 transition-colors',
             'focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent',
-            'data-[disabled]:opacity-50 data-[disabled]:cursor-not-allowed data-[disabled]:bg-gray-100',
+            'data-[disabled]:opacity-50 data-[disabled]:cursor-not-allowed data-[disabled]:bg-gray-100 data-[disabled]:dark:bg-slate-800',
             error
-              ? 'border-red-300 bg-red-50 text-red-900 placeholder-red-400'
-              : 'border-gray-300 bg-white text-gray-900 placeholder-gray-400',
+              ? 'border-red-300 bg-red-50 text-red-900 placeholder-red-400 dark:border-red-700 dark:bg-red-900/20 dark:text-red-300'
+              : 'border-gray-300 bg-white text-gray-900 placeholder-gray-400 dark:border-slate-600 dark:bg-surface-dark dark:text-white dark:placeholder-slate-500',
             isPassword && 'pr-12'
           )}
         />
@@ -82,7 +82,7 @@ export const Input = ({
             onClick={() => setShowPassword(!showPassword)}
             className={cn(
               'absolute right-3 top-1/2 -translate-y-1/2',
-              'text-gray-500 hover:text-gray-700',
+              'text-gray-500 hover:text-gray-700 dark:text-slate-400 dark:hover:text-slate-200',
               'focus:outline-none focus:ring-2 focus:ring-primary rounded',
               'p-1'
             )}

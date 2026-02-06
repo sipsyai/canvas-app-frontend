@@ -68,7 +68,7 @@ export const MultiSelect = ({
   return (
     <div className="w-full">
       {label && (
-        <Label className="text-sm font-medium text-gray-700 mb-1 block">
+        <Label className="text-sm font-medium text-gray-700 dark:text-slate-300 mb-1 block">
           {label}
           {isRequired && <span className="text-red-500 ml-1">*</span>}
         </Label>
@@ -81,12 +81,12 @@ export const MultiSelect = ({
             'min-h-[42px] px-3 py-2 border rounded-lg w-full',
             'flex flex-wrap gap-2 items-center',
             'focus:outline-none focus:ring-2 focus:ring-primary',
-            'data-[disabled]:bg-gray-100 data-[disabled]:cursor-not-allowed',
-            error ? 'border-red-500' : 'border-gray-300'
+            'data-[disabled]:bg-gray-100 data-[disabled]:cursor-not-allowed data-[disabled]:dark:bg-slate-800',
+            error ? 'border-red-500' : 'border-gray-300 dark:border-slate-600 dark:bg-surface-dark'
           )}
         >
           {selectedOptions.length === 0 ? (
-            <span className="text-gray-400">{placeholder}</span>
+            <span className="text-gray-400 dark:text-slate-500">{placeholder}</span>
           ) : (
             selectedOptions.map((opt) => (
               <span
@@ -110,7 +110,7 @@ export const MultiSelect = ({
               </span>
             ))
           )}
-          <ChevronDown className="h-4 w-4 text-gray-400 ml-auto" />
+          <ChevronDown className="h-4 w-4 text-gray-400 dark:text-slate-500 ml-auto" />
         </Button>
         <Popover
           triggerRef={triggerRef}
@@ -123,12 +123,12 @@ export const MultiSelect = ({
             selectionMode="multiple"
             selectedKeys={new Set(value)}
             onSelectionChange={handleSelectionChange}
-            className="bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-auto outline-none"
+            className="bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-auto outline-none dark:bg-surface-dark dark:border-slate-700"
             aria-label={label || 'Multi-select options'}
           >
             {options.length === 0 ? (
               <ListBoxItem
-                className="px-3 py-2 text-gray-500 text-sm"
+                className="px-3 py-2 text-gray-500 dark:text-slate-400 text-sm"
                 textValue="No options"
               >
                 No options available
@@ -140,9 +140,9 @@ export const MultiSelect = ({
                   id={option.value}
                   textValue={option.label}
                   className={cn(
-                    'px-3 py-2 text-sm text-gray-700 cursor-pointer outline-none',
+                    'px-3 py-2 text-sm text-gray-700 dark:text-slate-300 cursor-pointer outline-none',
                     'flex items-center gap-2',
-                    'data-[focused]:bg-gray-100',
+                    'data-[focused]:bg-gray-100 data-[focused]:dark:bg-slate-700',
                     'data-[selected]:bg-primary-light data-[selected]:text-primary'
                   )}
                 >
@@ -153,7 +153,7 @@ export const MultiSelect = ({
                           'h-4 w-4 rounded border flex items-center justify-center',
                           isSelected
                             ? 'bg-primary border-primary'
-                            : 'bg-white border-gray-300'
+                            : 'bg-white border-gray-300 dark:bg-surface-dark dark:border-slate-600'
                         )}
                       >
                         {isSelected && (

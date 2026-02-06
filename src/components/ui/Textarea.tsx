@@ -48,13 +48,13 @@ export const Textarea = ({
       {...props}
     >
       {label && (
-        <Label className="text-sm font-medium text-gray-700 mb-1 block">
+        <Label className="text-sm font-medium text-gray-700 dark:text-slate-300 mb-1 block">
           {label}
           {isRequired && <span className="text-red-500 ml-1">*</span>}
         </Label>
       )}
       {description && !error && (
-        <Text slot="description" className="text-sm text-gray-500 mb-1 block">
+        <Text slot="description" className="text-sm text-gray-500 dark:text-slate-400 mb-1 block">
           {description}
         </Text>
       )}
@@ -65,11 +65,11 @@ export const Textarea = ({
         className={cn(
           'w-full px-3 py-2 border-2 rounded-lg',
           'focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent',
-          'data-[disabled]:bg-gray-100 data-[disabled]:text-gray-500 data-[disabled]:cursor-not-allowed',
+          'data-[disabled]:bg-gray-100 data-[disabled]:text-gray-500 data-[disabled]:cursor-not-allowed data-[disabled]:dark:bg-slate-800',
           'resize-vertical',
           error
-            ? 'border-red-300 bg-red-50 text-red-900 placeholder-red-400'
-            : 'border-gray-300 bg-white text-gray-900 placeholder-gray-400'
+            ? 'border-red-300 bg-red-50 text-red-900 placeholder-red-400 dark:border-red-700 dark:bg-red-900/20 dark:text-red-300'
+            : 'border-gray-300 bg-white text-gray-900 placeholder-gray-400 dark:border-slate-600 dark:bg-surface-dark dark:text-white dark:placeholder-slate-500'
         )}
       />
       {error && (

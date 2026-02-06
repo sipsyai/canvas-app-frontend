@@ -71,7 +71,7 @@ export const useDynamicColumns = ({ fields, onEdit, onDelete, onViewDetails }: U
                 e.stopPropagation();
                 onViewDetails(row.original);
               }}
-              className="p-1 text-gray-600 hover:text-gray-700 hover:bg-gray-50 rounded transition-colors"
+              className="p-1 text-gray-600 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-800 rounded transition-colors"
               title="View details and relationships"
             >
               <Eye className="h-4 w-4" />
@@ -83,7 +83,7 @@ export const useDynamicColumns = ({ fields, onEdit, onDelete, onViewDetails }: U
                 e.stopPropagation();
                 onEdit(row.original);
               }}
-              className="p-1 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded transition-colors"
+              className="p-1 text-blue-600 hover:text-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded transition-colors"
               title="Edit record"
             >
               <Pencil className="h-4 w-4" />
@@ -95,7 +95,7 @@ export const useDynamicColumns = ({ fields, onEdit, onDelete, onViewDetails }: U
                 e.stopPropagation();
                 onDelete(row.original);
               }}
-              className="p-1 text-red-600 hover:text-red-700 hover:bg-red-50 rounded transition-colors"
+              className="p-1 text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition-colors"
               title="Delete record"
             >
               <Trash2 className="h-4 w-4" />

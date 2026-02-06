@@ -46,6 +46,7 @@ src/
 │   │   ├── Input.tsx
 │   │   ├── Checkbox.tsx
 │   │   ├── Select.tsx
+│   │   ├── ThemeToggle.tsx
 │   │   └── ...
 │   ├── layout/            # Düzen bileşenleri
 │   │   ├── Sidebar.tsx
@@ -61,7 +62,8 @@ src/
 │
 ├── stores/                 # Zustand store'lar
 │   ├── authStore.ts       # Auth state
-│   └── modeStore.ts       # Mode state (development/applications)
+│   ├── modeStore.ts       # Mode state (development/applications)
+│   └── themeStore.ts      # Theme state (light/dark/system)
 │
 ├── hooks/                  # Global hook'lar
 ├── types/                  # TypeScript tipleri

@@ -12,8 +12,8 @@ export function AvailableFieldsList({ availableFields, isLoading }: AvailableFie
   if (isLoading) {
     return (
       <div className="space-y-2">
-        <h2 className="text-lg font-semibold text-gray-900">Available Fields</h2>
-        <p className="text-sm text-gray-500">Loading...</p>
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Available Fields</h2>
+        <p className="text-sm text-gray-500 dark:text-slate-400">Loading...</p>
       </div>
     );
   }
@@ -21,9 +21,9 @@ export function AvailableFieldsList({ availableFields, isLoading }: AvailableFie
   if (availableFields.length === 0) {
     return (
       <div className="space-y-2">
-        <h2 className="text-lg font-semibold text-gray-900">Available Fields</h2>
-        <div className="rounded-lg border-2 border-dashed border-gray-300 p-8 text-center">
-          <p className="text-sm text-gray-500">All fields have been added</p>
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Available Fields</h2>
+        <div className="rounded-lg border-2 border-dashed border-gray-300 dark:border-slate-600 p-8 text-center">
+          <p className="text-sm text-gray-500 dark:text-slate-400">All fields have been added</p>
         </div>
       </div>
     );
@@ -32,8 +32,8 @@ export function AvailableFieldsList({ availableFields, isLoading }: AvailableFie
   return (
     <div className="space-y-4">
       <div>
-        <h2 className="text-lg font-semibold text-gray-900">Available Fields</h2>
-        <p className="text-sm text-gray-500">Drag to add to object</p>
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Available Fields</h2>
+        <p className="text-sm text-gray-500 dark:text-slate-400">Drag to add to object</p>
       </div>
 
       <div className="space-y-2">
@@ -54,18 +54,18 @@ function DraggableField({ field }: { field: Field }) {
     <div
       ref={setNodeRef}
       className={`
-        group flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-3
+        group flex items-center gap-3 rounded-lg border border-gray-200 dark:border-slate-700 bg-white dark:bg-surface-dark p-3
         transition-all hover:border-blue-300 hover:shadow-md cursor-grab active:cursor-grabbing
         ${isDragging ? 'opacity-50' : ''}
       `}
       {...listeners}
       {...attributes}
     >
-      <GripVertical className="h-5 w-5 text-gray-400 group-hover:text-blue-500" />
-      <FieldTypeIcon type={field.type} className="h-5 w-5 text-gray-500" />
+      <GripVertical className="h-5 w-5 text-gray-400 dark:text-slate-500 group-hover:text-blue-500" />
+      <FieldTypeIcon type={field.type} className="h-5 w-5 text-gray-500 dark:text-slate-400" />
       <div className="flex-1">
-        <div className="font-medium text-gray-900">{field.label}</div>
-        <div className="text-xs text-gray-500">{field.type}</div>
+        <div className="font-medium text-gray-900 dark:text-white">{field.label}</div>
+        <div className="text-xs text-gray-500 dark:text-slate-400">{field.type}</div>
       </div>
     </div>
   );

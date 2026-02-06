@@ -51,9 +51,9 @@ export const ApplicationsTable = ({ applications }: ApplicationsTableProps) => {
           const app = info.row.original;
           return (
             <div className="flex flex-col">
-              <span className="font-medium text-gray-900">{app.name}</span>
+              <span className="font-medium text-gray-900 dark:text-white">{app.name}</span>
               {app.label && app.label !== app.name && (
-                <span className="text-sm text-gray-500">{app.label}</span>
+                <span className="text-sm text-gray-500 dark:text-slate-400">{app.label}</span>
               )}
             </div>
           );
@@ -65,7 +65,7 @@ export const ApplicationsTable = ({ applications }: ApplicationsTableProps) => {
         cell: (info) => {
           const description = info.getValue() as string | null;
           return (
-            <span className="text-sm text-gray-600 truncate max-w-md block">
+            <span className="text-sm text-gray-600 dark:text-slate-400 truncate max-w-md block">
               {description || '-'}
             </span>
           );
@@ -78,13 +78,13 @@ export const ApplicationsTable = ({ applications }: ApplicationsTableProps) => {
           const publishedAt = info.getValue() as string | null;
           return publishedAt ? (
             <div className="flex items-center gap-2">
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300">
                 <Rocket className="w-3 h-3 mr-1" />
                 Published
               </span>
             </div>
           ) : (
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 dark:bg-slate-800 text-gray-800 dark:text-slate-300">
               <Clock className="w-3 h-3 mr-1" />
               Draft
             </span>
@@ -97,7 +97,7 @@ export const ApplicationsTable = ({ applications }: ApplicationsTableProps) => {
         cell: (info) => {
           const date = info.getValue() as string;
           return (
-            <div className="flex items-center gap-1 text-sm text-gray-600">
+            <div className="flex items-center gap-1 text-sm text-gray-600 dark:text-slate-400">
               <Calendar className="w-4 h-4" />
               {formatDate(date)}
             </div>
@@ -123,15 +123,15 @@ export const ApplicationsTable = ({ applications }: ApplicationsTableProps) => {
 
   return (
     <div className="space-y-4">
-      <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+      <div className="overflow-hidden rounded-lg border border-gray-200 dark:border-slate-700 bg-white dark:bg-surface-dark shadow-sm">
+        <table className="min-w-full divide-y divide-gray-200 dark:divide-slate-700">
+          <thead className="bg-gray-50 dark:bg-surface-dark-alt">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wider"
                     style={{ width: header.getSize() }}
                   >
                     {header.isPlaceholder
@@ -143,11 +143,11 @@ export const ApplicationsTable = ({ applications }: ApplicationsTableProps) => {
               </tr>
             ))}
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="bg-white dark:bg-surface-dark divide-y divide-gray-200 dark:divide-slate-700">
             {table.getRowModel().rows.map((row) => (
               <tr
                 key={row.id}
-                className="hover:bg-gray-50 transition-colors cursor-pointer"
+                className="hover:bg-gray-50 dark:hover:bg-slate-800 transition-colors cursor-pointer"
                 onClick={() => navigate(`/applications/${row.original.id}`)}
               >
                 {row.getVisibleCells().map((cell) => (
@@ -156,7 +156,7 @@ export const ApplicationsTable = ({ applications }: ApplicationsTableProps) => {
                   </td>
                 ))}
                 <td className="px-4 py-4">
-                  <ChevronRight className="w-5 h-5 text-gray-400" />
+                  <ChevronRight className="w-5 h-5 text-gray-400 dark:text-slate-500" />
                 </td>
               </tr>
             ))}
@@ -167,7 +167,7 @@ export const ApplicationsTable = ({ applications }: ApplicationsTableProps) => {
       {/* Pagination */}
       {table.getPageCount() > 1 && (
         <div className="flex items-center justify-between px-4">
-          <div className="text-sm text-gray-700">
+          <div className="text-sm text-gray-700 dark:text-slate-300">
             Showing {table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1} to{' '}
             {Math.min(
               (table.getState().pagination.pageIndex + 1) * table.getState().pagination.pageSize,

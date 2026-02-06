@@ -24,24 +24,24 @@ export const RecordsTableToolbar = ({
   onAddRecord,
 }: RecordsTableToolbarProps) => {
   return (
-    <div className="flex items-center justify-between gap-4 mb-4 p-4 bg-white border border-gray-200 rounded-lg">
+    <div className="flex items-center justify-between gap-4 mb-4 p-4 bg-white dark:bg-surface-dark border border-gray-200 dark:border-slate-700 rounded-lg">
       {/* Search */}
       <div className="flex-1 max-w-md">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-slate-500" />
           <input
             type="text"
             placeholder="Search records..."
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-surface-dark dark:text-white dark:placeholder-slate-500"
           />
         </div>
       </div>
 
       {/* Actions */}
       <div className="flex items-center gap-2">
-        <span className="text-sm text-gray-600">
+        <span className="text-sm text-gray-600 dark:text-slate-400">
           {totalRecords} {totalRecords === 1 ? 'record' : 'records'}
         </span>
 

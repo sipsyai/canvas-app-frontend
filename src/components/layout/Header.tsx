@@ -1,5 +1,6 @@
 import { useNavigationStore } from '@/stores/navigationStore';
 import { Breadcrumb } from './Breadcrumb';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { Menu, Search, Bell } from 'lucide-react';
 
 export function Header() {
@@ -32,6 +33,9 @@ export function Header() {
             placeholder="Search objects, fields, and records..."
           />
         </div>
+
+        {/* Theme Toggle */}
+        <ThemeToggle />
 
         {/* Notifications */}
         <button className="relative p-2 text-slate-500 rounded-full hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-700 transition-colors">

@@ -90,7 +90,7 @@ export const CreateObjectPage = () => {
           Back to Objects
         </Button>
         <h1 className="text-3xl font-bold">Create Object</h1>
-        <p className="text-gray-600 mt-1">
+        <p className="text-gray-600 dark:text-slate-400 mt-1">
           Define a new data object for your application
         </p>
       </div>
@@ -99,14 +99,14 @@ export const CreateObjectPage = () => {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Submit Error */}
         {errors.submit && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-400 px-4 py-3 rounded-lg">
             {errors.submit}
           </div>
         )}
 
         {/* Name */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
             Name <span className="text-red-500">*</span>
           </label>
           <input
@@ -114,21 +114,21 @@ export const CreateObjectPage = () => {
             value={formData.name}
             onChange={(e) => handleInputChange('name', e.target.value)}
             placeholder="e.g., contact, account, product"
-            className={`w-full px-4 py-2 font-mono border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-              errors.name ? 'border-red-500' : 'border-gray-300'
+            className={`w-full px-4 py-2 font-mono border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-surface-dark dark:text-white ${
+              errors.name ? 'border-red-500' : 'border-gray-300 dark:border-slate-600'
             }`}
           />
           {errors.name && (
             <p className="mt-1 text-sm text-red-600">{errors.name}</p>
           )}
-          <p className="mt-1 text-xs text-gray-500">
+          <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">
             API name (snake_case recommended)
           </p>
         </div>
 
         {/* Label */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
             Label <span className="text-red-500">*</span>
           </label>
           <input
@@ -136,21 +136,21 @@ export const CreateObjectPage = () => {
             value={formData.label}
             onChange={(e) => handleInputChange('label', e.target.value)}
             placeholder="e.g., Contact, Account, Product"
-            className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-              errors.label ? 'border-red-500' : 'border-gray-300'
+            className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-surface-dark dark:text-white ${
+              errors.label ? 'border-red-500' : 'border-gray-300 dark:border-slate-600'
             }`}
           />
           {errors.label && (
             <p className="mt-1 text-sm text-red-600">{errors.label}</p>
           )}
-          <p className="mt-1 text-xs text-gray-500">
+          <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">
             Display name shown in the UI
           </p>
         </div>
 
         {/* Plural Name */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
             Plural Name <span className="text-red-500">*</span>
           </label>
           <input
@@ -158,21 +158,21 @@ export const CreateObjectPage = () => {
             value={formData.plural_name}
             onChange={(e) => handleInputChange('plural_name', e.target.value)}
             placeholder="e.g., Contacts, Accounts, Products"
-            className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-              errors.plural_name ? 'border-red-500' : 'border-gray-300'
+            className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-surface-dark dark:text-white ${
+              errors.plural_name ? 'border-red-500' : 'border-gray-300 dark:border-slate-600'
             }`}
           />
           {errors.plural_name && (
             <p className="mt-1 text-sm text-red-600">{errors.plural_name}</p>
           )}
-          <p className="mt-1 text-xs text-gray-500">
+          <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">
             Plural form displayed in lists
           </p>
         </div>
 
         {/* Icon */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
             Icon (Emoji)
           </label>
           <input
@@ -181,16 +181,16 @@ export const CreateObjectPage = () => {
             onChange={(e) => handleInputChange('icon', e.target.value)}
             placeholder="e.g., 👤, 🏢, 📦"
             maxLength={2}
-            className="w-full px-4 py-2 text-2xl border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 text-2xl border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-surface-dark"
           />
-          <p className="mt-1 text-xs text-gray-500">
+          <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">
             Enter an emoji to represent this object
           </p>
         </div>
 
         {/* Description */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
             Description
           </label>
           <textarea
@@ -198,13 +198,13 @@ export const CreateObjectPage = () => {
             onChange={(e) => handleInputChange('description', e.target.value)}
             placeholder="Describe the purpose of this object..."
             rows={4}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none dark:bg-surface-dark dark:text-white"
           />
-          <p className="mt-1 text-xs text-gray-500">Optional description</p>
+          <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">Optional description</p>
         </div>
 
         {/* Actions */}
-        <div className="flex justify-end gap-3 pt-4 border-t border-gray-200">
+        <div className="flex justify-end gap-3 pt-4 border-t border-gray-200 dark:border-slate-700">
           <Button
             type="button"
             variant="ghost"

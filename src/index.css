@@ -168,6 +168,9 @@
 [data-focus-visible] {
   @apply outline-none ring-2 ring-primary/50 ring-offset-2;
 }
+.dark [data-focus-visible] {
+  --tw-ring-offset-color: #151b2b;
+}
 
 /* Transition defaults */
 .transition-default {

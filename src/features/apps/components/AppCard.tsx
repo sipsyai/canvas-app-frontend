@@ -67,14 +67,14 @@ export function AppCard({ application, objectCount = 0 }: AppCardProps) {
             <h3 className="font-semibold text-slate-900 dark:text-white group-hover:text-primary transition-colors truncate">
               {application.label || application.name}
             </h3>
-            <ArrowRight className="h-4 w-4 text-slate-400 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all flex-shrink-0" />
+            <ArrowRight className="h-4 w-4 text-slate-400 dark:text-slate-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all flex-shrink-0" />
           </div>
           {application.description && (
             <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">
               {application.description}
             </p>
           )}
-          <div className="mt-3 flex items-center gap-4 text-xs text-slate-400">
+          <div className="mt-3 flex items-center gap-4 text-xs text-slate-400 dark:text-slate-500">
             <span>{objectCount} objects</span>
             {application.published_at && (
               <span className="flex items-center gap-1">

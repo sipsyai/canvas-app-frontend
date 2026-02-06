@@ -45,7 +45,7 @@ export const IconPicker = ({ value = 'Box', onChange }: IconPickerProps) => {
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-3 w-full px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+        className="flex items-center gap-3 w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-800 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors dark:bg-surface-dark dark:text-white"
       >
         <SelectedIcon className="w-5 h-5" />
         <span className="text-sm">{value}</span>
@@ -66,15 +66,15 @@ export const IconPicker = ({ value = 'Box', onChange }: IconPickerProps) => {
 
       {/* Dropdown Modal */}
       {isOpen && (
-        <div className="absolute z-50 mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg">
+        <div className="absolute z-50 mt-2 w-full bg-white dark:bg-surface-dark border border-gray-200 dark:border-slate-700 rounded-lg shadow-lg">
           {/* Search */}
-          <div className="p-3 border-b border-gray-200">
+          <div className="p-3 border-b border-gray-200 dark:border-slate-700">
             <input
               type="text"
               placeholder="Search icons..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-surface-dark dark:text-white"
               autoFocus
             />
           </div>
@@ -82,7 +82,7 @@ export const IconPicker = ({ value = 'Box', onChange }: IconPickerProps) => {
           {/* Icon Grid */}
           <div className="p-3 max-h-80 overflow-y-auto">
             {filteredIcons.length === 0 ? (
-              <p className="text-sm text-gray-500 text-center py-4">
+              <p className="text-sm text-gray-500 dark:text-slate-400 text-center py-4">
                 No icons found
               </p>
             ) : (
@@ -99,7 +99,7 @@ export const IconPicker = ({ value = 'Box', onChange }: IconPickerProps) => {
                       className={`flex items-center justify-center p-3 rounded-lg transition-colors ${
                         isSelected
                           ? 'bg-blue-100 text-blue-600 border-2 border-blue-500'
-                          : 'hover:bg-gray-100 border-2 border-transparent'
+                          : 'hover:bg-gray-100 dark:hover:bg-slate-700 border-2 border-transparent'
                       }`}
                       title={iconName}
                     >
@@ -112,7 +112,7 @@ export const IconPicker = ({ value = 'Box', onChange }: IconPickerProps) => {
           </div>
 
           {/* Close Button */}
-          <div className="p-3 border-t border-gray-200 flex justify-end">
+          <div className="p-3 border-t border-gray-200 dark:border-slate-700 flex justify-end">
             <Button
               size="sm"
               variant="ghost"

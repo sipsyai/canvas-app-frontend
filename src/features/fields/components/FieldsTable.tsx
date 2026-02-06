@@ -54,9 +54,9 @@ export const FieldsTable = ({ fields }: FieldsTableProps) => {
         header: 'Category',
         cell: (info) => {
           const category = info.getValue() as string | null;
-          if (!category) return <span className="text-gray-400">—</span>;
+          if (!category) return <span className="text-gray-400 dark:text-slate-500">—</span>;
           return (
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300">
               {category}
             </span>
           );
@@ -126,15 +126,15 @@ export const FieldsTable = ({ fields }: FieldsTableProps) => {
   return (
     <div>
       {/* Table */}
-      <div className="overflow-hidden border border-gray-200 rounded-lg">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+      <div className="overflow-hidden border border-gray-200 dark:border-slate-700 rounded-lg">
+        <table className="min-w-full divide-y divide-gray-200 dark:divide-slate-700">
+          <thead className="bg-gray-50 dark:bg-surface-dark-alt">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wider"
                   >
                     {flexRender(
                       header.column.columnDef.header,
@@ -145,9 +145,9 @@ export const FieldsTable = ({ fields }: FieldsTableProps) => {
               </tr>
             ))}
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="bg-white dark:bg-surface-dark divide-y divide-gray-200 dark:divide-slate-700">
             {table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className="hover:bg-gray-50">
+              <tr key={row.id} className="hover:bg-gray-50 dark:hover:bg-slate-800">
                 {row.getVisibleCells().map((cell) => (
                   <td key={cell.id} className="px-6 py-4 whitespace-nowrap">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -160,8 +160,8 @@ export const FieldsTable = ({ fields }: FieldsTableProps) => {
       </div>
 
       {/* Pagination */}
-      <div className="flex items-center justify-between px-6 py-4 border-t border-gray-200">
-        <div className="text-sm text-gray-700">
+      <div className="flex items-center justify-between px-6 py-4 border-t border-gray-200 dark:border-slate-700">
+        <div className="text-sm text-gray-700 dark:text-slate-300">
           Showing {table.getState().pagination.pageIndex * 50 + 1} to{' '}
           {Math.min(
             (table.getState().pagination.pageIndex + 1) * 50,

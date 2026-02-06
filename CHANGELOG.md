@@ -7,6 +7,13 @@ Format: [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/)
 ## [Unreleased]
 
 ### Eklenen
+- Dark mode tam destek
+  - `src/stores/themeStore.ts` — Zustand tema store (light/dark/system, localStorage persist)
+  - `src/components/ui/ThemeToggle.tsx` — React Aria tema toggle butonu (Sun/Moon/Monitor)
+  - Header'a ThemeToggle eklendi
+  - Tüm UI primitives dark mode desteği (Input, Textarea, Select, MultiSelect, Checkbox, RadioGroup, Dialog, Table, Label)
+  - Tüm feature component'ler dark mode desteği (~50 dosya)
+  - `index.css` dark mode focus ring offset düzeltmesi
 - Records DELETE fonksiyonalitesi
   - `DeleteRecordModal` - React Aria onay modalı
   - `useDeleteRecord` - TanStack Query mutation hook

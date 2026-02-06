@@ -78,7 +78,7 @@ export const CreateApplicationPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-surface-dark-alt">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
@@ -91,8 +91,8 @@ export const CreateApplicationPage = () => {
               <Sparkles className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Create Application</h1>
-              <p className="text-gray-600 mt-1">Build a new no-code application from a template or start from scratch</p>
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Create Application</h1>
+              <p className="text-gray-600 dark:text-slate-400 mt-1">Build a new no-code application from a template or start from scratch</p>
             </div>
           </div>
         </div>
@@ -101,23 +101,23 @@ export const CreateApplicationPage = () => {
         <form onSubmit={handleSubmit} className="space-y-8">
           {/* Submit Error */}
           {errors.submit && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-400 px-4 py-3 rounded-lg">
               {errors.submit}
             </div>
           )}
 
           {/* Template Selection */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+          <div className="bg-white dark:bg-surface-dark rounded-lg border border-gray-200 dark:border-slate-700 p-6 shadow-sm">
             <TemplateSelector selectedTemplateId={selectedTemplate.id} onSelect={handleTemplateSelect} />
           </div>
 
           {/* Application Details */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm space-y-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Application Details</h2>
+          <div className="bg-white dark:bg-surface-dark rounded-lg border border-gray-200 dark:border-slate-700 p-6 shadow-sm space-y-6">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Application Details</h2>
 
             {/* Name */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
                 Name <span className="text-red-500">*</span>
               </label>
               <input
@@ -125,17 +125,17 @@ export const CreateApplicationPage = () => {
                 value={formData.name}
                 onChange={(e) => handleInputChange('name', e.target.value)}
                 placeholder="e.g., crm, itsm, hr_management"
-                className={`w-full px-4 py-2 font-mono border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                  errors.name ? 'border-red-500' : 'border-gray-300'
+                className={`w-full px-4 py-2 font-mono border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-surface-dark-alt dark:text-white dark:placeholder-slate-500 ${
+                  errors.name ? 'border-red-500' : 'border-gray-300 dark:border-slate-600'
                 }`}
               />
               {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
-              <p className="mt-1 text-xs text-gray-500">API name (snake_case recommended)</p>
+              <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">API name (snake_case recommended)</p>
             </div>
 
             {/* Label */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
                 Label <span className="text-red-500">*</span>
               </label>
               <input
@@ -143,57 +143,57 @@ export const CreateApplicationPage = () => {
                 value={formData.label}
                 onChange={(e) => handleInputChange('label', e.target.value)}
                 placeholder="e.g., CRM, IT Service Management"
-                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                  errors.label ? 'border-red-500' : 'border-gray-300'
+                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-surface-dark-alt dark:text-white dark:placeholder-slate-500 ${
+                  errors.label ? 'border-red-500' : 'border-gray-300 dark:border-slate-600'
                 }`}
               />
               {errors.label && <p className="mt-1 text-sm text-red-600">{errors.label}</p>}
-              <p className="mt-1 text-xs text-gray-500">Display name shown in the UI</p>
+              <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">Display name shown in the UI</p>
             </div>
 
             {/* Icon */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Icon</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Icon</label>
               <input
                 type="text"
                 value={formData.icon}
                 onChange={(e) => handleInputChange('icon', e.target.value)}
                 placeholder="e.g., 🤝, 🎫, 👥"
                 maxLength={2}
-                className="w-full px-4 py-2 text-2xl border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 text-2xl border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-surface-dark-alt dark:text-white dark:placeholder-slate-500"
               />
-              <p className="mt-1 text-xs text-gray-500">Enter an emoji to represent this application</p>
+              <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">Enter an emoji to represent this application</p>
             </div>
 
             {/* Description */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">Description</label>
               <textarea
                 value={formData.description}
                 onChange={(e) => handleInputChange('description', e.target.value)}
                 placeholder="Describe the purpose of this application..."
                 rows={4}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none dark:bg-surface-dark-alt dark:text-white dark:placeholder-slate-500"
               />
-              <p className="mt-1 text-xs text-gray-500">Optional description</p>
+              <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">Optional description</p>
             </div>
 
             {/* Template Info */}
             {selectedTemplate.id !== 'blank' && (
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <h3 className="text-sm font-medium text-blue-900 mb-2">Template Configuration</h3>
+              <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-4">
+                <h3 className="text-sm font-medium text-blue-900 dark:text-blue-300 mb-2">Template Configuration</h3>
                 {selectedTemplate.config.suggestedObjects && selectedTemplate.config.suggestedObjects.length > 0 && (
                   <div className="mb-2">
-                    <span className="text-sm text-blue-700">Suggested Objects: </span>
-                    <span className="text-sm text-blue-600">
+                    <span className="text-sm text-blue-700 dark:text-blue-400">Suggested Objects: </span>
+                    <span className="text-sm text-blue-600 dark:text-blue-300">
                       {selectedTemplate.config.suggestedObjects.join(', ')}
                     </span>
                   </div>
                 )}
                 {selectedTemplate.config.features && selectedTemplate.config.features.length > 0 && (
                   <div>
-                    <span className="text-sm text-blue-700">Features: </span>
-                    <span className="text-sm text-blue-600">{selectedTemplate.config.features.join(', ')}</span>
+                    <span className="text-sm text-blue-700 dark:text-blue-400">Features: </span>
+                    <span className="text-sm text-blue-600 dark:text-blue-300">{selectedTemplate.config.features.join(', ')}</span>
                   </div>
                 )}
               </div>

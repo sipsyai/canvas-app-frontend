@@ -46,14 +46,14 @@ export function StatsCard({
               'font-medium flex items-center',
               isPositive && 'text-emerald-600 dark:text-emerald-400',
               isNegative && 'text-red-600 dark:text-red-400',
-              !isPositive && !isNegative && 'text-slate-500'
+              !isPositive && !isNegative && 'text-slate-500 dark:text-slate-400'
             )}
           >
             {isPositive && <TrendingUp className="h-4 w-4 mr-1" />}
             {isNegative && <TrendingDown className="h-4 w-4 mr-1" />}
             {Math.abs(trend)}%
           </span>
-          <span className="text-slate-400 ml-2">{trendLabel}</span>
+          <span className="text-slate-400 dark:text-slate-500 ml-2">{trendLabel}</span>
         </div>
       )}
     </div>

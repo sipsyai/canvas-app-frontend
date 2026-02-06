@@ -89,11 +89,11 @@ export const EditObjectPage = () => {
     return (
       <div className="p-6 max-w-3xl mx-auto">
         <div className="animate-pulse">
-          <div className="h-8 bg-gray-200 rounded w-1/3 mb-6"></div>
+          <div className="h-8 bg-gray-200 dark:bg-slate-700 rounded w-1/3 mb-6"></div>
           <div className="space-y-4">
-            <div className="h-10 bg-gray-200 rounded"></div>
-            <div className="h-10 bg-gray-200 rounded"></div>
-            <div className="h-32 bg-gray-200 rounded"></div>
+            <div className="h-10 bg-gray-200 dark:bg-slate-700 rounded"></div>
+            <div className="h-10 bg-gray-200 dark:bg-slate-700 rounded"></div>
+            <div className="h-32 bg-gray-200 dark:bg-slate-700 rounded"></div>
           </div>
         </div>
       </div>
@@ -113,7 +113,7 @@ export const EditObjectPage = () => {
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Objects
         </Button>
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-400 px-4 py-3 rounded-lg">
           {(error as any)?.message || 'Failed to load object'}
         </div>
       </div>
@@ -133,20 +133,20 @@ export const EditObjectPage = () => {
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Objects
         </Button>
-        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+        <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg p-6">
           <div className="flex gap-3">
             <AlertCircle className="w-6 h-6 text-yellow-600 flex-shrink-0" />
             <div>
-              <h3 className="text-lg font-semibold text-yellow-900 mb-2">
+              <h3 className="text-lg font-semibold text-yellow-900 dark:text-yellow-200 mb-2">
                 System Object Cannot Be Edited
               </h3>
-              <p className="text-yellow-700 mb-4">
+              <p className="text-yellow-700 dark:text-yellow-300 mb-4">
                 This is a system object and cannot be modified. System objects are
                 protected to ensure application stability.
               </p>
-              <div className="bg-white border border-yellow-200 rounded-lg p-4">
-                <p className="text-sm text-gray-600 mb-1">Object: {object.label}</p>
-                <p className="text-sm font-mono text-gray-600">{object.name}</p>
+              <div className="bg-white dark:bg-surface-dark border border-yellow-200 dark:border-yellow-700 rounded-lg p-4">
+                <p className="text-sm text-gray-600 dark:text-slate-400 mb-1">Object: {object.label}</p>
+                <p className="text-sm font-mono text-gray-600 dark:text-slate-400">{object.name}</p>
               </div>
             </div>
           </div>
@@ -169,7 +169,7 @@ export const EditObjectPage = () => {
           Back to Objects
         </Button>
         <h1 className="text-3xl font-bold">Edit Object</h1>
-        <p className="text-gray-600 mt-1">
+        <p className="text-gray-600 dark:text-slate-400 mt-1">
           Update object configuration
         </p>
       </div>
@@ -178,30 +178,30 @@ export const EditObjectPage = () => {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Submit Error */}
         {errors.submit && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-400 px-4 py-3 rounded-lg">
             {errors.submit}
           </div>
         )}
 
         {/* Name (Read-only) */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
             Name (Read-only)
           </label>
           <input
             type="text"
             value={object.name}
             disabled
-            className="w-full px-4 py-2 font-mono border border-gray-300 rounded-lg bg-gray-100 text-gray-600 cursor-not-allowed"
+            className="w-full px-4 py-2 font-mono border border-gray-300 dark:border-slate-600 rounded-lg bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-slate-400 cursor-not-allowed"
           />
-          <p className="mt-1 text-xs text-gray-500">
+          <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">
             Object name cannot be changed after creation
           </p>
         </div>
 
         {/* Label */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
             Label <span className="text-red-500">*</span>
           </label>
           <input
@@ -209,21 +209,21 @@ export const EditObjectPage = () => {
             value={formData.label}
             onChange={(e) => handleInputChange('label', e.target.value)}
             placeholder="e.g., Contact, Account, Product"
-            className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-              errors.label ? 'border-red-500' : 'border-gray-300'
+            className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-surface-dark dark:text-white ${
+              errors.label ? 'border-red-500' : 'border-gray-300 dark:border-slate-600'
             }`}
           />
           {errors.label && (
             <p className="mt-1 text-sm text-red-600">{errors.label}</p>
           )}
-          <p className="mt-1 text-xs text-gray-500">
+          <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">
             Display name shown in the UI
           </p>
         </div>
 
         {/* Category */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
             Category
           </label>
           <select
@@ -231,13 +231,13 @@ export const EditObjectPage = () => {
             onChange={(e) =>
               handleInputChange('category', e.target.value as ObjectCategory)
             }
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-surface-dark dark:text-white"
           >
             <option value="standard">Standard</option>
             <option value="custom">Custom</option>
             <option value="system">System</option>
           </select>
-          <p className="mt-1 text-xs text-gray-500">
+          <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">
             Organization category for this object
           </p>
         </div>
@@ -246,7 +246,7 @@ export const EditObjectPage = () => {
         <div className="grid grid-cols-2 gap-4">
           {/* Icon */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
               Icon
             </label>
             <IconPicker
@@ -257,7 +257,7 @@ export const EditObjectPage = () => {
 
           {/* Color */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
               Color
             </label>
             <ColorPicker
@@ -269,7 +269,7 @@ export const EditObjectPage = () => {
 
         {/* Description */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
             Description
           </label>
           <textarea
@@ -277,13 +277,13 @@ export const EditObjectPage = () => {
             onChange={(e) => handleInputChange('description', e.target.value)}
             placeholder="Describe the purpose of this object..."
             rows={4}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none dark:bg-surface-dark dark:text-white"
           />
-          <p className="mt-1 text-xs text-gray-500">Optional description</p>
+          <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">Optional description</p>
         </div>
 
         {/* Actions */}
-        <div className="flex justify-end gap-3 pt-4 border-t border-gray-200">
+        <div className="flex justify-end gap-3 pt-4 border-t border-gray-200 dark:border-slate-700">
           <Button
             type="button"
             variant="ghost"

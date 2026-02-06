@@ -66,8 +66,8 @@ export function AttachedFieldsList({
   if (isLoading) {
     return (
       <div ref={setNodeRef} className="space-y-2">
-        <h2 className="text-lg font-semibold text-gray-900">Object Fields</h2>
-        <p className="text-sm text-gray-500">Loading...</p>
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Object Fields</h2>
+        <p className="text-sm text-gray-500 dark:text-slate-400">Loading...</p>
       </div>
     );
   }
@@ -75,9 +75,9 @@ export function AttachedFieldsList({
   if (attachedFields.length === 0) {
     return (
       <div ref={setNodeRef} className="space-y-2">
-        <h2 className="text-lg font-semibold text-gray-900">Object Fields</h2>
-        <div className="rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 p-12 text-center">
-          <p className="text-sm text-gray-500">
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Object Fields</h2>
+        <div className="rounded-lg border-2 border-dashed border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-surface-dark-alt p-12 text-center">
+          <p className="text-sm text-gray-500 dark:text-slate-400">
             Drag fields from the right panel to add them to this object
           </p>
         </div>
@@ -88,10 +88,10 @@ export function AttachedFieldsList({
   return (
     <div ref={setNodeRef} className="space-y-4">
       <div>
-        <h2 className="text-lg font-semibold text-gray-900">
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
           Object Fields ({attachedFields.length})
         </h2>
-        <p className="text-sm text-gray-500">Drag to reorder fields</p>
+        <p className="text-sm text-gray-500 dark:text-slate-400">Drag to reorder fields</p>
       </div>
 
       <DndContext onDragEnd={handleDragEnd}>
@@ -160,7 +160,7 @@ function SortableFieldCard({ objectField, onRemove, onSettings, isDeleting }: So
       ref={setNodeRef}
       style={style}
       className={`
-        group flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 shadow-sm
+        group flex items-center gap-3 rounded-lg border border-gray-200 dark:border-slate-700 bg-white dark:bg-surface-dark p-4 shadow-sm
         transition-shadow hover:shadow-md
         ${isDragging ? 'opacity-50 z-50' : ''}
       `}
@@ -171,33 +171,33 @@ function SortableFieldCard({ objectField, onRemove, onSettings, isDeleting }: So
         {...listeners}
         className="cursor-grab active:cursor-grabbing"
       >
-        <GripVertical className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+        <GripVertical className="h-5 w-5 text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:hover:text-slate-300" />
       </div>
 
       {/* Field Info */}
       <div className="flex-1">
         <div className="flex items-center gap-2">
-          <div className="font-medium text-gray-900">
+          <div className="font-medium text-gray-900 dark:text-white">
             {objectField.field?.label || objectField.field?.name || `Field #${objectField.display_order}`}
           </div>
-          <span className="inline-flex items-center rounded bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-600">
+          <span className="inline-flex items-center rounded bg-slate-100 dark:bg-slate-700 px-2 py-0.5 text-xs font-medium text-slate-600 dark:text-slate-300">
             {objectField.field?.type || 'unknown'}
           </span>
         </div>
         <div className="mt-1 flex items-center gap-3 text-sm">
           {objectField.is_required && (
-            <span className="inline-flex items-center rounded bg-red-50 px-2 py-0.5 text-xs font-medium text-red-700">
+            <span className="inline-flex items-center rounded bg-red-50 dark:bg-red-900/20 px-2 py-0.5 text-xs font-medium text-red-700 dark:text-red-400">
               Required
             </span>
           )}
           {!objectField.is_visible && (
-            <span className="inline-flex items-center gap-1 text-gray-500">
+            <span className="inline-flex items-center gap-1 text-gray-500 dark:text-slate-400">
               <EyeOff className="h-3 w-3" />
               <span className="text-xs">Hidden</span>
             </span>
           )}
           {objectField.is_readonly && (
-            <span className="inline-flex items-center gap-1 text-gray-500">
+            <span className="inline-flex items-center gap-1 text-gray-500 dark:text-slate-400">
               <Lock className="h-3 w-3" />
               <span className="text-xs">Read-only</span>
             </span>
@@ -209,7 +209,7 @@ function SortableFieldCard({ objectField, onRemove, onSettings, isDeleting }: So
       <div className="flex gap-1 opacity-0 group-hover:opacity-100">
         <button
           onClick={() => onSettings(objectField)}
-          className="rounded p-2 text-gray-400 hover:bg-blue-50 hover:text-blue-600"
+          className="rounded p-2 text-gray-400 dark:text-slate-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600"
           title="Field settings"
         >
           <Settings className="h-5 w-5" />
@@ -217,7 +217,7 @@ function SortableFieldCard({ objectField, onRemove, onSettings, isDeleting }: So
         <button
           onClick={() => onRemove(objectField.id)}
           disabled={isDeleting}
-          className="rounded p-2 text-gray-400 hover:bg-red-50 hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded p-2 text-gray-400 dark:text-slate-500 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-50"
           title="Remove field from object"
         >
           <Trash2 className="h-5 w-5" />

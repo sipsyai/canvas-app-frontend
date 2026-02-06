@@ -73,7 +73,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
     return (
       <div className={cn('w-full', className)}>
         {label && (
-          <Label className="block text-sm font-medium text-gray-700 mb-2">
+          <Label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
             {label}
           </Label>
         )}
@@ -92,15 +92,15 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
               'focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent',
               'disabled:opacity-50 disabled:cursor-not-allowed',
               error
-                ? 'border-red-300 bg-red-50 text-red-900'
-                : 'border-gray-300 bg-white text-gray-900 hover:border-gray-400'
+                ? 'border-red-300 bg-red-50 text-red-900 dark:border-red-700 dark:bg-red-900/20 dark:text-red-300'
+                : 'border-gray-300 bg-white text-gray-900 hover:border-gray-400 dark:border-slate-600 dark:bg-surface-dark dark:text-white dark:hover:border-slate-500'
             )}
           >
             <SelectValue className="flex-1 text-left">
               {({ selectedText }) => (
                 <span
                   className={cn(
-                    !value && 'text-gray-400'
+                    !value && 'text-gray-400 dark:text-slate-500'
                   )}
                 >
                   {selectedText || selectedLabel}
@@ -109,7 +109,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
             </SelectValue>
             <ChevronDown
               className={cn(
-                'h-5 w-5 text-gray-500 transition-transform',
+                'h-5 w-5 text-gray-500 dark:text-slate-400 transition-transform',
                 'group-data-[open]:rotate-180'
               )}
             />
@@ -117,21 +117,21 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
 
           <Popover
             className={cn(
-              'w-[--trigger-width] mt-1 rounded-lg border border-gray-200 bg-white shadow-lg',
+              'w-[--trigger-width] mt-1 rounded-lg border border-gray-200 bg-white shadow-lg dark:border-slate-700 dark:bg-surface-dark',
               'data-[entering]:animate-in data-[entering]:fade-in data-[entering]:zoom-in-95',
               'data-[exiting]:animate-out data-[exiting]:fade-out data-[exiting]:zoom-out-95',
               'max-h-60 overflow-hidden'
             )}
           >
             {searchable && (
-              <div className="p-2 border-b border-gray-200">
+              <div className="p-2 border-b border-gray-200 dark:border-slate-700">
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search..."
                   className={cn(
-                    'w-full px-3 py-2 rounded border border-gray-300',
+                    'w-full px-3 py-2 rounded border border-gray-300 dark:border-slate-600 dark:bg-surface-dark-alt dark:text-white',
                     'focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent',
                     'text-sm'
                   )}
@@ -141,7 +141,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
 
             <ListBox className="overflow-y-auto max-h-48 p-1">
               {filteredOptions.length === 0 ? (
-                <div className="px-3 py-2 text-sm text-gray-500 text-center">
+                <div className="px-3 py-2 text-sm text-gray-500 dark:text-slate-400 text-center">
                   No options found
                 </div>
               ) : (

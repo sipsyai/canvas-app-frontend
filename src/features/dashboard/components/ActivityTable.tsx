@@ -97,7 +97,7 @@ export function ActivityTable({ items, onViewAll }: ActivityTableProps) {
                     {item.date}
                   </td>
                   <td className="px-6 py-4 text-right">
-                    <button className="text-slate-400 hover:text-primary transition-colors">
+                    <button className="text-slate-400 dark:text-slate-500 hover:text-primary transition-colors">
                       <MoreHorizontal className="h-5 w-5" />
                     </button>
                   </td>

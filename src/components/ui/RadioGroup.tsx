@@ -57,7 +57,7 @@ export const RadioGroup = ({
       aria-label={label || name}
     >
       {label && (
-        <Label className="text-sm font-medium text-gray-700 mb-2 block">
+        <Label className="text-sm font-medium text-gray-700 dark:text-slate-300 mb-2 block">
           {label}
           {isRequired && <span className="text-red-500 ml-1">*</span>}
         </Label>
@@ -84,7 +84,7 @@ export const RadioGroup = ({
                     'mt-1 h-4 w-4 rounded-full border-2 flex items-center justify-center transition-all',
                     isSelected
                       ? 'border-primary bg-primary'
-                      : 'border-gray-300 bg-white',
+                      : 'border-gray-300 bg-white dark:border-slate-600 dark:bg-surface-dark',
                     isDisabled && 'opacity-50 cursor-not-allowed',
                     isFocusVisible &&
                       'ring-2 ring-primary ring-offset-2'
@@ -95,13 +95,13 @@ export const RadioGroup = ({
                   )}
                 </div>
                 <div className={cn('flex-1', isDisabled && 'opacity-50')}>
-                  <div className="text-sm font-medium text-gray-700">
+                  <div className="text-sm font-medium text-gray-700 dark:text-slate-300">
                     {option.label}
                   </div>
                   {option.description && (
                     <Text
                       slot="description"
-                      className="text-xs text-gray-500 mt-0.5"
+                      className="text-xs text-gray-500 dark:text-slate-400 mt-0.5"
                     >
                       {option.description}
                     </Text>
