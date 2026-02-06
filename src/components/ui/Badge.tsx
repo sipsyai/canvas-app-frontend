@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { type VariantProps, cva } from 'class-variance-authority';
 import { cn } from '@/lib/utils/cn';
 
@@ -33,7 +34,7 @@ const badgeVariants = cva(
 );
 
 interface BadgeProps extends VariantProps<typeof badgeVariants> {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 }
 

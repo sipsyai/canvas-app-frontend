@@ -20,7 +20,6 @@ export interface SelectOption {
 export interface SelectProps {
   options: SelectOption[];
   value?: string | number;
-  // eslint-disable-next-line no-unused-vars
   onChange?: (value: string | number) => void;
   placeholder?: string;
   label?: string;

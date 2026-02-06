@@ -59,7 +59,7 @@ export const FieldRenderer = ({ type, value, field }: FieldRendererProps) => {
         </a>
       );
 
-    case 'phone':
+    case 'phone': {
       const formattedPhone = formatPhoneNumber(value);
       return (
         <a
@@ -70,8 +70,9 @@ export const FieldRenderer = ({ type, value, field }: FieldRendererProps) => {
           {formattedPhone}
         </a>
       );
+    }
 
-    case 'url':
+    case 'url': {
       const displayUrl = formatUrlForDisplay(value);
       return (
         <a
@@ -84,6 +85,7 @@ export const FieldRenderer = ({ type, value, field }: FieldRendererProps) => {
           {displayUrl}
         </a>
       );
+    }
 
     case 'checkbox':
       return (
@@ -131,21 +133,23 @@ export const FieldRenderer = ({ type, value, field }: FieldRendererProps) => {
         </span>
       );
 
-    case 'currency':
+    case 'currency': {
       const currency = field.config?.currency || 'USD';
       return (
         <span className="text-gray-700 font-mono tabular-nums">
           {formatCurrency(value, currency)}
         </span>
       );
+    }
 
-    case 'textarea':
+    case 'textarea': {
       const truncated = truncateText(value, 50);
       return (
         <span className="text-gray-700" title={value}>
           {truncated}
         </span>
       );
+    }
 
     case 'percentage':
       return (

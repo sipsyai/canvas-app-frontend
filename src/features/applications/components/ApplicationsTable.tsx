@@ -105,7 +105,7 @@ export const ApplicationsTable = ({ applications }: ApplicationsTableProps) => {
         },
       },
     ],
-    [navigate]
+    []
   );
 
   const table = useReactTable({

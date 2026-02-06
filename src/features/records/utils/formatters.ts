@@ -15,7 +15,7 @@ export const formatDate = (dateString: string): string => {
   try {
     const date = new Date(dateString);
     return format(date, 'dd MMM yyyy');
-  } catch (error) {
+  } catch {
     return dateString;
   }
 };
@@ -29,7 +29,7 @@ export const formatDateTime = (dateTimeString: string): string => {
   try {
     const date = new Date(dateTimeString);
     return format(date, 'dd MMM yyyy, HH:mm');
-  } catch (error) {
+  } catch {
     return dateTimeString;
   }
 };

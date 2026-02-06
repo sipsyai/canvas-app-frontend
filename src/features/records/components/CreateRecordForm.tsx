@@ -20,7 +20,7 @@ export const CreateRecordForm = ({ objectId, onSuccess, onCancel }: CreateRecord
     isLoading: isLoadingFields
   } = useDynamicForm(objectId);
 
-  const { register, handleSubmit, formState: { errors }, control, setValue, watch } = useForm({
+  const { handleSubmit, formState: { errors }, control, watch } = useForm({
     resolver: zodResolver(schema),
     defaultValues,
   });
@@ -53,9 +53,7 @@ export const CreateRecordForm = ({ objectId, onSuccess, onCancel }: CreateRecord
           <DynamicFormField
             key={field.field_id}
             field={field}
-            register={register}
             control={control}
-            setValue={setValue}
             watch={watch}
             error={errors[field.field_id]?.message as string | undefined}
           />

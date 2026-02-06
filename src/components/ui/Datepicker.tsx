@@ -8,7 +8,7 @@
  * - No external date library dependencies
  */
 
-import { useId } from 'react';
+import { useId, type ChangeEvent } from 'react';
 import { Calendar as CalendarIcon } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 
@@ -39,7 +39,7 @@ export const Datepicker = ({
   const id = useId();
   const errorId = `${id}-error`;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange?.(e.target.value);
   };
 

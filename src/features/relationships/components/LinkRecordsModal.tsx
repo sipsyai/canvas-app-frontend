@@ -7,7 +7,7 @@
  * - Optional relationship notes
  */
 
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { useCreateRelationshipRecord } from '@/lib/hooks/useRelationships';
 import { useRecords } from '@/features/records/hooks/useRecords';
 import { Button } from '@/components/ui/Button';
@@ -57,7 +57,7 @@ export function LinkRecordsModal({
     return recordName.includes(searchQuery.toLowerCase());
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     if (!selectedRecordId) {

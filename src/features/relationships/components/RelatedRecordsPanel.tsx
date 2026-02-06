@@ -33,6 +33,7 @@ interface RelatedRecordsPanelProps {
   recordName: string;
   relationship: Relationship;
   currentObjectId: string;
+  getRecordDetailUrl?: (objectId: string, recordId: string) => string;
 }
 
 export function RelatedRecordsPanel({
@@ -40,6 +41,7 @@ export function RelatedRecordsPanel({
   recordName,
   relationship,
   currentObjectId,
+  getRecordDetailUrl,
 }: RelatedRecordsPanelProps) {
   const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
   const navigate = useNavigate();
@@ -79,7 +81,10 @@ export function RelatedRecordsPanel({
   };
 
   const handleNavigateToRecord = (targetRecordId: string) => {
-    navigate(`/objects/${targetObjectId}/records/${targetRecordId}`);
+    const url = getRecordDetailUrl
+      ? getRecordDetailUrl(targetObjectId, targetRecordId)
+      : `/objects/${targetObjectId}/records/${targetRecordId}`;
+    navigate(url);
   };
 
   return (

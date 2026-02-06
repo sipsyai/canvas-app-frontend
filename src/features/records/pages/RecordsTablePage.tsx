@@ -28,16 +28,6 @@ export const RecordsTablePage = () => {
   const queryClient = useQueryClient();
   const { setBreadcrumbs } = useNavigationStore();
 
-  if (!objectId) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
-          <p className="text-red-700 dark:text-red-400">Error: Object ID is missing</p>
-        </div>
-      </div>
-    );
-  }
-
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -48,14 +38,14 @@ export const RecordsTablePage = () => {
   });
 
   // Fetch object details
-  const { data: object } = useObject(objectId);
+  const { data: object } = useObject(objectId || '');
 
   // Fetch object fields (for dynamic columns)
   const {
     data: fields,
     isLoading: fieldsLoading,
     error: fieldsError,
-  } = useObjectFields(objectId);
+  } = useObjectFields(objectId || '');
 
   // Fetch records
   const {
@@ -63,7 +53,7 @@ export const RecordsTablePage = () => {
     isLoading: recordsLoading,
     error: recordsError,
   } = useRecords({
-    objectId,
+    objectId: objectId || '',
     page: tableState.page,
     pageSize: tableState.pageSize,
   });
@@ -81,7 +71,7 @@ export const RecordsTablePage = () => {
   // Sorting state for TanStack Table (start with no sorting)
   const [sorting, setSorting] = useState<SortingState>([]);
 
-  const handleSortingChange = (updater: SortingState | ((old: SortingState) => SortingState)) => {
+  const handleSortingChange = (updater: SortingState | ((_prev: SortingState) => SortingState)) => {
     const newSorting = typeof updater === 'function' ? updater(sorting) : updater;
     if (newSorting.length > 0) {
       tableState.setSortBy(newSorting[0].id);
@@ -89,6 +79,16 @@ export const RecordsTablePage = () => {
     }
     setSorting(newSorting);
   };
+
+  if (!objectId) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
+          <p className="text-red-700 dark:text-red-400">Error: Object ID is missing</p>
+        </div>
+      </div>
+    );
+  }
 
   const handleRowClick = (record: DataRecord) => {
     navigate(`/objects/${objectId}/records/${record.id}`);
@@ -113,12 +113,6 @@ export const RecordsTablePage = () => {
 
   const handleViewDetails = (record: DataRecord) => {
     navigate(`/objects/${objectId}/records/${record.id}`);
-  };
-
-   
-  const handleRefresh = () => {
-    queryClient.invalidateQueries({ queryKey: ['records', objectId] });
-    queryClient.invalidateQueries({ queryKey: ['object-fields', objectId] });
   };
 
   // Loading state

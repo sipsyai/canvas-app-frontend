@@ -7,7 +7,7 @@
  * - Field labels configuration
  */
 
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { useCreateRelationship } from '@/lib/hooks/useRelationships';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -42,7 +42,7 @@ export function CreateRelationshipModal({
 
   const createMutation = useCreateRelationship();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     try {

@@ -91,7 +91,7 @@ test.describe('Login Page - Comprehensive Review Tests', () => {
     await page.waitForTimeout(500);
 
     // Check if input type changed to "text"
-    const inputType = await page.locator('input').filter({ has: page.locator('[type="text"]') }).count();
+    const _inputType = await page.locator('input').filter({ has: page.locator('[type="text"]') }).count();
 
     // Take screenshot of visible password
     await page.screenshot({ path: '.playwright-mcp/password-visible-test.png', fullPage: true });

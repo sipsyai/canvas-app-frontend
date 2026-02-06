@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type FormEvent } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useObject, useUpdateObject } from '@/hooks/useObjects';
 import { ObjectUpdateRequest, ObjectCategory } from '@/types/object.types';
@@ -48,7 +48,7 @@ export const EditObjectPage = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     if (!validateForm()) {

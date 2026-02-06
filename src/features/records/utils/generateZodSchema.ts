@@ -36,7 +36,7 @@ export const generateZodSchema = (
       // Phone validation (basic)
       if (fieldType === 'phone') {
         schema = (schema as z.ZodString).regex(
-          /^[\d\s\+\-\(\)]+$/,
+          /^[\d\s+\-()]+$/,
           'Enter a valid phone number'
         );
       }

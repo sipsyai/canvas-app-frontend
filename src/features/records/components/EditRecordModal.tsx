@@ -5,7 +5,7 @@
  * Pre-populates form with existing record data.
  */
 
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Modal, Dialog, Heading } from 'react-aria-components';
@@ -40,7 +40,7 @@ export function EditRecordModal({
   const { mutate: updateRecord, isPending } = useUpdateRecord({ objectId });
 
   // Build default values from record data
-  const getDefaultValues = () => {
+  const getDefaultValues = useCallback(() => {
     if (!record || !fields.length) return {};
 
     const values: Record<string, any> = {};
@@ -48,14 +48,12 @@ export function EditRecordModal({
       values[field.field_id] = record.data[field.field_id] ?? '';
     });
     return values;
-  };
+  }, [record, fields]);
 
   const {
-    register,
     handleSubmit,
     formState: { errors },
     control,
-    setValue,
     watch,
     reset,
   } = useForm({
@@ -69,7 +67,7 @@ export function EditRecordModal({
       const values = getDefaultValues();
       reset(values);
     }
-  }, [record, fields, reset]);
+  }, [record, fields, reset, getDefaultValues]);
 
   const onSubmit = (formData: Record<string, any>) => {
     if (!record) return;
@@ -138,9 +136,7 @@ export function EditRecordModal({
                     <DynamicFormField
                       key={field.field_id}
                       field={field}
-                      register={register}
                       control={control}
-                      setValue={setValue}
                       watch={watch}
                       error={errors[field.field_id]?.message as string | undefined}
                     />

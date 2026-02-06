@@ -20,6 +20,7 @@ import { EditApplicationPage } from '@/features/applications/pages/EditApplicati
 import { ApplicationLayout } from '@/features/applications/components/ApplicationLayout';
 import { ApplicationHomePage } from '@/features/applications/pages/ApplicationHomePage';
 import { ApplicationObjectPage } from '@/features/applications/pages/ApplicationObjectPage';
+import { ApplicationRecordDetailPage } from '@/features/applications/pages/ApplicationRecordDetailPage';
 import { AppsHomePage } from '@/features/apps/pages/AppsHomePage';
 
 function AppRouter() {
@@ -142,6 +143,7 @@ function AppRouter() {
         <Route path="/applications/:appId" element={<ApplicationLayout />}>
           <Route index element={<ApplicationHomePage />} />
           <Route path=":objectId" element={<ApplicationObjectPage />} />
+          <Route path=":objectId/records/:recordId" element={<ApplicationRecordDetailPage />} />
         </Route>
 
         {/* Applications Mode Routes (/apps) */}
@@ -158,6 +160,7 @@ function AppRouter() {
         <Route path="/apps/:appId" element={<ApplicationLayout basePath="/apps" />}>
           <Route index element={<ApplicationHomePage />} />
           <Route path=":objectId" element={<ApplicationObjectPage />} />
+          <Route path=":objectId/records/:recordId" element={<ApplicationRecordDetailPage />} />
         </Route>
       </Route>
 

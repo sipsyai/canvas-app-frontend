@@ -1,23 +1,22 @@
 /**
- * RecordDetailPage Component
+ * Application Record Detail Page
  *
- * Multi-view record detail page with Stitch design
- * - Tabbed interface: Overview, Related Records, Activity
- * - Two-column layout on large screens
- * - Responsive sidebar cards
+ * Record detail page within application runtime context.
+ * Keeps navigation within the application (sidebar stays visible).
+ * Uses EditRecordModal for inline editing instead of navigating away.
  */
 
-import { useCallback, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useState, useCallback, type ReactElement } from 'react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useRecord } from '@/features/records/hooks/useRecords';
 import { useObjectRelationships } from '@/lib/hooks/useRelationships';
 import { useObject } from '@/features/objects/hooks/useObjects';
-import { useNavigationStore } from '@/stores/navigationStore';
+import { EditRecordModal } from '@/features/records/components/EditRecordModal';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { Card, CardHeader, CardContent } from '@/components/ui/Card';
 import { Tabs, TabList, Tab, TabPanel } from '@/components/ui/Tabs';
-import { RelatedRecordsPanel } from '../components/RelatedRecordsPanel';
+import { RelatedRecordsPanel } from '@/features/relationships/components/RelatedRecordsPanel';
 import {
   ArrowLeft,
   Edit,
@@ -34,40 +33,42 @@ import {
   FileText,
 } from 'lucide-react';
 
-export function RecordDetailPage() {
-  const { objectId, recordId } = useParams<{ objectId: string; recordId: string }>();
+export function ApplicationRecordDetailPage(): ReactElement | null {
+  const { appId, objectId, recordId } = useParams<{
+    appId: string;
+    objectId: string;
+    recordId: string;
+  }>();
   const navigate = useNavigate();
-  const { setBreadcrumbs } = useNavigationStore();
+  const location = useLocation();
+
+  const basePath = location.pathname.startsWith('/apps') ? '/apps' : '/applications';
+
+  const [showEditModal, setShowEditModal] = useState(false);
 
   const { data: record, isLoading: isLoadingRecord } = useRecord(objectId!, recordId!);
   const { data: relationships, isLoading: isLoadingRelationships } =
     useObjectRelationships(objectId);
   const { data: object } = useObject(objectId!);
 
-  const getRecordDisplayName = useCallback(() => {
+  const getRecordDisplayName = (): string => {
     if (!record) return 'Record';
 
-    // Try to find a name-like field
     const nameField = Object.entries(record.data).find(([key]) =>
       key.toLowerCase().includes('name')
     );
     if (nameField) return String(nameField[1]);
 
-    // Fall back to first field value
     const firstValue = Object.values(record.data)[0];
     return firstValue ? String(firstValue) : record.id;
-  }, [record]);
+  };
 
-  // Update breadcrumbs
-  useEffect(() => {
-    if (object && record) {
-      setBreadcrumbs([
-        { label: 'Objects', href: '/objects' },
-        { label: object.label, href: `/objects/${objectId}/records` },
-        { label: getRecordDisplayName() },
-      ]);
-    }
-  }, [object, record, objectId, setBreadcrumbs, getRecordDisplayName]);
+  const getRecordDetailUrl = useCallback(
+    (targetObjectId: string, targetRecordId: string): string => {
+      return `${basePath}/${appId}/${targetObjectId}/records/${targetRecordId}`;
+    },
+    [basePath, appId]
+  );
 
   // Loading state
   if (isLoadingRecord || isLoadingRelationships) {
@@ -93,7 +94,7 @@ export function RecordDetailPage() {
           <p className="text-red-700 dark:text-red-400">Record not found</p>
           <Button
             variant="secondary"
-            onClick={() => navigate(`/objects/${objectId}/records`)}
+            onPress={() => navigate(`${basePath}/${appId}/${objectId}`)}
             className="mt-4"
           >
             <ArrowLeft className="w-4 h-4" />
@@ -107,8 +108,7 @@ export function RecordDetailPage() {
   const recordName = getRecordDisplayName();
   const objectLabel = object?.label || objectId;
 
-  // Helper to get field icon based on key name
-  const getFieldIcon = (key: string) => {
+  const getFieldIcon = (key: string): ReactElement => {
     const lowerKey = key.toLowerCase();
     if (lowerKey.includes('email')) return <Mail className="h-4 w-4" />;
     if (lowerKey.includes('phone')) return <Phone className="h-4 w-4" />;
@@ -120,7 +120,6 @@ export function RecordDetailPage() {
     return <FileText className="h-4 w-4" />;
   };
 
-  // Separate fields into primary and secondary
   const allFields = Object.entries(record.data);
   const primaryFields = allFields.slice(0, 4);
   const secondaryFields = allFields.slice(4);
@@ -130,7 +129,7 @@ export function RecordDetailPage() {
       {/* Back Button */}
       <Button
         variant="ghost"
-        onClick={() => navigate(`/objects/${objectId}/records`)}
+        onPress={() => navigate(`${basePath}/${appId}/${objectId}`)}
         className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
       >
         <ArrowLeft className="w-4 h-4" />
@@ -168,10 +167,7 @@ export function RecordDetailPage() {
 
             {/* Actions */}
             <div className="flex items-center gap-2 shrink-0">
-              <Button
-                variant="secondary"
-                onClick={() => navigate(`/objects/${objectId}/records/${recordId}/edit`)}
-              >
+              <Button variant="secondary" onPress={() => setShowEditModal(true)}>
                 <Edit className="h-4 w-4" />
                 Edit
               </Button>
@@ -303,18 +299,10 @@ export function RecordDetailPage() {
                     <Button
                       variant="secondary"
                       className="w-full justify-start"
-                      onClick={() => navigate(`/objects/${objectId}/records/${recordId}/edit`)}
+                      onPress={() => setShowEditModal(true)}
                     >
                       <Edit className="h-4 w-4" />
                       Edit Record
-                    </Button>
-                    <Button
-                      variant="secondary"
-                      className="w-full justify-start"
-                      onClick={() => navigate(`/objects/${objectId}/relationships`)}
-                    >
-                      <LinkIcon className="h-4 w-4" />
-                      Manage Relationships
                     </Button>
                   </div>
                 </CardContent>
@@ -334,6 +322,7 @@ export function RecordDetailPage() {
                   recordName={recordName}
                   relationship={relationship}
                   currentObjectId={objectId!}
+                  getRecordDetailUrl={getRecordDetailUrl}
                 />
               ))}
             </div>
@@ -346,12 +335,9 @@ export function RecordDetailPage() {
                 <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
                   No Relationships Defined
                 </h3>
-                <p className="text-slate-500 dark:text-slate-400 mb-6 max-w-md mx-auto">
-                  Create relationships between this object and others to link related records.
+                <p className="text-slate-500 dark:text-slate-400 max-w-md mx-auto">
+                  This object doesn't have any relationships configured yet.
                 </p>
-                <Button onClick={() => navigate(`/objects/${objectId}/relationships`)}>
-                  Define Relationships
-                </Button>
               </CardContent>
             </Card>
           )}
@@ -374,6 +360,15 @@ export function RecordDetailPage() {
           </Card>
         </TabPanel>
       </Tabs>
+
+      {/* Edit Record Modal */}
+      <EditRecordModal
+        isOpen={showEditModal}
+        onClose={() => setShowEditModal(false)}
+        onSuccess={() => setShowEditModal(false)}
+        objectId={objectId!}
+        record={record}
+      />
     </div>
   );
 }

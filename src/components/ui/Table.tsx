@@ -22,7 +22,6 @@ import { cn } from '@/lib/utils/cn';
 export interface TableProps<T extends Record<string, any>> {
   data: T[];
   columns: ColumnDef<T>[];
-  // eslint-disable-next-line no-unused-vars
   onRowClick?: (row: T) => void;
   enableSorting?: boolean;
   enablePagination?: boolean;

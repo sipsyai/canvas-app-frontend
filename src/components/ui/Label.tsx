@@ -7,12 +7,13 @@
  * - Proper semantic structure
  */
 
+import type { ReactNode } from 'react';
 import { Label as AriaLabel } from 'react-aria-components';
 import type { LabelProps as AriaLabelProps } from 'react-aria-components';
 import { cn } from '@/lib/utils/cn';
 
 export interface LabelProps extends AriaLabelProps {
-  children: React.ReactNode;
+  children: ReactNode;
   required?: boolean;
   className?: string;
 }

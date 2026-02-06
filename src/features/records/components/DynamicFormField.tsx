@@ -37,7 +37,6 @@ export const DynamicFormField = ({
   const label = field.field.label;
   const isRequired = field.is_required;
   const isReadonly = field.is_readonly;
-  const validation = field.field_overrides?.validation || {};
   const options = field.field_overrides?.options || [];
 
   if (['text', 'email', 'phone', 'url'].includes(fieldType)) {
@@ -71,7 +70,7 @@ export const DynamicFormField = ({
             label={label}
             type="number"
             value={controllerField.value || ''}
-            onChange={(e) => controllerField.onChange(Number(e.target.value))}
+            onChange={(value) => controllerField.onChange(Number(value))}
             isRequired={isRequired}
             isDisabled={isReadonly}
             error={error}
@@ -149,8 +148,7 @@ export const DynamicFormField = ({
             options={options}
             value={controllerField.value}
             onChange={controllerField.onChange}
-            isRequired={isRequired}
-            isDisabled={isReadonly}
+            disabled={isReadonly}
             error={error}
           />
         )}
@@ -170,7 +168,7 @@ export const DynamicFormField = ({
             value={controllerField.value || []}
             onChange={controllerField.onChange}
             isRequired={isRequired}
-            isDisabled={isReadonly}
+            disabled={isReadonly}
             error={error}
           />
         )}
@@ -190,7 +188,7 @@ export const DynamicFormField = ({
             value={controllerField.value}
             onChange={controllerField.onChange}
             isRequired={isRequired}
-            isDisabled={isReadonly}
+            disabled={isReadonly}
             error={error}
           />
         )}

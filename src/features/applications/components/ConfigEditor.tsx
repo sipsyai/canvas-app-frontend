@@ -16,7 +16,7 @@ export const ConfigEditor = ({ config, onChange }: ConfigEditorProps) => {
       setJsonText(JSON.stringify(config, null, 2));
       setIsValid(true);
       setError(null);
-    } catch (err) {
+    } catch {
       setError('Failed to parse config');
       setIsValid(false);
     }
@@ -47,7 +47,7 @@ export const ConfigEditor = ({ config, onChange }: ConfigEditorProps) => {
       setError(null);
       setIsValid(true);
       onChange(parsed);
-    } catch (err) {
+    } catch {
       setError('Cannot format invalid JSON');
     }
   };

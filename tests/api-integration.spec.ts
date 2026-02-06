@@ -19,7 +19,7 @@ const BASE_URL = 'http://localhost:5173';
 const API_BASE_URL = 'http://localhost:8000';
 
 // Helper function to mock API responses
-async function mockAPIResponse(
+async function _mockAPIResponse(
   page: Page,
   url: string,
   method: 'GET' | 'POST' | 'PATCH' | 'DELETE',
@@ -85,7 +85,7 @@ test.describe('API Client Configuration', () => {
       const { apiClient } = await import('/src/lib/api/client.ts');
       try {
         await apiClient.get('/api/auth/me');
-      } catch (error) {
+      } catch (_error) {
         // Ignore errors, we just want to check headers
       }
     });
@@ -121,7 +121,7 @@ test.describe('API Client Configuration', () => {
       const { apiClient } = await import('/src/lib/api/client.ts');
       try {
         await apiClient.get('/api/auth/me');
-      } catch (error) {
+      } catch (_error) {
         // Expected to fail
       }
     });
@@ -223,7 +223,7 @@ test.describe('Authentication API', () => {
       const { authAPI } = await import('/src/lib/api/auth.api.ts');
       try {
         await authAPI.login('test@example.com', 'testpass123');
-      } catch (error) {
+      } catch (_error) {
         // Ignore
       }
     });
@@ -273,7 +273,7 @@ test.describe('Authentication API', () => {
           password: 'securepass123',
           fullName: 'New User',
         });
-      } catch (error) {
+      } catch (_error) {
         // Ignore
       }
     });
@@ -323,7 +323,7 @@ test.describe('Authentication API', () => {
       const { authAPI } = await import('/src/lib/api/auth.api.ts');
       try {
         await authAPI.getCurrentUser();
-      } catch (error) {
+      } catch (_error) {
         // Ignore
       }
     });
@@ -360,7 +360,7 @@ test.describe('Authentication API', () => {
       const { authAPI } = await import('/src/lib/api/auth.api.ts');
       try {
         await authAPI.logout();
-      } catch (error) {
+      } catch (_error) {
         // Ignore
       }
     });
@@ -412,7 +412,7 @@ test.describe('Fields API', () => {
           type: 'text',
           category: 'basic',
         });
-      } catch (error) {
+      } catch (_error) {
         // Ignore
       }
     });
@@ -451,7 +451,7 @@ test.describe('Fields API', () => {
           page: 1,
           page_size: 20,
         });
-      } catch (error) {
+      } catch (_error) {
         // Ignore
       }
     });
@@ -497,7 +497,7 @@ test.describe('Fields API', () => {
       const { fieldsAPI } = await import('/src/lib/api/fields.api.ts');
       try {
         await fieldsAPI.getById('fld_12345678');
-      } catch (error) {
+      } catch (_error) {
         // Ignore
       }
     });
@@ -542,7 +542,7 @@ test.describe('Fields API', () => {
         await fieldsAPI.update('fld_12345678', {
           label: 'Updated Label',
         });
-      } catch (error) {
+      } catch (_error) {
         // Ignore
       }
     });
@@ -572,7 +572,7 @@ test.describe('Fields API', () => {
       const { fieldsAPI } = await import('/src/lib/api/fields.api.ts');
       try {
         await fieldsAPI.delete('fld_12345678');
-      } catch (error) {
+      } catch (_error) {
         // Ignore
       }
     });
@@ -621,7 +621,7 @@ test.describe('Objects API', () => {
           label: 'Test Object',
           category: 'custom',
         });
-      } catch (error) {
+      } catch (_error) {
         // Ignore
       }
     });
@@ -658,7 +658,7 @@ test.describe('Objects API', () => {
           page: 2,
           page_size: 50,
         });
-      } catch (error) {
+      } catch (_error) {
         // Ignore
       }
     });
@@ -708,7 +708,7 @@ test.describe('Records API', () => {
           object_id: 'obj_12345678',
           data: { name: 'Test Record' },
         });
-      } catch (error) {
+      } catch (_error) {
         // Ignore
       }
     });
@@ -745,7 +745,7 @@ test.describe('Records API', () => {
           page: 1,
           page_size: 10,
         });
-      } catch (error) {
+      } catch (_error) {
         // Ignore
       }
     });
@@ -784,7 +784,7 @@ test.describe('Records API', () => {
           page: 1,
           page_size: 20,
         });
-      } catch (error) {
+      } catch (_error) {
         // Ignore
       }
     });
@@ -828,7 +828,7 @@ test.describe('Records API', () => {
         await recordsAPI.update('rec_12345678', {
           data: { name: 'Updated Record' },
         });
-      } catch (error) {
+      } catch (_error) {
         // Ignore
       }
     });

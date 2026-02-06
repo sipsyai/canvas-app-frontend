@@ -6,7 +6,7 @@
  */
 
 import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 import type { SortingState } from '@tanstack/react-table';
 import { ChevronLeft, ChevronRight, Plus, Download, Search, Filter, SortAsc, Columns } from 'lucide-react';
@@ -29,17 +29,11 @@ import type { DataRecord } from '@/types/record.types';
 export function ApplicationObjectPage() {
   const { appId, objectId } = useParams<{ appId: string; objectId: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
   const queryClient = useQueryClient();
 
-  if (!objectId || !appId) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
-          <p className="text-red-700 dark:text-red-400">Error: Object ID is missing</p>
-        </div>
-      </div>
-    );
-  }
+  // Determine basePath from current URL
+  const basePath = location.pathname.startsWith('/apps') ? '/apps' : '/applications';
 
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -55,14 +49,14 @@ export function ApplicationObjectPage() {
   });
 
   // Fetch object details
-  const { data: object } = useObject(objectId);
+  const { data: object } = useObject(objectId || '');
 
   // Fetch object fields (for dynamic columns)
   const {
     data: fields,
     isLoading: fieldsLoading,
     error: fieldsError,
-  } = useObjectFields(objectId);
+  } = useObjectFields(objectId || '');
 
   // Fetch records
   const {
@@ -70,18 +64,28 @@ export function ApplicationObjectPage() {
     isLoading: recordsLoading,
     error: recordsError,
   } = useRecords({
-    objectId,
+    objectId: objectId || '',
     page: tableState.page,
     pageSize: tableState.pageSize,
   });
 
   // Delete record mutation
-  const { mutate: deleteRecord, isPending: isDeleting } = useDeleteRecord({ objectId });
+  const { mutate: deleteRecord, isPending: isDeleting } = useDeleteRecord({ objectId: objectId || '' });
 
   // Sorting state for TanStack Table (start with no sorting)
   const [sorting, setSorting] = useState<SortingState>([]);
 
-  const handleSortingChange = (updater: SortingState | ((old: SortingState) => SortingState)) => {
+  if (!objectId || !appId) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
+          <p className="text-red-700 dark:text-red-400">Error: Object ID is missing</p>
+        </div>
+      </div>
+    );
+  }
+
+  const handleSortingChange = (updater: SortingState | ((_prev: SortingState) => SortingState)) => {
     const newSorting = typeof updater === 'function' ? updater(sorting) : updater;
     if (newSorting.length > 0) {
       tableState.setSortBy(newSorting[0].id);
@@ -92,7 +96,7 @@ export function ApplicationObjectPage() {
 
   const handleRowClick = (record: DataRecord) => {
     // Navigate to record detail within application context
-    navigate(`/objects/${objectId}/records/${record.id}`);
+    navigate(`${basePath}/${appId}/${objectId}/records/${record.id}`);
   };
 
   const handleEdit = (record: DataRecord) => {
@@ -143,7 +147,7 @@ export function ApplicationObjectPage() {
   };
 
   const handleViewDetails = (record: DataRecord) => {
-    navigate(`/objects/${objectId}/records/${record.id}`);
+    navigate(`${basePath}/${appId}/${objectId}/records/${record.id}`);
   };
 
   // Loading state

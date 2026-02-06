@@ -74,7 +74,7 @@ export const getTokenRemainingTime = (): number => {
 
     const remainingMs = (exp * 1000) - Date.now();
     return Math.max(0, Math.floor(remainingMs / 1000));
-  } catch (error) {
+  } catch {
     return 0;
   }
 };
@@ -90,7 +90,7 @@ export const getTokenExpiry = (): number | null => {
   try {
     const payload = JSON.parse(atob(token.split('.')[1]));
     return payload.exp * 1000; // Convert to milliseconds
-  } catch (error) {
+  } catch {
     return null;
   }
 };

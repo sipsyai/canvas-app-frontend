@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type FormEvent } from 'react';
 import { X } from 'lucide-react';
 import { useUpdateObjectField } from '../hooks/useObjectFields';
 import type { ObjectField } from '@/types/object-field.types';
@@ -27,7 +27,7 @@ export function FieldSettingsModal({ objectField, isOpen, onClose }: FieldSettin
     });
   }, [objectField]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
     updateObjectField(

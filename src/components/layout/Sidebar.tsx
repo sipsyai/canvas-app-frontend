@@ -1,3 +1,4 @@
+import type { ElementType } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils/cn';
 import { useNavigationStore } from '@/stores/navigationStore';
@@ -21,7 +22,7 @@ import {
 interface NavItem {
   label: string;
   href: string;
-  icon: React.ElementType;
+  icon: ElementType;
 }
 
 interface NavSection {

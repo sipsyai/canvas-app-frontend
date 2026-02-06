@@ -235,7 +235,7 @@ test.describe('Records CRUD Operations (Application Context)', () => {
 
       // Get original company value from first row
       const firstRow = page.locator('table tbody tr').first();
-      const originalCompany = await firstRow.locator('td').nth(3).textContent();
+      const _originalCompany = await firstRow.locator('td').nth(3).textContent();
 
       // Open edit modal
       await firstRow.getByRole('button', { name: /edit record/i }).click();
@@ -303,7 +303,7 @@ test.describe('Records CRUD Operations (Application Context)', () => {
 
       // Get first row name for verification
       const firstRow = page.locator('table tbody tr').first();
-      const recordName = await firstRow.locator('td').first().textContent();
+      const _recordName = await firstRow.locator('td').first().textContent();
 
       // Open delete modal
       await firstRow.getByRole('button', { name: /delete record/i }).click();

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { getAuthToken, isTokenExpired, removeAuthToken, getTokenRemainingTime } from '@/lib/utils/storage';
 
@@ -9,6 +9,14 @@ import { getAuthToken, isTokenExpired, removeAuthToken, getTokenRemainingTime } 
 export const useTokenExpiry = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const handleTokenExpired = useCallback(() => {
+    // Remove token
+    removeAuthToken();
+
+    // Redirect to login
+    navigate('/login');
+  }, [navigate]);
 
   useEffect(() => {
     const token = getAuthToken();
@@ -37,13 +45,5 @@ export const useTokenExpiry = () => {
     }, 30000); // Check every 30 seconds
 
     return () => clearInterval(interval);
-  }, [navigate, location]);
-
-  const handleTokenExpired = () => {
-    // Remove token
-    removeAuthToken();
-
-    // Redirect to login
-    navigate('/login');
-  };
+  }, [handleTokenExpired, location]);
 };
