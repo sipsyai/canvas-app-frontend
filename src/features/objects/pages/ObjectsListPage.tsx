@@ -45,7 +45,7 @@ export const ObjectsListPage = () => {
   if (isError) {
     return (
       <div className="p-6">
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-400 px-4 py-3 rounded">
           {(error as any)?.message || 'Failed to load objects'}
         </div>
       </div>
@@ -58,7 +58,7 @@ export const ObjectsListPage = () => {
       <div className="flex justify-between items-center mb-6">
         <div>
           <h1 className="text-3xl font-bold">Objects</h1>
-          <p className="text-gray-600 mt-1">
+          <p className="text-gray-600 dark:text-slate-400 mt-1">
             Manage your data objects and their configurations
           </p>
         </div>
@@ -77,7 +77,7 @@ export const ObjectsListPage = () => {
             placeholder="🔍 Search by name, label, or description..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-surface-dark dark:text-white dark:placeholder-slate-400"
           />
         </div>
 
@@ -86,7 +86,7 @@ export const ObjectsListPage = () => {
           <select
             value={categoryFilter ?? ''}
             onChange={(e) => setCategoryFilter(e.target.value || null)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-surface-dark dark:text-white"
           >
             <option value="">All Categories</option>
             <option value="standard">Standard</option>
@@ -95,7 +95,7 @@ export const ObjectsListPage = () => {
           </select>
 
           {/* Stats */}
-          <div className="flex items-center gap-6 ml-auto text-sm text-gray-600">
+          <div className="flex items-center gap-6 ml-auto text-sm text-gray-600 dark:text-slate-400">
             <div>
               Total: <span className="font-semibold">{objects?.length || 0}</span>
             </div>

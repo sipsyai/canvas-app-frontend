@@ -9,9 +9,13 @@ Nesneler, kayıtların yapısını tanımlar. Her nesne bir veya daha fazla alan
 ```
 src/features/objects/
 ├── components/
-│   └── ObjectCard.tsx      # Nesne kartı
+│   ├── ObjectCard.tsx      # Nesne kartı
+│   ├── IconPicker.tsx      # İkon seçici (dark mode destekli)
+│   └── ColorPicker.tsx     # Renk seçici
 ├── pages/
-│   └── ObjectsListPage.tsx # Nesne listesi
+│   ├── ObjectsListPage.tsx     # Nesne listesi (dark mode destekli)
+│   ├── CreateObjectPage.tsx    # Nesne oluşturma (dark mode destekli)
+│   └── EditObjectPage.tsx      # Nesne düzenleme (dark mode destekli)
 └── hooks/ (opsiyonel)
 
 src/features/object-fields/

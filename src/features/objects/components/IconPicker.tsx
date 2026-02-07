@@ -98,7 +98,7 @@ export const IconPicker = ({ value = 'Box', onChange }: IconPickerProps) => {
                       onClick={() => handleSelect(iconName)}
                       className={`flex items-center justify-center p-3 rounded-lg transition-colors ${
                         isSelected
-                          ? 'bg-blue-100 text-blue-600 border-2 border-blue-500'
+                          ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border-2 border-blue-500 dark:border-blue-400'
                           : 'hover:bg-gray-100 dark:hover:bg-slate-700 border-2 border-transparent'
                       }`}
                       title={iconName}

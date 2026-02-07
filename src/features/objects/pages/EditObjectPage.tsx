@@ -214,7 +214,7 @@ export const EditObjectPage = () => {
             }`}
           />
           {errors.label && (
-            <p className="mt-1 text-sm text-red-600">{errors.label}</p>
+            <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.label}</p>
           )}
           <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">
             Display name shown in the UI

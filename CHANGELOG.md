@@ -7,6 +7,8 @@ Format: [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/)
 ## [Unreleased]
 
 ### Eklenen
+- Create Field sayfası (`/fields/create`) — alan adı, label, tip, kategori ve açıklama formu
+- `useCreateField` mutation hook — TanStack Query ile alan oluşturma
 - Dark mode tam destek
   - `src/stores/themeStore.ts` — Zustand tema store (light/dark/system, localStorage persist)
   - `src/components/ui/ThemeToggle.tsx` — React Aria tema toggle butonu (Sun/Moon/Monitor)
@@ -60,6 +62,9 @@ Format: [Keep a Changelog](https://keepachangelog.com/tr/1.0.0/)
 - `docs/SUMMARY.md` - Dashboard ve Applications linkleri eklendi
 
 ### Düzeltilen
+- Objects sayfalarında dark mode uyumsuzlukları giderildi (arama, select, stats, hata mesajları)
+- `IconPicker` bileşeninde seçili ikon dark mode stili eklendi
+- `index.css` — Tailwind 4 class-based dark mode (`@custom-variant dark`) eklendi
 - Object-fields yönetim sayfası düzeltmeleri
 - Tailwind 4 tema sistemi düzeltildi - `bg-primary` artık doğru çalışıyor
 - UI bileşenlerinde hardcoded mavi renkler `primary` ile değiştirildi (9 bileşen)

@@ -1,5 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { fieldsAPI } from '@/lib/api/fields.api';
+import type { FieldCreateRequest } from '@/types/field.types';
 
 interface UseFieldsParams {
   category?: string | null;
@@ -17,5 +18,16 @@ export const useFields = (params?: UseFieldsParams) => {
     queryKey: ['fields', params],
     queryFn: () => fieldsAPI.list(apiParams),
     staleTime: 1000 * 60 * 5, // 5 minutes
+  });
+};
+
+export const useCreateField = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: FieldCreateRequest) => fieldsAPI.create(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['fields'] });
+    },
   });
 };

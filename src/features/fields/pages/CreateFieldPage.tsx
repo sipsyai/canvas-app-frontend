@@ -1,20 +1,44 @@
 import { useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useCreateObject } from '@/hooks/useObjects';
-import { ObjectCreateRequest } from '@/types/object.types';
+import { useCreateField } from '../hooks/useFields';
+import type { FieldCreateRequest, FieldType } from '@/types/field.types';
 import { Button } from '@/components/ui/Button';
 import { ArrowLeft, Save } from 'lucide-react';
 
-export const CreateObjectPage = () => {
-  const navigate = useNavigate();
-  const createObject = useCreateObject();
+const FIELD_TYPES: { value: FieldType; label: string }[] = [
+  { value: 'text', label: 'Text' },
+  { value: 'email', label: 'Email' },
+  { value: 'phone', label: 'Phone' },
+  { value: 'number', label: 'Number' },
+  { value: 'date', label: 'Date' },
+  { value: 'datetime', label: 'Date & Time' },
+  { value: 'textarea', label: 'Textarea' },
+  { value: 'select', label: 'Select' },
+  { value: 'multiselect', label: 'Multi-select' },
+  { value: 'checkbox', label: 'Checkbox' },
+  { value: 'radio', label: 'Radio' },
+  { value: 'url', label: 'URL' },
+];
 
-  const [formData, setFormData] = useState<ObjectCreateRequest>({
+const CATEGORIES = [
+  { value: '', label: 'No category' },
+  { value: 'Contact Info', label: 'Contact Info' },
+  { value: 'Business', label: 'Business' },
+  { value: 'System', label: 'System' },
+  { value: 'E-commerce', label: 'E-commerce' },
+  { value: 'Address', label: 'Address' },
+];
+
+export const CreateFieldPage = () => {
+  const navigate = useNavigate();
+  const createField = useCreateField();
+
+  const [formData, setFormData] = useState<FieldCreateRequest>({
     name: '',
     label: '',
-    plural_name: '',
+    type: 'text',
+    category: null,
     description: '',
-    icon: '👤',
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -22,21 +46,14 @@ export const CreateObjectPage = () => {
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
 
-    // Name validation
     if (!formData.name.trim()) {
       newErrors.name = 'Name is required';
     } else if (!/^[a-z_][a-z0-9_]*$/i.test(formData.name)) {
-      newErrors.name = 'Name must start with a letter and contain only letters, numbers, and underscores';
+      newErrors.name = 'Name must start with a letter or underscore and contain only letters, numbers, and underscores';
     }
 
-    // Label validation
     if (!formData.label.trim()) {
       newErrors.label = 'Label is required';
-    }
-
-    // Plural name validation
-    if (!formData.plural_name.trim()) {
-      newErrors.plural_name = 'Plural name is required';
     }
 
     setErrors(newErrors);
@@ -51,22 +68,24 @@ export const CreateObjectPage = () => {
     }
 
     try {
-      await createObject.mutateAsync(formData);
-      navigate('/objects');
+      await createField.mutateAsync({
+        ...formData,
+        category: formData.category || null,
+      });
+      navigate('/fields');
     } catch (error) {
-      console.error('Failed to create object:', error);
+      console.error('Failed to create field:', error);
       setErrors({
-        submit: (error as any)?.response?.data?.detail || 'Failed to create object',
+        submit: (error as any)?.response?.data?.detail || 'Failed to create field',
       });
     }
   };
 
   const handleInputChange = (
-    field: keyof ObjectCreateRequest,
+    field: keyof FieldCreateRequest,
     value: string
   ) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
-    // Clear error for this field
     if (errors[field]) {
       setErrors((prev) => {
         const newErrors = { ...prev };
@@ -83,15 +102,15 @@ export const CreateObjectPage = () => {
         <Button
           variant="ghost"
           size="sm"
-          onClick={() => navigate('/objects')}
+          onClick={() => navigate('/fields')}
           className="mb-4"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Objects
+          Back to Fields
         </Button>
-        <h1 className="text-3xl font-bold">Create Object</h1>
+        <h1 className="text-3xl font-bold">Create Field</h1>
         <p className="text-gray-600 dark:text-slate-400 mt-1">
-          Define a new data object for your application
+          Define a new reusable field for your data objects
         </p>
       </div>
 
@@ -113,7 +132,7 @@ export const CreateObjectPage = () => {
             type="text"
             value={formData.name}
             onChange={(e) => handleInputChange('name', e.target.value)}
-            placeholder="e.g., contact, account, product"
+            placeholder="e.g., first_name, email_address, phone"
             className={`w-full px-4 py-2 font-mono border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-surface-dark dark:text-white ${
               errors.name ? 'border-red-500' : 'border-gray-300 dark:border-slate-600'
             }`}
@@ -135,7 +154,7 @@ export const CreateObjectPage = () => {
             type="text"
             value={formData.label}
             onChange={(e) => handleInputChange('label', e.target.value)}
-            placeholder="e.g., Contact, Account, Product"
+            placeholder="e.g., First Name, Email Address, Phone Number"
             className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-surface-dark dark:text-white ${
               errors.label ? 'border-red-500' : 'border-gray-300 dark:border-slate-600'
             }`}
@@ -148,43 +167,41 @@ export const CreateObjectPage = () => {
           </p>
         </div>
 
-        {/* Plural Name */}
+        {/* Type */}
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
-            Plural Name <span className="text-red-500">*</span>
+            Field Type <span className="text-red-500">*</span>
           </label>
-          <input
-            type="text"
-            value={formData.plural_name}
-            onChange={(e) => handleInputChange('plural_name', e.target.value)}
-            placeholder="e.g., Contacts, Accounts, Products"
-            className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-surface-dark dark:text-white ${
-              errors.plural_name ? 'border-red-500' : 'border-gray-300 dark:border-slate-600'
-            }`}
-          />
-          {errors.plural_name && (
-            <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.plural_name}</p>
-          )}
+          <select
+            value={formData.type}
+            onChange={(e) => handleInputChange('type', e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-surface-dark dark:text-white"
+          >
+            {FIELD_TYPES.map((ft) => (
+              <option key={ft.value} value={ft.value}>{ft.label}</option>
+            ))}
+          </select>
           <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">
-            Plural form displayed in lists
+            Field type cannot be changed after creation
           </p>
         </div>
 
-        {/* Icon */}
+        {/* Category */}
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
-            Icon (Emoji)
+            Category
           </label>
-          <input
-            type="text"
-            value={formData.icon}
-            onChange={(e) => handleInputChange('icon', e.target.value)}
-            placeholder="e.g., 👤, 🏢, 📦"
-            maxLength={2}
-            className="w-full px-4 py-2 text-2xl border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-surface-dark dark:text-white"
-          />
+          <select
+            value={formData.category || ''}
+            onChange={(e) => handleInputChange('category', e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-surface-dark dark:text-white"
+          >
+            {CATEGORIES.map((cat) => (
+              <option key={cat.value} value={cat.value}>{cat.label}</option>
+            ))}
+          </select>
           <p className="mt-1 text-xs text-gray-500 dark:text-slate-400">
-            Enter an emoji to represent this object
+            Organize fields into categories
           </p>
         </div>
 
@@ -194,9 +211,9 @@ export const CreateObjectPage = () => {
             Description
           </label>
           <textarea
-            value={formData.description}
+            value={formData.description || ''}
             onChange={(e) => handleInputChange('description', e.target.value)}
-            placeholder="Describe the purpose of this object..."
+            placeholder="Describe the purpose of this field..."
             rows={4}
             className="w-full px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none dark:bg-surface-dark dark:text-white"
           />
@@ -208,22 +225,22 @@ export const CreateObjectPage = () => {
           <Button
             type="button"
             variant="ghost"
-            onClick={() => navigate('/objects')}
-            disabled={createObject.isPending}
+            onClick={() => navigate('/fields')}
+            disabled={createField.isPending}
           >
             Cancel
           </Button>
           <Button
             type="submit"
-            disabled={createObject.isPending}
+            disabled={createField.isPending}
             className="bg-blue-600 hover:bg-blue-700 text-white"
           >
-            {createObject.isPending ? (
+            {createField.isPending ? (
               'Creating...'
             ) : (
               <>
                 <Save className="w-4 h-4 mr-2" />
-                Create Object
+                Create Field
               </>
             )}
           </Button>

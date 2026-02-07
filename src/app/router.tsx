@@ -6,6 +6,7 @@ import LoginPage from '@/features/auth/pages/LoginPage';
 import { RegisterPage } from '@/features/auth/pages/RegisterPage';
 import { DashboardPage } from '@/features/dashboard/pages/DashboardPage';
 import { FieldsListPage } from '@/features/fields/pages/FieldsListPage';
+import { CreateFieldPage } from '@/features/fields/pages/CreateFieldPage';
 import { ObjectsListPage } from '@/features/objects/pages/ObjectsListPage';
 import { CreateObjectPage } from '@/features/objects/pages/CreateObjectPage';
 import { EditObjectPage } from '@/features/objects/pages/EditObjectPage';
@@ -47,6 +48,14 @@ function AppRouter() {
           element={
             <AppLayout>
               <FieldsListPage />
+            </AppLayout>
+          }
+        />
+        <Route
+          path="/fields/create"
+          element={
+            <AppLayout>
+              <CreateFieldPage />
             </AppLayout>
           }
         />

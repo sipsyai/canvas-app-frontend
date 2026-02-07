@@ -12,8 +12,10 @@ src/features/fields/
 │   ├── FieldCard.tsx       # Alan kartı
 │   └── FilterChips.tsx     # Tip filtreleme
 ├── pages/
-│   └── FieldsListPage.tsx  # Alan listesi sayfası
-└── hooks/ (opsiyonel)
+│   ├── FieldsListPage.tsx  # Alan listesi sayfası
+│   └── CreateFieldPage.tsx # Alan oluşturma formu
+└── hooks/
+    └── useFields.ts        # useFields + useCreateField hooks
 ```
 
 ## Alan Tipleri
@@ -21,13 +23,17 @@ src/features/fields/
 | Tip | Açıklama |
 |-----|----------|
 | `text` | Tek satır metin |
-| `textarea` | Çok satırlı metin |
+| `email` | E-posta adresi |
+| `phone` | Telefon numarası |
 | `number` | Sayısal değer |
 | `date` | Tarih seçici |
-| `boolean` | Checkbox |
+| `datetime` | Tarih ve saat |
+| `textarea` | Çok satırlı metin |
 | `select` | Dropdown (options ile) |
 | `multiselect` | Çoklu seçim |
-| `lookup` | İlişkisel alan |
+| `checkbox` | Onay kutusu |
+| `radio` | Radio butonları |
+| `url` | URL/link |
 
 ## API Endpoints
 
@@ -52,6 +58,25 @@ interface Field {
   default_value?: string;
 }
 ```
+
+## Sayfalar
+
+### CreateFieldPage (`/fields/create`)
+
+Alan oluşturma formu. Alanlar:
+- **Name** — API adı (snake_case, zorunlu)
+- **Label** — Görünen ad (zorunlu)
+- **Type** — Alan tipi (12 tip)
+- **Category** — Kategori (Contact Info, Business, System, E-commerce, Address)
+- **Description** — Opsiyonel açıklama
+
+## Hooks
+
+### useFields
+Alan listesini çeker. `category` ve `is_system_field` parametreleri desteklenir.
+
+### useCreateField
+TanStack Query mutation hook. Alan oluşturulduktan sonra `['fields']` query'sini invalidate eder.
 
 ## UI Bileşenleri
 
